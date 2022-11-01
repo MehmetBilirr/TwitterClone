@@ -11,6 +11,10 @@
 		F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE4B2911C74300367498 /* MainTabBarViewController.swift */; };
 		F099DE512911C74300367498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F099DE502911C74300367498 /* Assets.xcassets */; };
 		F099DE542911C74300367498 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F099DE522911C74300367498 /* LaunchScreen.storyboard */; };
+		F099DE5E2911CF5400367498 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE5D2911CF5400367498 /* HomeViewController.swift */; };
+		F099DE602911CF5F00367498 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE5F2911CF5F00367498 /* SearchViewController.swift */; };
+		F099DE622911CF6A00367498 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE612911CF6A00367498 /* NotificationsViewController.swift */; };
+		F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE632911CF7700367498 /* DirectMessagesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,10 @@
 		F099DE502911C74300367498 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F099DE532911C74300367498 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F099DE552911C74300367498 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F099DE5D2911CF5400367498 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F099DE5F2911CF5F00367498 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		F099DE612911CF6A00367498 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		F099DE632911CF7700367498 /* DirectMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMessagesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,13 +60,33 @@
 		F099DE462911C74300367498 /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
+				F099DE5B2911CF0C00367498 /* Controllers */,
 				F099DE472911C74300367498 /* AppDelegate.swift */,
-				F099DE4B2911C74300367498 /* MainTabBarViewController.swift */,
 				F099DE502911C74300367498 /* Assets.xcassets */,
 				F099DE522911C74300367498 /* LaunchScreen.storyboard */,
 				F099DE552911C74300367498 /* Info.plist */,
 			);
 			path = TwitterClone;
+			sourceTree = "<group>";
+		};
+		F099DE5B2911CF0C00367498 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F099DE5C2911CF3D00367498 /* Core */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F099DE5C2911CF3D00367498 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F099DE4B2911C74300367498 /* MainTabBarViewController.swift */,
+				F099DE5D2911CF5400367498 /* HomeViewController.swift */,
+				F099DE5F2911CF5F00367498 /* SearchViewController.swift */,
+				F099DE612911CF6A00367498 /* NotificationsViewController.swift */,
+				F099DE632911CF7700367498 /* DirectMessagesViewController.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,8 +159,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F099DE622911CF6A00367498 /* NotificationsViewController.swift in Sources */,
 				F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */,
 				F099DE482911C74300367498 /* AppDelegate.swift in Sources */,
+				F099DE602911CF5F00367498 /* SearchViewController.swift in Sources */,
+				F099DE5E2911CF5400367498 /* HomeViewController.swift in Sources */,
+				F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
