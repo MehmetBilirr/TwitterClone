@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F099DE482911C74300367498 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE472911C74300367498 /* AppDelegate.swift */; };
-		F099DE4A2911C74300367498 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE492911C74300367498 /* SceneDelegate.swift */; };
-		F099DE4C2911C74300367498 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE4B2911C74300367498 /* ViewController.swift */; };
-		F099DE4F2911C74300367498 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F099DE4D2911C74300367498 /* Main.storyboard */; };
+		F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE4B2911C74300367498 /* MainTabBarViewController.swift */; };
 		F099DE512911C74300367498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F099DE502911C74300367498 /* Assets.xcassets */; };
 		F099DE542911C74300367498 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F099DE522911C74300367498 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -18,9 +16,7 @@
 /* Begin PBXFileReference section */
 		F099DE442911C74300367498 /* TwitterClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F099DE472911C74300367498 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F099DE492911C74300367498 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F099DE4B2911C74300367498 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F099DE4E2911C74300367498 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F099DE4B2911C74300367498 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		F099DE502911C74300367498 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F099DE532911C74300367498 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F099DE552911C74300367498 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,9 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				F099DE472911C74300367498 /* AppDelegate.swift */,
-				F099DE492911C74300367498 /* SceneDelegate.swift */,
-				F099DE4B2911C74300367498 /* ViewController.swift */,
-				F099DE4D2911C74300367498 /* Main.storyboard */,
+				F099DE4B2911C74300367498 /* MainTabBarViewController.swift */,
 				F099DE502911C74300367498 /* Assets.xcassets */,
 				F099DE522911C74300367498 /* LaunchScreen.storyboard */,
 				F099DE552911C74300367498 /* Info.plist */,
@@ -127,7 +121,6 @@
 			files = (
 				F099DE542911C74300367498 /* LaunchScreen.storyboard in Resources */,
 				F099DE512911C74300367498 /* Assets.xcassets in Resources */,
-				F099DE4F2911C74300367498 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +131,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F099DE4C2911C74300367498 /* ViewController.swift in Sources */,
+				F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */,
 				F099DE482911C74300367498 /* AppDelegate.swift in Sources */,
-				F099DE4A2911C74300367498 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F099DE4D2911C74300367498 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F099DE4E2911C74300367498 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F099DE522911C74300367498 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,7 +276,6 @@
 				INFOPLIST_FILE = TwitterClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -320,7 +303,6 @@
 				INFOPLIST_FILE = TwitterClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
