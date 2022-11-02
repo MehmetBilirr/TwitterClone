@@ -8,6 +8,15 @@
 import UIKit
 import SnapKit
 
+
+
+protocol TweetTableViewCellProtocol:AnyObject {
+    func tweetTableViewCellDidTapReply()
+    func tweetTableViewCellDidTapRetweet()
+    func tweetTableViewCellDidTapLike()
+    func tweetTableViewCellDidTapShare()
+}
+
 class TweetTableViewCell: UITableViewCell {
     static let identifier = "TweetTableViewCell"
     private let userImageView = UIImageView()
@@ -20,6 +29,7 @@ class TweetTableViewCell: UITableViewCell {
     private let retweetButton = UIButton()
     private let likeButton = UIButton()
     private let shareButton = UIButton()
+    weak var delegate: TweetTableViewCellProtocol?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -75,20 +85,24 @@ class TweetTableViewCell: UITableViewCell {
         replyButton.translatesAutoresizingMaskIntoConstraints = false
         replyButton.setImage(UIImage(systemName: "bubble.right"), for: .normal)
         replyButton.tintColor = .systemGray2
+        replyButton.addTarget(self, action: #selector(didTapReply(_:)), for: .touchUpInside)
         
         
         retweetButton.translatesAutoresizingMaskIntoConstraints = false
         retweetButton.setImage(UIImage(systemName: "arrow.2.squarepath"), for: .normal)
         retweetButton.tintColor = .systemGray2
+        retweetButton.addTarget(self, action: #selector(didTapRetweet(_:)), for: .touchUpInside)
         
         likeButton.translatesAutoresizingMaskIntoConstraints = false
         likeButton.setImage(UIImage(systemName: "suit.heart"), for: .normal)
         likeButton.tintColor = .systemGray2
+        likeButton.addTarget(self, action: #selector(didTapLike(_:)), for: .touchUpInside)
         
         
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
         shareButton.tintColor = .systemGray2
+        shareButton.addTarget(self, action: #selector(didTapShare(_:)), for: .touchUpInside)
         
     }
     
@@ -144,7 +158,21 @@ extension TweetTableViewCell {
     
     
     
-    @objc func didTapReply(){
-        
+    @objc func didTapReply(_ sender:UIButton){
+        delegate?.tweetTableViewCellDidTapReply()
     }
+    
+    @objc func didTapRetweet(_ sender:UIButton){
+        delegate?.tweetTableViewCellDidTapRetweet()
+    }
+    
+    @objc func didTapLike(_ sender:UIButton){
+        
+        delegate?.tweetTableViewCellDidTapLike()
+    }
+    @objc func didTapShare(_ sender:UIButton){
+        
+        delegate?.tweetTableViewCellDidTapShare()
+    }
+    
 }
