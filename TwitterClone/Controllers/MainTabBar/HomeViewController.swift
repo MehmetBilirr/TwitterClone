@@ -8,13 +8,14 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
+    let addButton = UIButton()
     let timeLineTableView = UITableView()
     override func viewDidLoad() {
         super.viewDidLoad()
         
        configureNavigationBar()
         configureTableView()
+        configureAddButton()
         
         view.backgroundColor = .systemBackground
     }
@@ -67,6 +68,37 @@ class HomeViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: sparklesImage, style: .plain, target: self, action: nil)
         
     }
+    
+    private func configureAddButton(){
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(systemName: "plus")
+        
+        addButton.setImage(image, for: .normal)
+        
+        addButton.layer.cornerRadius = 25
+        addButton.clipsToBounds = true
+        addButton.backgroundColor = .systemBlue
+        addButton.tintColor = .white
+        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+        
+        
+        
+        
+        view.addSubview(addButton)
+        
+        addButton.snp.makeConstraints { make in
+            
+            make.height.equalTo(UIScreen.main.bounds.height / 17)
+            make.width.equalTo(UIScreen.main.bounds.width / 8)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-UIScreen.main.bounds.height / 10)
+        }
+        
+        
+        
+    }
+    
+    
 
 }
 
@@ -75,7 +107,11 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     
     @objc func didTapProfile() {
-        print("profile button tapped")
+        let vc = ProfileViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func didTapAddButton(){
+        print("add button tapped")
     }
 }
 
@@ -91,12 +127,29 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
         return cell
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        
+        let defaultOffset = view.safeAreaInsets.top
+        
+        let offset = scrollView.contentOffset.y + defaultOffset
+        print(scrollView.contentOffset.y)
+        
+        
+        navigationController?.navigationBar.transform = .init(translationX: 0, y:min(0, -offset))
+    }
+    
     
     
 }
 
 // Extension-Cell Protocol
 extension HomeViewController:TweetTableViewCellProtocol {
+    func PPtapped() {
+        let vc = ProfileViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func tweetTableViewCellDidTapReply() {
         print("Reply button tapped.")
     }

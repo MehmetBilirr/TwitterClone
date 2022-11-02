@@ -17,6 +17,7 @@
 		F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE632911CF7700367498 /* DirectMessagesViewController.swift */; };
 		F09B99272912A81A0072F739 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B99262912A81A0072F739 /* TweetTableViewCell.swift */; };
 		F09B992A2912A8FF0072F739 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F09B99292912A8FF0072F739 /* SnapKit */; };
+		F09B992D2912E6560072F739 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B992C2912E6560072F739 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		F099DE612911CF6A00367498 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		F099DE632911CF7700367498 /* DirectMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMessagesViewController.swift; sourceTree = "<group>"; };
 		F09B99262912A81A0072F739 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
+		F09B992C2912E6560072F739 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +79,13 @@
 		F099DE5B2911CF0C00367498 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F099DE5C2911CF3D00367498 /* Core */,
+				F09B992B2912E6170072F739 /* General */,
+				F099DE5C2911CF3D00367498 /* MainTabBar */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		F099DE5C2911CF3D00367498 /* Core */ = {
+		F099DE5C2911CF3D00367498 /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
 				F099DE4B2911C74300367498 /* MainTabBarViewController.swift */,
@@ -91,7 +94,7 @@
 				F099DE612911CF6A00367498 /* NotificationsViewController.swift */,
 				F099DE632911CF7700367498 /* DirectMessagesViewController.swift */,
 			);
-			path = Core;
+			path = MainTabBar;
 			sourceTree = "<group>";
 		};
 		F09B99252912A7FB0072F739 /* Views */ = {
@@ -100,6 +103,14 @@
 				F09B99262912A81A0072F739 /* TweetTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		F09B992B2912E6170072F739 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				F09B992C2912E6560072F739 /* ProfileViewController.swift */,
+			);
+			path = General;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +195,7 @@
 				F099DE602911CF5F00367498 /* SearchViewController.swift in Sources */,
 				F099DE5E2911CF5400367498 /* HomeViewController.swift in Sources */,
 				F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */,
+				F09B992D2912E6560072F739 /* ProfileViewController.swift in Sources */,
 				F09B99272912A81A0072F739 /* TweetTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,6 +15,7 @@ protocol TweetTableViewCellProtocol:AnyObject {
     func tweetTableViewCellDidTapRetweet()
     func tweetTableViewCellDidTapLike()
     func tweetTableViewCellDidTapShare()
+    func PPtapped()
 }
 
 class TweetTableViewCell: UITableViewCell {
@@ -49,8 +50,11 @@ class TweetTableViewCell: UITableViewCell {
         userImageView.clipsToBounds = true
         userImageView.layer.cornerRadius = 25
         userImageView.layer.masksToBounds = true
-        
         userImageView.image = UIImage(named: "UserImage")
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfile))
+        userImageView.addGestureRecognizer(tapGesture)
+        userImageView.isUserInteractionEnabled = true
         
         userStackView.translatesAutoresizingMaskIntoConstraints = false
         userStackView.axis = .horizontal
@@ -147,7 +151,10 @@ class TweetTableViewCell: UITableViewCell {
         }
     }
     
-    
+    @objc func didTapProfile(){
+        
+        delegate?.PPtapped()
+    }
     
 }
 
