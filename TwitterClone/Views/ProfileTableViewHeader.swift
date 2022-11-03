@@ -109,7 +109,7 @@ class ProfileTableViewHeader: UIView {
         userImageView.image = UIImage(named: "UserImage")
         userImageView.contentMode = .scaleAspectFit
         userImageView.layer.borderWidth = 3
-        userImageView.layer.borderColor = UIColor.black.cgColor
+        userImageView.layer.borderColor = UIColor.white.cgColor
         userImageView.clipsToBounds = true
         userImageView.layer.cornerRadius = 25
 
@@ -117,7 +117,7 @@ class ProfileTableViewHeader: UIView {
         nameLbl.translatesAutoresizingMaskIntoConstraints = false
         nameLbl.textAlignment = .left
         nameLbl.font = .systemFont(ofSize: 20, weight: .bold)
-        nameLbl.textColor = .white
+        nameLbl.textColor = .black
         nameLbl.text = "Mehmet Bilir"
         
         userNameLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -129,7 +129,7 @@ class ProfileTableViewHeader: UIView {
         userBioLbl.translatesAutoresizingMaskIntoConstraints = false
         userBioLbl.textAlignment = .left
         userBioLbl.font = .systemFont(ofSize: 16, weight: .regular)
-        userBioLbl.textColor = .white
+        userBioLbl.textColor = .black
         userBioLbl.numberOfLines = 0
         userBioLbl.lineBreakMode = .byWordWrapping
         userBioLbl.text = "iOS Developer."
@@ -158,7 +158,7 @@ class ProfileTableViewHeader: UIView {
         followingCountLbl.translatesAutoresizingMaskIntoConstraints = false
         followingCountLbl.textAlignment = .left
         followingCountLbl.font = .systemFont(ofSize: 14, weight: .bold)
-        followingCountLbl.textColor = .white
+        followingCountLbl.textColor = .black
         followingCountLbl.text = "354"
         
         followingLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +170,7 @@ class ProfileTableViewHeader: UIView {
         followersCountLbl.translatesAutoresizingMaskIntoConstraints = false
         followersCountLbl.textAlignment = .left
         followersCountLbl.font = .systemFont(ofSize: 14, weight: .bold)
-        followersCountLbl.textColor = .white
+        followersCountLbl.textColor = .black
         followersCountLbl.text = "1.2M"
         
         followersLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -185,9 +185,9 @@ class ProfileTableViewHeader: UIView {
         editButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         editButton.layer.cornerRadius = 20
         editButton.clipsToBounds = true
-        editButton.layer.borderColor = UIColor.white.cgColor
+        editButton.layer.borderColor = UIColor.systemGray2.cgColor
         editButton.layer.borderWidth = 0.1
-        editButton.setTitleColor(.white, for: .normal)
+        editButton.setTitleColor(.black, for: .normal)
         editButton.backgroundColor = .systemBackground
     }
     

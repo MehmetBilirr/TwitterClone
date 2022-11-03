@@ -69,13 +69,13 @@ class TweetTableViewCell: UITableViewCell {
         nameLbl.translatesAutoresizingMaskIntoConstraints = false
         nameLbl.textAlignment = .center
         nameLbl.font = .systemFont(ofSize: 12, weight: .bold)
-        nameLbl.textColor = .white
+        nameLbl.textColor = .black
         nameLbl.text = "Mehmet Bilir"
         
         tweetLbl.translatesAutoresizingMaskIntoConstraints = false
         tweetLbl.textAlignment = .left
         tweetLbl.font = .systemFont(ofSize: 14, weight: .regular)
-        tweetLbl.textColor = .white
+        tweetLbl.textColor = .black
         tweetLbl.numberOfLines = 0
         tweetLbl.lineBreakMode = .byWordWrapping
         tweetLbl.text = "Hello There! I am Mehmet Bilir.I'am  currently learning Swift and looking for job as iOS Developer. "

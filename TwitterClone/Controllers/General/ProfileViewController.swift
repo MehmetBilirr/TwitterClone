@@ -38,7 +38,7 @@ class ProfileViewController: UIViewController {
         backButton.setImage(UIImage(systemName: "arrow.backward"), for: .normal)
         backButton.layer.cornerRadius = 12
         backButton.clipsToBounds = true
-        backButton.backgroundColor = .tertiarySystemBackground
+        backButton.backgroundColor = .secondarySystemFill
         backButton.tintColor = .white
         backButton.addTarget(self, action: #selector(didTapBackButton(_:)), for: .touchUpInside)
         
