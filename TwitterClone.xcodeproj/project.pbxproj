@@ -18,6 +18,7 @@
 		F09B99272912A81A0072F739 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B99262912A81A0072F739 /* TweetTableViewCell.swift */; };
 		F09B992A2912A8FF0072F739 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F09B99292912A8FF0072F739 /* SnapKit */; };
 		F09B992D2912E6560072F739 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B992C2912E6560072F739 /* ProfileViewController.swift */; };
+		F09B992F2912EE2F0072F739 /* ProfileTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B992E2912EE2F0072F739 /* ProfileTableViewHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		F099DE632911CF7700367498 /* DirectMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMessagesViewController.swift; sourceTree = "<group>"; };
 		F09B99262912A81A0072F739 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		F09B992C2912E6560072F739 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F09B992E2912EE2F0072F739 /* ProfileTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				F09B99262912A81A0072F739 /* TweetTableViewCell.swift */,
+				F09B992E2912EE2F0072F739 /* ProfileTableViewHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				F099DE5E2911CF5400367498 /* HomeViewController.swift in Sources */,
 				F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */,
 				F09B992D2912E6560072F739 /* ProfileViewController.swift in Sources */,
+				F09B992F2912EE2F0072F739 /* ProfileTableViewHeader.swift in Sources */,
 				F09B99272912A81A0072F739 /* TweetTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

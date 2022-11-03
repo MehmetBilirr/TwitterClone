@@ -9,11 +9,13 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     let profileTableView = UITableView()
+    let profileTableHeaderView = ProfileTableViewHeader()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
         configureProfileTableView()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -27,6 +29,8 @@ class ProfileViewController: UIViewController {
         profileTableView.delegate = self
         profileTableView.dataSource = self
         profileTableView.register(TweetTableViewCell.self, forCellReuseIdentifier: TweetTableViewCell.identifier)
+        let headerView = ProfileTableViewHeader(frame: CGRect(x: 0, y: 0, width: profileTableView.frame.width, height: view.bounds.height / 3))
+        profileTableView.tableHeaderView = headerView
         view.addSubview(profileTableView)
     }
     
