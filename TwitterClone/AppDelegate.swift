@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,12 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let mainTabBarVC = MainTabBarViewController()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        setRootVC()
+        
+        return true
+    }
+    
+    
+    func setRootVC() {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let navigationContoller = UINavigationController(rootViewController: mainTabBarVC)
-        window?.rootViewController = navigationContoller
-        return true
+        if Auth.auth().currentUser == nil {
+            window?.rootViewController = OnboardingViewController()
+        }else {
+            let navigationContoller = UINavigationController(rootViewController: mainTabBarVC)
+            window?.rootViewController = navigationContoller
+        }
     }
   
   

@@ -12,6 +12,8 @@ class ProfileViewController: UIViewController {
     let profileTableHeaderView = ProfileTableViewHeader()
     private var isStatusBarHidden: Bool = true
     private let statusBar = UIView()
+    private let backButton = UIButton()
+    
         
         
     
@@ -21,12 +23,40 @@ class ProfileViewController: UIViewController {
         
         configureProfileTableView()
         configureStatusBar()
+        configureButtons()
         
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileTableView.frame  = view.bounds
+    }
+    
+    private func configureButtons(){
+        
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setImage(UIImage(systemName: "arrow.backward"), for: .normal)
+        backButton.layer.cornerRadius = 12
+        backButton.clipsToBounds = true
+        backButton.backgroundColor = .tertiarySystemBackground
+        backButton.tintColor = .white
+        backButton.addTarget(self, action: #selector(didTapBackButton(_:)), for: .touchUpInside)
+        
+        
+        
+        
+        
+        view.addSubview(backButton)
+        backButton.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(50)
+            make.width.equalTo(30)
+            make.height.equalTo(30)
+        }
+        
+        
+        
+        
     }
     
     private func configureStatusBar(){
@@ -52,6 +82,7 @@ class ProfileViewController: UIViewController {
         
         navigationController?.navigationBar.isHidden = true
         
+        
         profileTableView.register(TweetTableViewCell.self, forCellReuseIdentifier: TweetTableViewCell.identifier)
         let headerView = ProfileTableViewHeader(frame: CGRect(x: 0, y: 0, width: profileTableView.frame.width, height: view.bounds.height / 3))
         profileTableView.tableHeaderView = headerView
@@ -69,6 +100,7 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TweetTableViewCell.identifier, for: indexPath) as! TweetTableViewCell
+        cell.delegate = self
         return cell
     }
     
@@ -89,5 +121,39 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate {
             } completion: { _ in }
         }
     }
+    
+}
+
+extension ProfileViewController{
+    
+    @objc func didTapBackButton(_ sender:UIButton){
+        print("zdadas")
+        
+    }
+}
+
+
+extension ProfileViewController:TweetTableViewCellProtocol {
+    func PPtapped() {
+        
+    }
+    
+    
+    func tweetTableViewCellDidTapReply() {
+        print("Reply button tapped.")
+    }
+    
+    func tweetTableViewCellDidTapRetweet() {
+        print("Retweet button tapped.")
+    }
+    
+    func tweetTableViewCellDidTapLike() {
+        print("Like button tapped.")
+    }
+    
+    func tweetTableViewCellDidTapShare() {
+        print("Share button tapped.")
+    }
+    
     
 }

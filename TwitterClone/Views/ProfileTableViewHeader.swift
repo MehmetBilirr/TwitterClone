@@ -35,6 +35,7 @@ class ProfileTableViewHeader: UIView {
     private let followingLbl = UILabel()
     private let followersCountLbl = UILabel()
     private let followersLbl = UILabel()
+    private let editButton = UIButton()
     
     private let indicator: UIView = {
         let view = UIView()
@@ -179,6 +180,15 @@ class ProfileTableViewHeader: UIView {
         followersLbl.text = "Followers"
         
     
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        editButton.setTitle("Edit profile", for: .normal)
+        editButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        editButton.layer.cornerRadius = 20
+        editButton.clipsToBounds = true
+        editButton.layer.borderColor = UIColor.white.cgColor
+        editButton.layer.borderWidth = 0.1
+        editButton.setTitleColor(.white, for: .normal)
+        editButton.backgroundColor = .systemBackground
     }
     
     private func setIndicatorPozition(){
@@ -205,6 +215,14 @@ class ProfileTableViewHeader: UIView {
             make.right.equalToSuperview()
             make.top.equalToSuperview().offset(-100)
             make.height.equalTo(bounds.height / 2)
+        }
+        
+        addSubview(editButton)
+        editButton.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-10)
+            make.top.equalTo(headerImageView.snp.bottom).offset(10)
+            make.width.equalTo(90)
+            make.height.equalTo(30)
         }
         
         addSubview(userImageView)
