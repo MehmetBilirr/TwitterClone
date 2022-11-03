@@ -17,13 +17,7 @@ class ProfileTableViewHeader: UIView {
         case tweetsReplies = "Tweets & Replies"
         case media = "Media"
         case likes = "Likes"
-        
-        
-        
     }
-    
-    
-    
     
     private var leftSnap = [SnapKit.ConstraintItem]()
     private var rightSnağ = [SnapKit.ConstraintItem]()
@@ -60,10 +54,7 @@ class ProfileTableViewHeader: UIView {
                         make.top.equalTo(self.sectionButtonStack.snp.bottom)
                         make.right.equalTo(self.rightSnağ[self.selectedIndex])
                         make.height.equalTo(4)
-                    }
-                    
-                        
-                    
+                        }
                 }
             }
         }
@@ -311,7 +302,7 @@ extension ProfileTableViewHeader {
     
     @objc func didTapSectionButton(_ sender:UIButton) {
         guard let label = sender.titleLabel?.text else {return}
-        
+        print(label)
         switch label {
         case SectionTabs.tweets.rawValue:
             selectedIndex = 0
