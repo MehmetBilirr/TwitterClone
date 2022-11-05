@@ -12,7 +12,7 @@ class RegisterViewController: UIViewController {
     private let label = UILabel()
     private let emailTxtFld = UITextField()
     private let passwordTxtFld = UITextField()
-    private let signUpButton = UIButton()
+    private let registerButton = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,20 +33,22 @@ class RegisterViewController: UIViewController {
         
         emailTxtFld.translatesAutoresizingMaskIntoConstraints = false
         emailTxtFld.placeholder = "Email"
-        emailTxtFld.textColor = .gray
+        emailTxtFld.textColor = .black
         
         
         passwordTxtFld.translatesAutoresizingMaskIntoConstraints = false
         passwordTxtFld.placeholder = "Password"
-        passwordTxtFld.textColor = .gray
+        passwordTxtFld.textColor = .black
         passwordTxtFld.isSecureTextEntry = true
+        passwordTxtFld.enablePasswordToggle()
         
-        signUpButton.translatesAutoresizingMaskIntoConstraints = false
-        signUpButton.setTitle("Create account", for: .normal)
-        signUpButton.layer.cornerRadius = 20
-        signUpButton.clipsToBounds = true
-        signUpButton.setTitleColor(.white, for: .normal)
-        signUpButton.backgroundColor = .systemBlue
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
+        registerButton.setTitle("Create account", for: .normal)
+        registerButton.layer.cornerRadius = 20
+        registerButton.clipsToBounds = true
+        registerButton.setTitleColor(.white, for: .normal)
+        registerButton.backgroundColor = .systemBlue
+        
         
         
     }
@@ -75,8 +77,8 @@ class RegisterViewController: UIViewController {
             make.top.equalTo(emailTxtFld.snp.bottom).offset(20)
         }
         
-        view.addSubview(signUpButton)
-        signUpButton.snp.makeConstraints { make in
+        view.addSubview(registerButton)
+        registerButton.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(200)
             make.right.equalToSuperview().offset(-20)
             make.top.equalTo(passwordTxtFld.snp.bottom).offset(50)
