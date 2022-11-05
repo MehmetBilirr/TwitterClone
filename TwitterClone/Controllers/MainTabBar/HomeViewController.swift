@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeViewController: UIViewController {
     let addButton = UIButton()
@@ -152,6 +153,7 @@ extension HomeViewController:TweetTableViewCellProtocol {
     
     func tweetTableViewCellDidTapReply() {
         print("Reply button tapped.")
+        
     }
     
     func tweetTableViewCellDidTapRetweet() {

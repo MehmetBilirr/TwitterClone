@@ -8,7 +8,10 @@
 import UIKit
 
 class MainTabBarViewController: UITabBarController {
-
+    let vc1 = UINavigationController(rootViewController: HomeViewController())
+    let vc2 = UINavigationController(rootViewController: SearchViewController())
+    let vc3 = UINavigationController(rootViewController: NotificationsViewController())
+    let vc4 = UINavigationController(rootViewController: DirectMessagesViewController())
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -18,10 +21,7 @@ class MainTabBarViewController: UITabBarController {
     
     private func setup(){
         
-        let vc1 = UINavigationController(rootViewController: HomeViewController())
-        let vc2 = UINavigationController(rootViewController: SearchViewController())
-        let vc3 = UINavigationController(rootViewController: NotificationsViewController())
-        let vc4 = UINavigationController(rootViewController: DirectMessagesViewController())
+        
         
         vc1.tabBarItem.image = UIImage(systemName: "house")
         vc1.tabBarItem.selectedImage = UIImage(systemName: "house.fill")

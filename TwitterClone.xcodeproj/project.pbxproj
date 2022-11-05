@@ -29,7 +29,7 @@
 		F0A082CF2914142E00E90F00 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */; };
 		F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */; };
 		F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D732916C18000C73C3F /* UITextField + extension.swift */; };
-		F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */; };
+		F0DB0D772916CB1C00C73C3F /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D762916CB1C00C73C3F /* AuthViewModel.swift */; };
 		F0DB0D7A2916EC2300C73C3F /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = F0DB0D792916EC2300C73C3F /* ProgressHUD */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +51,7 @@
 		F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F0DB0D732916C18000C73C3F /* UITextField + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + extension.swift"; sourceTree = "<group>"; };
-		F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		F0DB0D762916CB1C00C73C3F /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,7 +164,7 @@
 		F0DB0D752916CB1000C73C3F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */,
+				F0DB0D762916CB1C00C73C3F /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -263,7 +263,7 @@
 				F099DE5E2911CF5400367498 /* HomeViewController.swift in Sources */,
 				F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */,
 				F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */,
-				F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */,
+				F0DB0D772916CB1C00C73C3F /* AuthViewModel.swift in Sources */,
 				F09B992D2912E6560072F739 /* ProfileViewController.swift in Sources */,
 				F0A082CF2914142E00E90F00 /* OnboardingViewController.swift in Sources */,
 				F09B992F2912EE2F0072F739 /* ProfileTableViewHeader.swift in Sources */,

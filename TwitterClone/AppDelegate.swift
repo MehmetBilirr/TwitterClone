@@ -14,10 +14,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let mainTabBarVC = MainTabBarViewController()
+    let onboardingVC = OnboardingViewController()
+    let registerVC = RegisterViewController()
+    let profileVC = ProfileViewController()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
         FirebaseApp.configure()
+        
+        onboardingVC.registerVC.delegate = self
+        ProfileViewController.delegate = self
+        
         setRootVC()
+        
         
         return true
     }
@@ -25,19 +36,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setRootVC() {
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
         if Auth.auth().currentUser == nil {
-            let navigationContoller = UINavigationController(rootViewController: OnboardingViewController())
-            window?.rootViewController = navigationContoller
+            let navOnboarding = UINavigationController(rootViewController: onboardingVC)
+            window?.rootViewController = navOnboarding
         }else {
-            let navigationContoller = UINavigationController(rootViewController: OnboardingViewController())
-            window?.rootViewController = navigationContoller
+            
+            window?.rootViewController = mainTabBarVC
         }
+        
+    }
+    
+    func setRootViewController(_ vc:UIViewController,animated:Bool = true) {
+        
+        guard animated,let window = self.window else {
+            return
+        }
+        
+        window.rootViewController = vc
+        window.makeKeyAndVisible()
+        UIView.transition(with: window, duration: 1, options: .transitionCrossDissolve, animations: nil, completion: nil)
+    }
+        
     }
   
-  
 
 
+
+
+extension AppDelegate:RegisterViewControllerProtocol {
+    func didSignUp() {
+        setRootViewController(mainTabBarVC)
+        
+    }
+    
+    
 }
 
+extension AppDelegate:ProfileViewControllerPorotocol {
+    func didLogOut() {
+        let navOnboarding = UINavigationController(rootViewController: onboardingVC)
+        setRootViewController(navOnboarding)
+    }
+    
+    
+}

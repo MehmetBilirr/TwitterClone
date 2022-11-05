@@ -287,6 +287,8 @@ class ProfileTableViewHeader: UIView {
         sectionButtonStack.snp.makeConstraints { make in
             make.left.equalTo(userImageView.snp.left)
             make.top.equalTo(followerStackView.snp.bottom).offset(10)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(50)
         }
         
         addSubview(indicator)

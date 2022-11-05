@@ -8,12 +8,17 @@
 import UIKit
 import SnapKit
 import Firebase
+
+protocol RegisterViewControllerProtocol:AnyObject {
+    func didSignUp()
+}
 class RegisterViewController: UIViewController {
     private let label = UILabel()
     private let emailTxtFld = UITextField()
     private let passwordTxtFld = UITextField()
     private let registerButton = UIButton()
-    private let registerViewModel = RegisterViewModel()
+    private let authViewModel = AuthViewModel()
+    weak var delegate: RegisterViewControllerProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -97,7 +102,8 @@ class RegisterViewController: UIViewController {
    
     @objc func didTapRegister(){
         guard let mail = emailTxtFld.text, let pass = passwordTxtFld.text else {return}
-        registerViewModel.signUp(email: mail, password: pass)
+        authViewModel.signUp(email: mail, password: pass)
+        delegate?.didSignUp()
     }
     
 }
