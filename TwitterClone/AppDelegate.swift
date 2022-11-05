@@ -28,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         if Auth.auth().currentUser == nil {
-            window?.rootViewController = OnboardingViewController()
+            let navigationContoller = UINavigationController(rootViewController: OnboardingViewController())
+            window?.rootViewController = navigationContoller
         }else {
             let navigationContoller = UINavigationController(rootViewController: mainTabBarVC)
             window?.rootViewController = navigationContoller

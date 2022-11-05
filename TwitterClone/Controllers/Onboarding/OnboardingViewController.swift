@@ -94,7 +94,8 @@ class OnboardingViewController: UIViewController {
 extension OnboardingViewController {
     
     @objc func didTapSignUp(_ sender:UIButton) {
-        print("sign up tapped")
+        let vc = RegisterViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func didTapLogin(_ sender:UIButton) {

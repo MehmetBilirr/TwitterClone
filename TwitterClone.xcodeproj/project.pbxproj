@@ -27,6 +27,7 @@
 		F0A082CA291413EF00E90F00 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F0A082C9291413EF00E90F00 /* FirebaseStorage */; };
 		F0A082CC291413EF00E90F00 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F0A082CB291413EF00E90F00 /* FirebaseStorageCombine-Community */; };
 		F0A082CF2914142E00E90F00 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */; };
+		F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		F09B992E2912EE2F0072F739 /* ProfileTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewHeader.swift; sourceTree = "<group>"; };
 		F0A082BE291412BB00E90F00 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		F099DE462911C74300367498 /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
+				F0DB0D722916C09D00C73C3F /* Extension */,
 				F09B99252912A7FB0072F739 /* Views */,
 				F099DE5B2911CF0C00367498 /* Controllers */,
 				F099DE472911C74300367498 /* AppDelegate.swift */,
@@ -138,8 +141,16 @@
 			isa = PBXGroup;
 			children = (
 				F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */,
+				F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		F0DB0D722916C09D00C73C3F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F099DE622911CF6A00367498 /* NotificationsViewController.swift in Sources */,
+				F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */,
 				F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */,
 				F099DE482911C74300367498 /* AppDelegate.swift in Sources */,
 				F099DE602911CF5F00367498 /* SearchViewController.swift in Sources */,
