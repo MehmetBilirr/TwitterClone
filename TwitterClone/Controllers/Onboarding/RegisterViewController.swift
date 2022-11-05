@@ -7,18 +7,21 @@
 
 import UIKit
 import SnapKit
-
+import Firebase
 class RegisterViewController: UIViewController {
     private let label = UILabel()
     private let emailTxtFld = UITextField()
     private let passwordTxtFld = UITextField()
     private let registerButton = UIButton()
+    private let registerViewModel = RegisterViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
         style()
         layout()
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapToDismiss)))
     }
     
     
@@ -36,6 +39,7 @@ class RegisterViewController: UIViewController {
         emailTxtFld.textColor = .black
         
         
+        
         passwordTxtFld.translatesAutoresizingMaskIntoConstraints = false
         passwordTxtFld.placeholder = "Password"
         passwordTxtFld.textColor = .black
@@ -48,6 +52,7 @@ class RegisterViewController: UIViewController {
         registerButton.clipsToBounds = true
         registerButton.setTitleColor(.white, for: .normal)
         registerButton.backgroundColor = .systemBlue
+        registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
         
         
         
@@ -86,7 +91,14 @@ class RegisterViewController: UIViewController {
         }
     }
     
-
+    @objc func didTapToDismiss(){
+        view.endEditing(true)
+    }
    
-
+    @objc func didTapRegister(){
+        guard let mail = emailTxtFld.text, let pass = passwordTxtFld.text else {return}
+        registerViewModel.signUp(email: mail, password: pass)
+    }
+    
 }
+

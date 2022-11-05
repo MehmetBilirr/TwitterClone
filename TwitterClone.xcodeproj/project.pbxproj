@@ -29,6 +29,8 @@
 		F0A082CF2914142E00E90F00 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */; };
 		F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */; };
 		F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D732916C18000C73C3F /* UITextField + extension.swift */; };
+		F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */; };
+		F0DB0D7A2916EC2300C73C3F /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = F0DB0D792916EC2300C73C3F /* ProgressHUD */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,7 @@
 		F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F0DB0D732916C18000C73C3F /* UITextField + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + extension.swift"; sourceTree = "<group>"; };
+		F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F09B992A2912A8FF0072F739 /* SnapKit in Frameworks */,
+				F0DB0D7A2916EC2300C73C3F /* ProgressHUD in Frameworks */,
 				F0A082CC291413EF00E90F00 /* FirebaseStorageCombine-Community in Frameworks */,
 				F0A082C6291413EF00E90F00 /* FirebaseFirestore in Frameworks */,
 				F0A082C4291413EF00E90F00 /* FirebaseAuthCombine-Community in Frameworks */,
@@ -88,6 +92,7 @@
 		F099DE462911C74300367498 /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
+				F0DB0D752916CB1000C73C3F /* ViewModels */,
 				F0DB0D722916C09D00C73C3F /* Extension */,
 				F09B99252912A7FB0072F739 /* Views */,
 				F099DE5B2911CF0C00367498 /* Controllers */,
@@ -156,6 +161,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		F0DB0D752916CB1000C73C3F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -180,6 +193,7 @@
 				F0A082C7291413EF00E90F00 /* FirebaseFirestoreCombine-Community */,
 				F0A082C9291413EF00E90F00 /* FirebaseStorage */,
 				F0A082CB291413EF00E90F00 /* FirebaseStorageCombine-Community */,
+				F0DB0D792916EC2300C73C3F /* ProgressHUD */,
 			);
 			productName = TwitterClone;
 			productReference = F099DE442911C74300367498 /* TwitterClone.app */;
@@ -212,6 +226,7 @@
 			packageReferences = (
 				F09B99282912A8FF0072F739 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F0A082C0291413EF00E90F00 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F0DB0D782916EC2300C73C3F /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 			);
 			productRefGroup = F099DE452911C74300367498 /* Products */;
 			projectDirPath = "";
@@ -248,6 +263,7 @@
 				F099DE5E2911CF5400367498 /* HomeViewController.swift in Sources */,
 				F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */,
 				F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */,
+				F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */,
 				F09B992D2912E6560072F739 /* ProfileViewController.swift in Sources */,
 				F0A082CF2914142E00E90F00 /* OnboardingViewController.swift in Sources */,
 				F09B992F2912EE2F0072F739 /* ProfileTableViewHeader.swift in Sources */,
@@ -477,6 +493,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		F0DB0D782916EC2300C73C3F /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -514,6 +538,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F0A082C0291413EF00E90F00 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		F0DB0D792916EC2300C73C3F /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0DB0D782916EC2300C73C3F /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

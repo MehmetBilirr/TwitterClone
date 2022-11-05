@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationContoller = UINavigationController(rootViewController: OnboardingViewController())
             window?.rootViewController = navigationContoller
         }else {
-            let navigationContoller = UINavigationController(rootViewController: mainTabBarVC)
+            let navigationContoller = UINavigationController(rootViewController: OnboardingViewController())
             window?.rootViewController = navigationContoller
         }
     }
