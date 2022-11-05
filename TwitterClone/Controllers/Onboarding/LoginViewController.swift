@@ -1,25 +1,26 @@
 //
-//  RegisterViewController.swift
+//  LoginViewController.swift
 //  TwitterClone
 //
-//  Created by Mehmet Bilir on 5.11.2022.
+//  Created by Mehmet Bilir on 6.11.2022.
 //
 
 import UIKit
-import SnapKit
 import Firebase
 import ProgressHUD
 
-protocol RegisterViewControllerProtocol:AnyObject {
-    func didSignUp()
+protocol LoginViewControllerProcotol:AnyObject {
+    func didLogin()
 }
-class RegisterViewController: UIViewController {
+
+class LoginViewController: UIViewController {
+
     private let label = UILabel()
     private let emailTxtFld = UITextField()
     private let passwordTxtFld = UITextField()
     private let registerButton = UIButton()
-    private let authViewModel = AuthViewModel()
-    weak var delegate: RegisterViewControllerProtocol?
+    weak var delegate:LoginViewControllerProcotol?
+    private let forgotLbl = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,7 +39,7 @@ class RegisterViewController: UIViewController {
         label.textColor = .black
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.text = "Create your Account"
+        label.text = "Login to your Account"
         
         emailTxtFld.translatesAutoresizingMaskIntoConstraints = false
         emailTxtFld.placeholder = "Email"
@@ -53,7 +54,7 @@ class RegisterViewController: UIViewController {
         passwordTxtFld.enablePasswordToggle()
         
         registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.setTitle("Create account", for: .normal)
+        registerButton.setTitle("Login", for: .normal)
         registerButton.layer.cornerRadius = 20
         registerButton.clipsToBounds = true
         registerButton.setTitleColor(.white, for: .normal)
@@ -61,7 +62,14 @@ class RegisterViewController: UIViewController {
         registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
         
         
-        
+        forgotLbl.translatesAutoresizingMaskIntoConstraints = false
+        forgotLbl.textAlignment = .center
+        forgotLbl.font = .systemFont(ofSize: 18, weight: .regular)
+        forgotLbl.textColor = .black
+        forgotLbl.numberOfLines = 0
+        forgotLbl.lineBreakMode = .byWordWrapping
+        let attributedString  = NSMutableAttributedString(string: "Forgot password?", attributes: [NSAttributedString.Key.underlineStyle : true])
+        forgotLbl.attributedText = attributedString
     }
     
     private func layout(){
@@ -95,6 +103,13 @@ class RegisterViewController: UIViewController {
             make.top.equalTo(passwordTxtFld.snp.bottom).offset(50)
             make.height.equalTo(50)
         }
+        
+        view.addSubview(forgotLbl)
+        forgotLbl.snp.makeConstraints { make in
+            make.left.equalTo(registerButton.snp.left)
+            make.right.equalTo(registerButton.snp.right)
+            make.top.equalTo(registerButton.snp.bottom).offset(10)
+        }
     }
     
     @objc func didTapToDismiss(){
@@ -103,15 +118,14 @@ class RegisterViewController: UIViewController {
    
     @objc func didTapRegister(){
         guard let mail = emailTxtFld.text, let pass = passwordTxtFld.text else {return}
-        Auth.auth().createUser(withEmail: mail, password: pass) { data, error in
+        Auth.auth().signIn(withEmail: mail, password: pass) { data, error in
             if error != nil {
                 ProgressHUD.showError(error?.localizedDescription)
             }else {
-                self.delegate?.didSignUp()
+                self.delegate?.didLogin()
             }
         }
         
     }
     
 }
-

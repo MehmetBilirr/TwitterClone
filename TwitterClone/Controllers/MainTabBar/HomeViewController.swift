@@ -11,6 +11,7 @@ import Firebase
 class HomeViewController: UIViewController {
     let addButton = UIButton()
     let timeLineTableView = UITableView()
+    let profileVc = ProfileViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,8 +109,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     
     @objc func didTapProfile() {
-        let vc = ProfileViewController()
-        navigationController?.pushViewController(vc, animated: true)
+    navigationController?.pushViewController(profileVc, animated: true)
     }
     @objc func didTapAddButton(){
         print("add button tapped")
@@ -147,8 +147,8 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
 // Extension-Cell Protocol
 extension HomeViewController:TweetTableViewCellProtocol {
     func PPtapped() {
-        let vc = ProfileViewController()
-        navigationController?.pushViewController(vc, animated: true)
+       
+        navigationController?.pushViewController(profileVc, animated: true)
     }
     
     func tweetTableViewCellDidTapReply() {

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 protocol ProfileViewControllerPorotocol:AnyObject {
     func didLogOut()
@@ -41,41 +42,8 @@ class ProfileViewController: UIViewController {
     
     private func configureButtons(){
         
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setImage(UIImage(systemName: "arrow.backward"), for: .normal)
-        backButton.layer.cornerRadius = 12
-        backButton.clipsToBounds = true
-        backButton.backgroundColor = .darkGray
-        backButton.tintColor = .white
-        backButton.addTarget(self, action: #selector(didTapBackButton(_:)), for: .touchUpInside)
-        
-        logOutButton.translatesAutoresizingMaskIntoConstraints = false
-        logOutButton.setImage(UIImage(systemName: "rectangle.portrait.and.arrow.forward"), for: .normal)
-        logOutButton.clipsToBounds = true
-        logOutButton.layer.cornerRadius = 12
-        logOutButton.backgroundColor = .darkGray
-        logOutButton.tintColor = .white
-        logOutButton.addTarget(self, action: #selector(didLogOutButton(_:)), for: .touchUpInside)
-        
-        
-        
-        
-        
-        view.addSubview(backButton)
-        backButton.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
-            make.top.equalToSuperview().offset(50)
-            make.width.equalTo(30)
-            make.height.equalTo(30)
-        }
-        
-        view.addSubview(logOutButton)
-        logOutButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(-10)
-            make.top.equalToSuperview().offset(50)
-            make.width.equalTo(30)
-            make.height.equalTo(30)
-        }
+        let logOutImage = UIImage(systemName: "rectangle.portrait.and.arrow.right")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: logOutImage, style: .plain, target: self, action: #selector(didLogOutButton(_:)))
         
         
         
@@ -103,7 +71,7 @@ class ProfileViewController: UIViewController {
         profileTableView.delegate = self
         profileTableView.dataSource = self
         
-        navigationController?.navigationBar.isHidden = true
+        
         
         
         profileTableView.register(TweetTableViewCell.self, forCellReuseIdentifier: TweetTableViewCell.identifier)
@@ -150,13 +118,14 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate {
 extension ProfileViewController{
     
     @objc func didTapBackButton(_ sender:UIButton){
+        
         navigationController?.popViewController(animated: true)
         
     }
     
     @objc func didLogOutButton(_ sender:UIButton) {
         
-        authViewModel.logOut()
+        try? Auth.auth().signOut()
         ProfileViewController.delegate?.didLogOut()
     }
 }

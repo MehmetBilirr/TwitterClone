@@ -13,6 +13,7 @@ class OnboardingViewController: UIViewController {
     private let hadAccountLbl = UILabel()
     private let loginButton = UIButton()
     let registerVC = RegisterViewController()
+    let loginVC = LoginViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -101,6 +102,6 @@ extension OnboardingViewController {
     }
     
     @objc func didTapLogin(_ sender:UIButton) {
-        print("login tapped")
+        navigationController?.pushViewController(loginVC, animated: true)
     }
 }

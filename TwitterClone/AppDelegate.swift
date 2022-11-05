@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         onboardingVC.registerVC.delegate = self
         ProfileViewController.delegate = self
-        
+        onboardingVC.loginVC.delegate = self
         setRootVC()
         
         
@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = navOnboarding
         }else {
             
+            let navMain = UINavigationController(rootViewController: mainTabBarVC)
             window?.rootViewController = mainTabBarVC
         }
         
@@ -65,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate:RegisterViewControllerProtocol {
     func didSignUp() {
-        setRootViewController(mainTabBarVC)
+        window?.rootViewController = mainTabBarVC
         
     }
     
@@ -76,6 +77,15 @@ extension AppDelegate:ProfileViewControllerPorotocol {
     func didLogOut() {
         let navOnboarding = UINavigationController(rootViewController: onboardingVC)
         setRootViewController(navOnboarding)
+    }
+    
+    
+}
+
+
+extension AppDelegate:LoginViewControllerProcotol {
+    func didLogin() {
+        window?.rootViewController = mainTabBarVC
     }
     
     
