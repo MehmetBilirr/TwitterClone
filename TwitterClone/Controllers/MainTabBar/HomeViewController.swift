@@ -8,13 +8,14 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import SDWebImage
 
 class HomeViewController: UIViewController {
     let addButton = UIButton()
     let timeLineTableView = UITableView()
     let profileVc = ProfileViewController()
     let homeVM = HomeViewModel()
-    var user:User?
+    let userImageView = UIImageView()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +24,17 @@ class HomeViewController: UIViewController {
         configureAddButton()
         
         
+        
+        
+        
+        
         view.backgroundColor = .systemBackground
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UserService.shared.fetchUsers { userarray in
+            print(userarray)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,12 +60,15 @@ class HomeViewController: UIViewController {
         logoImageView.image = UIImage(named: "twitterLogo")
         navigationItem.titleView = logoImageView
         
-    
+        guard let uuid = currentU?.uid else {return}
+        
+        UserService.shared.fetchUser(uuid: uuid) { User in
+            self.userImageView.sd_setImage(with: URL(string: User.imageUrl))
+        }
         
         
         
-        let userImageView = UIImageView()
-        userImageView.image = UIImage(named: "UserImage")
+        
         userImageView.layer.cornerRadius = 20
         userImageView.clipsToBounds = true
         userImageView.contentMode = .scaleAspectFit

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Firebase
+import ProgressHUD
 
 protocol ProfileViewControllerPorotocol:AnyObject {
     func didLogOut()
@@ -44,11 +45,12 @@ class ProfileViewController: UIViewController {
         guard let uuid = Auth.auth().currentUser?.uid else {
             return
         }
+        
+        ProgressHUD.show()
 
-        profileVM.fetchUser(uuid: uuid) { User in
+        UserService.shared.fetchUser(uuid: uuid) { User in
             self.headerView.configure(user: User)
-            
-            
+            ProgressHUD.dismiss()
         }
     }
     
@@ -167,11 +169,12 @@ extension ProfileViewController{
     
     @objc func didTapBackButton(_ sender:UIButton){
         
-        navigationController?.popViewController(animated: true)
+        
         
     }
     
     @objc func didLogOutButton(_ sender:UIButton) {
+        navigationController?.popViewController(animated: true)
         profileVM.logOut { success in
             if success {
                 ProfileViewController.delegate?.didLogOut()

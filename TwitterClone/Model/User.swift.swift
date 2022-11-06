@@ -9,6 +9,7 @@ import Foundation
 
 
 struct User:Codable {
+    
     let fullname:String
     let imageUrl:String
     let username:String

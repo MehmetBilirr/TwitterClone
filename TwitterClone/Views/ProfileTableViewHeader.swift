@@ -106,7 +106,6 @@ class ProfileTableViewHeader: UIView {
         userStackView.spacing = 10
         
         userImageView.translatesAutoresizingMaskIntoConstraints = false
-        userImageView.image = UIImage(named: "UserImage")
         userImageView.contentMode = .scaleAspectFit
         userImageView.layer.borderWidth = 3
         userImageView.layer.borderColor = UIColor.white.cgColor
@@ -118,13 +117,11 @@ class ProfileTableViewHeader: UIView {
         nameLbl.textAlignment = .left
         nameLbl.font = .systemFont(ofSize: 20, weight: .bold)
         nameLbl.textColor = .black
-        nameLbl.text = "Mehmet Bilir"
         
         userNameLbl.translatesAutoresizingMaskIntoConstraints = false
         userNameLbl.textAlignment = .left
         userNameLbl.font = .systemFont(ofSize: 16, weight: .regular)
         userNameLbl.textColor = .gray
-        userNameLbl.text = "@mbilir9"
         
         userBioLbl.translatesAutoresizingMaskIntoConstraints = false
         userBioLbl.textAlignment = .left
@@ -213,8 +210,8 @@ class ProfileTableViewHeader: UIView {
         headerImageView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalToSuperview()
-            make.height.equalTo(100)
+            make.top.equalToSuperview().offset(-100)
+            make.height.equalTo(200)
         }
         
         addSubview(editButton)

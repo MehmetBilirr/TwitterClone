@@ -10,7 +10,7 @@ import Firebase
 import FirebaseAuth
 
 
-
+let currentU = Auth.auth().currentUser
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         onboardingVC.registerVC.delegate = self
         ProfileViewController.delegate = self
         onboardingVC.loginVC.delegate = self
+        setupProfileVC.delegate = self
         setRootVC()
         
         
@@ -92,6 +93,16 @@ extension AppDelegate:LoginViewControllerProcotol {
 
         window?.rootViewController = mainTabBarVC
     }
+    
+    
+}
+
+
+extension AppDelegate:SetupProfileViewControllerProtocol {
+    func didFinishSetup() {
+        window?.rootViewController = mainTabBarVC
+    }
+    
     
     
 }

@@ -108,6 +108,8 @@ class RegisterViewController: UIViewController {
             
             if success {
                 self.delegate?.didSignUp()
+                self.emailTxtFld.text = ""
+                self.passwordTxtFld.text = ""
             }
         }
         

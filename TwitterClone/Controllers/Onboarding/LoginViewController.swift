@@ -130,6 +130,8 @@ extension LoginViewController {
         loginVM.signIn(email: mail, password: pass) { success in
             if success {
                 self.delegate?.didLogin()
+                self.emailTxtFld.text = ""
+                self.passwordTxtFld.text = ""
             }
         }
         

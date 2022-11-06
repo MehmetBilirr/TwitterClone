@@ -11,6 +11,11 @@ import FirebaseStorage
 import FirebaseFirestore
 import Firebase
 import ProgressHUD
+
+protocol SetupProfileViewControllerProtocol:AnyObject{
+    
+    func didFinishSetup()
+}
 class SetupProfileViewController: UIViewController {
 
     private let label = UILabel()
@@ -23,6 +28,7 @@ class SetupProfileViewController: UIViewController {
     private let imageView = UIImageView()
     private let doneButton = UIButton()
     private let setupProfileVM = SetupProfileViewModel()
+    weak var delegate:SetupProfileViewControllerProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -153,17 +159,10 @@ extension SetupProfileViewController:UIImagePickerControllerDelegate,UINavigatio
         }else {
             
             setupProfileVM.setupProfile(imageView: imageView, userName: username, fullName: fullName)
+            delegate?.didFinishSetup()
+            
 
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-}
+ }
 
 }
