@@ -20,6 +20,7 @@ class AuthManager {
         Auth.auth().createUser(withEmail: email, password: password) { data, error in
             if error != nil {
                 print(error?.localizedDescription)
+                
             }else {
                 viewController.delegate?.didSignUp()
             }
@@ -42,7 +43,9 @@ class AuthManager {
         Auth.auth().signIn(withEmail: email, password: password) { data, error in
             if error != nil {
                 ProgressHUD.showError(error?.localizedDescription)
+                
             }else {
+                guard let user = data?.user else {return}
                 viewController.delegate?.didLogin()
             }
         }

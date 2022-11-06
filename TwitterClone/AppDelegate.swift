@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let onboardingVC = OnboardingViewController()
     let registerVC = RegisterViewController()
     let profileVC = ProfileViewController()
+    let setupProfileVC = SetupProfileViewController()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -37,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setRootVC() {
         
         if Auth.auth().currentUser == nil {
-            let navOnboarding = UINavigationController(rootViewController: onboardingVC)
+            let navOnboarding = UINavigationController(rootViewController: setupProfileVC)
             window?.rootViewController = navOnboarding
         }else {
             
@@ -65,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate:RegisterViewControllerProtocol {
     func didSignUp() {
-        window?.rootViewController = mainTabBarVC
+        window?.rootViewController = setupProfileVC
         
     }
     

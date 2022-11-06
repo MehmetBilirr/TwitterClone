@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F09745EA2917EDD00049AD32 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09745E92917EDD00049AD32 /* SetupProfileViewController.swift */; };
 		F099DE482911C74300367498 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE472911C74300367498 /* AppDelegate.swift */; };
 		F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE4B2911C74300367498 /* MainTabBarViewController.swift */; };
 		F099DE512911C74300367498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F099DE502911C74300367498 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F09745E92917EDD00049AD32 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
 		F099DE442911C74300367498 /* TwitterClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F099DE472911C74300367498 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F099DE4B2911C74300367498 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */,
 				F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */,
 				F0A48C682917124E00D035D5 /* LoginViewController.swift */,
+				F09745E92917EDD00049AD32 /* SetupProfileViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				F0A48C692917124E00D035D5 /* LoginViewController.swift in Sources */,
 				F099DE622911CF6A00367498 /* NotificationsViewController.swift in Sources */,
 				F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */,
+				F09745EA2917EDD00049AD32 /* SetupProfileViewController.swift in Sources */,
 				F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */,
 				F099DE482911C74300367498 /* AppDelegate.swift in Sources */,
 				F099DE602911CF5F00367498 /* SearchViewController.swift in Sources */,
