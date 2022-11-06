@@ -37,7 +37,7 @@ class SetupProfileViewModel {
                     "username":userName,
                     "fullname":fullName,
                     "imageUrl":imageUrl,
-                    "uid":user.uid] as [String : Any]
+                    ] as [String : Any]
         
         Firestore.firestore().collection("users").document(user.uid).setData(data) { error in
             

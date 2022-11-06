@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-
+import SDWebImage
 
 class ProfileTableViewHeader: UIView {
     
@@ -213,8 +213,8 @@ class ProfileTableViewHeader: UIView {
         headerImageView.snp.makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalToSuperview().offset(-100)
-            make.height.equalTo(bounds.height / 2)
+            make.top.equalToSuperview()
+            make.height.equalTo(100)
         }
         
         addSubview(editButton)
@@ -297,6 +297,7 @@ class ProfileTableViewHeader: UIView {
             make.top.equalTo(sectionButtonStack.snp.bottom)
             make.right.equalTo(rightSnağ[0])
             make.height.equalTo(4)
+            
         }
         
     }
@@ -339,5 +340,11 @@ extension ProfileTableViewHeader {
         }
         
         
+    }
+    
+    func configure(user:User) {
+        userNameLbl.text = user.username
+        nameLbl.text = user.fullname
+        userImageView.sd_setImage(with: URL(string: user.imageUrl))
     }
 }

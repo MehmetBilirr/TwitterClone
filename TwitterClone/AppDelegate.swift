@@ -7,11 +7,14 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    
     var window: UIWindow?
     let mainTabBarVC = MainTabBarViewController()
     let onboardingVC = OnboardingViewController()
@@ -39,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if Auth.auth().currentUser == nil {
             let navOnboarding = UINavigationController(rootViewController: onboardingVC)
-            window?.rootViewController = setupProfileVC
+            window?.rootViewController = navOnboarding
         }else {
             
             window?.rootViewController = mainTabBarVC

@@ -146,9 +146,7 @@ extension SetupProfileViewController:UIImagePickerControllerDelegate,UINavigatio
     @objc func didTapDoneButton(_ sender:UIButton){
         guard let username = userNameTxtFld.text,let fullName = fullNameTxtFld.text,let image = imageView.image else {return}
         
-        if mailTxtFld.text == "" {
-            ProgressHUD.showError("Email cannot be empty")
-        }else if  userNameTxtFld.text == "" {
+        if  userNameTxtFld.text == "" {
             ProgressHUD.showError("Username cannot be empty")
         }else if fullNameTxtFld.text == ""{
             ProgressHUD.showError("Full name cannot be empty")

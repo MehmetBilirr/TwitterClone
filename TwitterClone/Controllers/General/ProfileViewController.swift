@@ -21,6 +21,9 @@ class ProfileViewController: UIViewController {
     private let backButton = UIButton()
     private let logOutButton =  UIButton()
     let profileVM = ProfileViewModel()
+    let headerView = ProfileTableViewHeader(frame: .zero)
+    
+    
     private let addButton = UIButton()
     
     static weak var delegate : ProfileViewControllerPorotocol?
@@ -35,6 +38,18 @@ class ProfileViewController: UIViewController {
         configureButtons()
         configureAddButton()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let uuid = Auth.auth().currentUser?.uid else {
+            return
+        }
+
+        profileVM.fetchUser(uuid: uuid) { User in
+            self.headerView.configure(user: User)
+            
+            
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -106,8 +121,10 @@ class ProfileViewController: UIViewController {
         
         
         profileTableView.register(TweetTableViewCell.self, forCellReuseIdentifier: TweetTableViewCell.identifier)
-        let headerView = ProfileTableViewHeader(frame: CGRect(x: 0, y: 0, width: profileTableView.frame.width, height: view.bounds.height / 3 + 50))
+        
+        headerView.frame = CGRect(x: 0, y: 0, width: profileTableView.frame.width, height: view.bounds.height / 3 + 50)
         profileTableView.tableHeaderView = headerView
+        
         view.addSubview(profileTableView)
     }
     
@@ -178,6 +195,7 @@ extension ProfileViewController:TweetTableViewCellProtocol {
     
     func tweetTableViewCellDidTapReply() {
         print("Reply button tapped.")
+        
     }
     
     func tweetTableViewCellDidTapRetweet() {

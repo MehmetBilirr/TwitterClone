@@ -7,17 +7,21 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
     let addButton = UIButton()
     let timeLineTableView = UITableView()
     let profileVc = ProfileViewController()
+    let homeVM = HomeViewModel()
+    var user:User?
     override func viewDidLoad() {
         super.viewDidLoad()
         
        configureNavigationBar()
         configureTableView()
         configureAddButton()
+        
         
         view.backgroundColor = .systemBackground
     }

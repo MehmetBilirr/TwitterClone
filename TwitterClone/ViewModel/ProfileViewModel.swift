@@ -23,4 +23,14 @@ class ProfileViewModel {
                ProgressHUD.showError(error.localizedDescription)
            }
        }
+    
+    func fetchUser(uuid:String,completion:@escaping (User)->Void){
+        
+        Firestore.firestore().collection("users").document(uuid).getDocument { snapshot, error in
+            guard let snaphot = snapshot else {return}
+            
+            guard let user = try? snapshot?.data(as: User.self) else {return}
+            completion(user)
+        }
+    }
 }
