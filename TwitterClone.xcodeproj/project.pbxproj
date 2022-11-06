@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F09745EA2917EDD00049AD32 /* SetupProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09745E92917EDD00049AD32 /* SetupProfileViewController.swift */; };
+		F09745EC291801A50049AD32 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09745EB291801A50049AD32 /* LoginViewModel.swift */; };
+		F09745EE291802500049AD32 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09745ED291802500049AD32 /* ProfileViewModel.swift */; };
+		F09745F0291825F70049AD32 /* SetupProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09745EF291825F70049AD32 /* SetupProfileViewModel.swift */; };
 		F099DE482911C74300367498 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE472911C74300367498 /* AppDelegate.swift */; };
 		F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099DE4B2911C74300367498 /* MainTabBarViewController.swift */; };
 		F099DE512911C74300367498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F099DE502911C74300367498 /* Assets.xcassets */; };
@@ -31,12 +34,15 @@
 		F0A48C692917124E00D035D5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A48C682917124E00D035D5 /* LoginViewController.swift */; };
 		F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */; };
 		F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D732916C18000C73C3F /* UITextField + extension.swift */; };
-		F0DB0D772916CB1C00C73C3F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D762916CB1C00C73C3F /* AuthManager.swift */; };
+		F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */; };
 		F0DB0D7A2916EC2300C73C3F /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = F0DB0D792916EC2300C73C3F /* ProgressHUD */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F09745E92917EDD00049AD32 /* SetupProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewController.swift; sourceTree = "<group>"; };
+		F09745EB291801A50049AD32 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		F09745ED291802500049AD32 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		F09745EF291825F70049AD32 /* SetupProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupProfileViewModel.swift; sourceTree = "<group>"; };
 		F099DE442911C74300367498 /* TwitterClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F099DE472911C74300367498 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F099DE4B2911C74300367498 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -55,7 +61,7 @@
 		F0A48C682917124E00D035D5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F0DB0D732916C18000C73C3F /* UITextField + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + extension.swift"; sourceTree = "<group>"; };
-		F0DB0D762916CB1C00C73C3F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +102,7 @@
 		F099DE462911C74300367498 /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
-				F0DB0D752916CB1000C73C3F /* Manager */,
+				F0DB0D752916CB1000C73C3F /* ViewModel */,
 				F0DB0D722916C09D00C73C3F /* Extension */,
 				F09B99252912A7FB0072F739 /* Views */,
 				F099DE5B2911CF0C00367498 /* Controllers */,
@@ -167,12 +173,15 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		F0DB0D752916CB1000C73C3F /* Manager */ = {
+		F0DB0D752916CB1000C73C3F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F0DB0D762916CB1C00C73C3F /* AuthManager.swift */,
+				F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */,
+				F09745EB291801A50049AD32 /* LoginViewModel.swift */,
+				F09745ED291802500049AD32 /* ProfileViewModel.swift */,
+				F09745EF291825F70049AD32 /* SetupProfileViewModel.swift */,
 			);
-			path = Manager;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,14 +274,17 @@
 				F099DE622911CF6A00367498 /* NotificationsViewController.swift in Sources */,
 				F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */,
 				F09745EA2917EDD00049AD32 /* SetupProfileViewController.swift in Sources */,
+				F09745EC291801A50049AD32 /* LoginViewModel.swift in Sources */,
 				F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */,
 				F099DE482911C74300367498 /* AppDelegate.swift in Sources */,
 				F099DE602911CF5F00367498 /* SearchViewController.swift in Sources */,
 				F099DE5E2911CF5400367498 /* HomeViewController.swift in Sources */,
 				F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */,
 				F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */,
-				F0DB0D772916CB1C00C73C3F /* AuthManager.swift in Sources */,
+				F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */,
+				F09745F0291825F70049AD32 /* SetupProfileViewModel.swift in Sources */,
 				F09B992D2912E6560072F739 /* ProfileViewController.swift in Sources */,
+				F09745EE291802500049AD32 /* ProfileViewModel.swift in Sources */,
 				F0A082CF2914142E00E90F00 /* OnboardingViewController.swift in Sources */,
 				F09B992F2912EE2F0072F739 /* ProfileTableViewHeader.swift in Sources */,
 				F09B99272912A81A0072F739 /* TweetTableViewCell.swift in Sources */,

@@ -38,8 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setRootVC() {
         
         if Auth.auth().currentUser == nil {
-            let navOnboarding = UINavigationController(rootViewController: setupProfileVC)
-            window?.rootViewController = navOnboarding
+            let navOnboarding = UINavigationController(rootViewController: onboardingVC)
+            window?.rootViewController = setupProfileVC
         }else {
             
             window?.rootViewController = mainTabBarVC

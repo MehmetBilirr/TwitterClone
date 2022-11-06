@@ -19,6 +19,7 @@ class RegisterViewController: UIViewController {
     private let passwordTxtFld = UITextField()
     private let registerButton = UIButton()
     weak var delegate: RegisterViewControllerProtocol?
+    private let registerVM = RegisterViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -103,7 +104,12 @@ class RegisterViewController: UIViewController {
     @objc func didTapRegister(){
         guard let mail = emailTxtFld.text, let pass = passwordTxtFld.text else {return}
         
-        AuthManager.shared.signUp(email: mail, password: pass, viewController: self)
+        registerVM.signUp(email: mail, password: pass) { success in
+            
+            if success {
+                self.delegate?.didSignUp()
+            }
+        }
         
         
     }

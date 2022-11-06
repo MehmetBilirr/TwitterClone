@@ -7,7 +7,10 @@
 
 import UIKit
 import SnapKit
-
+import FirebaseStorage
+import FirebaseFirestore
+import Firebase
+import ProgressHUD
 class SetupProfileViewController: UIViewController {
 
     private let label = UILabel()
@@ -19,6 +22,7 @@ class SetupProfileViewController: UIViewController {
     private let betweenView2 = UIView()
     private let imageView = UIImageView()
     private let doneButton = UIButton()
+    private let setupProfileVM = SetupProfileViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,9 +45,6 @@ class SetupProfileViewController: UIViewController {
         label.lineBreakMode = .byWordWrapping
         label.text = "Get started.\n Create your profile"
         
-        mailTxtFld.translatesAutoresizingMaskIntoConstraints = false
-        mailTxtFld.placeholder = "E-mail"
-        
         
         userNameTxtFld.translatesAutoresizingMaskIntoConstraints = false
         userNameTxtFld.placeholder = "Username"
@@ -54,11 +55,7 @@ class SetupProfileViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
-        
-        
-        betweenView1.translatesAutoresizingMaskIntoConstraints = false
-        betweenView1.backgroundColor = .secondarySystemFill
-        betweenView1.heightAnchor.constraint(equalToConstant: 1).isActive = true
+  
         
         betweenView2.translatesAutoresizingMaskIntoConstraints = false
         betweenView2.backgroundColor = .secondarySystemFill
@@ -94,8 +91,6 @@ class SetupProfileViewController: UIViewController {
             make.top.equalTo(100)
         }
         
-        stackView.addArrangedSubview(mailTxtFld)
-        stackView.addArrangedSubview(betweenView1)
         stackView.addArrangedSubview(userNameTxtFld)
         stackView.addArrangedSubview(betweenView2)
         stackView.addArrangedSubview(fullNameTxtFld)
@@ -149,6 +144,28 @@ extension SetupProfileViewController:UIImagePickerControllerDelegate,UINavigatio
     }
     
     @objc func didTapDoneButton(_ sender:UIButton){
+        guard let username = userNameTxtFld.text,let fullName = fullNameTxtFld.text,let image = imageView.image else {return}
         
-    }
+        if mailTxtFld.text == "" {
+            ProgressHUD.showError("Email cannot be empty")
+        }else if  userNameTxtFld.text == "" {
+            ProgressHUD.showError("Username cannot be empty")
+        }else if fullNameTxtFld.text == ""{
+            ProgressHUD.showError("Full name cannot be empty")
+        }else {
+            
+            setupProfileVM.setupProfile(imageView: imageView, userName: username, fullName: fullName)
+
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+}
+
 }

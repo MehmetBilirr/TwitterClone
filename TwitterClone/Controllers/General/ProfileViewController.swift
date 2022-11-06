@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController {
     private let statusBar = UIView()
     private let backButton = UIButton()
     private let logOutButton =  UIButton()
-    
+    let profileVM = ProfileViewModel()
     private let addButton = UIButton()
     
     static weak var delegate : ProfileViewControllerPorotocol?
@@ -155,9 +155,13 @@ extension ProfileViewController{
     }
     
     @objc func didLogOutButton(_ sender:UIButton) {
+        profileVM.logOut { success in
+            if success {
+                ProfileViewController.delegate?.didLogOut()
+            }
+        }
         
-        AuthManager.shared.logOut(viewController: self)
-        tabBarController?.selectedIndex = 0
+        
     }
     
     @objc func didTapAddButton(_ sender:UIButton){

@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
     private let registerButton = UIButton()
     weak var delegate:LoginViewControllerProcotol?
     private let forgotLbl = UILabel()
+    let loginVM = LoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,8 +127,12 @@ extension LoginViewController {
    
     @objc func didTapLogin(_ sender : UIButton){
         guard let mail = emailTxtFld.text, let pass = passwordTxtFld.text else {return}
+        loginVM.signIn(email: mail, password: pass) { success in
+            if success {
+                self.delegate?.didLogin()
+            }
+        }
         
-        AuthManager.shared.signIn(email: mail, password: pass, viewController: self)
         
         
     }
