@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
     private let registerButton = UIButton()
     weak var delegate:LoginViewControllerProcotol?
     private let forgotLbl = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,7 +60,7 @@ class LoginViewController: UIViewController {
         registerButton.clipsToBounds = true
         registerButton.setTitleColor(.white, for: .normal)
         registerButton.backgroundColor = .systemBlue
-        registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(didTapLogin(_:)), for: .touchUpInside)
         
         
         forgotLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -112,19 +113,22 @@ class LoginViewController: UIViewController {
         }
     }
     
+    
+    
+}
+
+// methods
+extension LoginViewController {
+    
     @objc func didTapToDismiss(){
         view.endEditing(true)
     }
    
-    @objc func didTapRegister(){
+    @objc func didTapLogin(_ sender : UIButton){
         guard let mail = emailTxtFld.text, let pass = passwordTxtFld.text else {return}
-        Auth.auth().signIn(withEmail: mail, password: pass) { data, error in
-            if error != nil {
-                ProgressHUD.showError(error?.localizedDescription)
-            }else {
-                self.delegate?.didLogin()
-            }
-        }
+        
+        AuthManager.shared.signIn(email: mail, password: pass, viewController: self)
+        
         
     }
     

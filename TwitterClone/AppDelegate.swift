@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = navOnboarding
         }else {
             
-            let navMain = UINavigationController(rootViewController: mainTabBarVC)
             window?.rootViewController = mainTabBarVC
         }
         
@@ -75,6 +74,7 @@ extension AppDelegate:RegisterViewControllerProtocol {
 
 extension AppDelegate:ProfileViewControllerPorotocol {
     func didLogOut() {
+        mainTabBarVC.selectedIndex = 0
         let navOnboarding = UINavigationController(rootViewController: onboardingVC)
         setRootViewController(navOnboarding)
     }
@@ -85,6 +85,7 @@ extension AppDelegate:ProfileViewControllerPorotocol {
 
 extension AppDelegate:LoginViewControllerProcotol {
     func didLogin() {
+
         window?.rootViewController = mainTabBarVC
     }
     

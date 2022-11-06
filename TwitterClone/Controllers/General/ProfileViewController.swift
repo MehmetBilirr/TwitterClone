@@ -20,7 +20,8 @@ class ProfileViewController: UIViewController {
     private let statusBar = UIView()
     private let backButton = UIButton()
     private let logOutButton =  UIButton()
-    private let authViewModel = AuthViewModel()
+    
+    private let addButton = UIButton()
     
     static weak var delegate : ProfileViewControllerPorotocol?
         
@@ -32,6 +33,7 @@ class ProfileViewController: UIViewController {
         configureProfileTableView()
         configureStatusBar()
         configureButtons()
+        configureAddButton()
         
     }
     
@@ -62,6 +64,35 @@ class ProfileViewController: UIViewController {
             make.right.equalToSuperview()
             make.height.equalTo(80)
         }
+        
+    }
+    
+    private func configureAddButton(){
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(systemName: "plus")
+        
+        addButton.setImage(image, for: .normal)
+        
+        addButton.layer.cornerRadius = 25
+        addButton.clipsToBounds = true
+        addButton.backgroundColor = .systemBlue
+        addButton.tintColor = .white
+        addButton.addTarget(self, action: #selector(didTapAddButton(_:)), for: .touchUpInside)
+        
+        
+        
+        
+        view.addSubview(addButton)
+        
+        addButton.snp.makeConstraints { make in
+            
+            make.height.equalTo(UIScreen.main.bounds.height / 17)
+            make.width.equalTo(UIScreen.main.bounds.width / 8)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-UIScreen.main.bounds.height / 10)
+        }
+        
+        
         
     }
 
@@ -125,8 +156,12 @@ extension ProfileViewController{
     
     @objc func didLogOutButton(_ sender:UIButton) {
         
-        try? Auth.auth().signOut()
-        ProfileViewController.delegate?.didLogOut()
+        AuthManager.shared.logOut(viewController: self)
+        tabBarController?.selectedIndex = 0
+    }
+    
+    @objc func didTapAddButton(_ sender:UIButton){
+        
     }
 }
 
