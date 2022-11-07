@@ -11,6 +11,7 @@ class SearchViewController: UIViewController {
     private let searchController = UISearchController()
     private let tableView = UITableView()
     var userArray = [User]()
+    var filteredArray = [User]()
     private let searchVM = SearchViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,13 +53,24 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userArray.count
+        if searchController.isActive {
+            return filteredArray.count
+        }else {
+            return userArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.identifier, for: indexPath) as! UserTableViewCell
-        let user = userArray[indexPath.row]
-        cell.configure(user: user)
+        
+        if searchController.isActive {
+            let user = filteredArray[indexPath.row]
+            cell.configure(user: user)
+        }else {
+            let user = userArray[indexPath.row]
+            cell.configure(user: user)
+        }
+    
         return cell
     }
     
@@ -69,8 +81,32 @@ extension SearchViewController:UITableViewDelegate,UITableViewDataSource {
 extension SearchViewController:UISearchResultsUpdating,UISearchControllerDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         
-        print(searchController.searchBar.text)
+        guard let text = searchController.searchBar.text else {return}
+        
+        let lowerText = text.lowercased()
+        
+        
+        filterForSearchText(text: lowerText)
+        
     }
+    
+    private func filterForSearchText(text:String) {
+        filteredArray = userArray.filter({ user in
+            if text != "" {
+                
+                let re =  user.fullname.lowercased().contains(text) || user.username.lowercased().contains(text)
+                
+               
+                return re
+            }else {
+                return false
+            }
+            
+        })
+        tableView.reloadData()
+    }
+    
+    
     
     
 }
