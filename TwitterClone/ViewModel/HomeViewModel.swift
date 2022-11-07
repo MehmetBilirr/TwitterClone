@@ -11,5 +11,10 @@ import FirebaseFirestoreSwift
 
 class HomeViewModel {
     
-    
+    func fetchUser(completion:@escaping (User)->Void){
+        guard let uuid = currentU?.uid else {return}
+        UserService.shared.fetchUser(uuid: uuid, completion: completion)
+            
+        
+    }
 }

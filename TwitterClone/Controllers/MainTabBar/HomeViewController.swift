@@ -10,12 +10,14 @@ import Firebase
 import FirebaseAuth
 import SDWebImage
 
+
 class HomeViewController: UIViewController {
     let addButton = UIButton()
     let timeLineTableView = UITableView()
     let profileVc = ProfileViewController()
     let homeVM = HomeViewModel()
     let userImageView = UIImageView()
+    var user:User?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,12 +58,12 @@ class HomeViewController: UIViewController {
         logoImageView.image = UIImage(named: "twitterLogo")
         navigationItem.titleView = logoImageView
         
-        guard let uuid = currentU?.uid else {return}
-        
-        UserService.shared.fetchUser(uuid: uuid) { User in
+      
+        homeVM.fetchUser { User in
             self.userImageView.sd_setImage(with: URL(string: User.imageUrl))
         }
         
+       
         
         
         
@@ -123,7 +125,12 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     
     @objc func didTapProfile() {
-    navigationController?.pushViewController(profileVc, animated: true)
+        let vc = ProfileViewController()
+        homeVM.fetchUser { User in
+            vc.headerView.configure(user: User)
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     @objc func didTapAddButton(){
         print("add button tapped")
@@ -161,8 +168,13 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
 // Extension-Cell Protocol
 extension HomeViewController:TweetTableViewCellProtocol {
     func PPtapped() {
-       
-        navigationController?.pushViewController(profileVc, animated: true)
+        
+        let vc = ProfileViewController()
+        homeVM.fetchUser { User in
+            vc.headerView.configure(user: User)
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tweetTableViewCellDidTapReply() {

@@ -6,6 +6,10 @@
 //
 
 import UIKit
+protocol SearchViewControllerProtocol:AnyObject{
+    
+    func didTapCell(user:User)
+}
 
 class SearchViewController: UIViewController {
     private let searchController = UISearchController()
@@ -13,6 +17,7 @@ class SearchViewController: UIViewController {
     var userArray = [User]()
     var filteredArray = [User]()
     private let searchVM = SearchViewModel()
+    static weak var delegate : SearchViewControllerProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -74,6 +79,24 @@ extension SearchViewController:UITableViewDelegate,UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let profileVC = ProfileViewController()
+        if searchController.isActive {
+            
+            let user = filteredArray[indexPath.row]
+            
+            
+            profileVC.headerView.configure(user: user)
+            navigationController?.pushViewController(profileVC, animated: true)
+            searchController.isActive = false
+            
+            
+        }else {
+            let user = userArray[indexPath.row]
+            profileVC.headerView.configure(user: user)
+            navigationController?.pushViewController(profileVC, animated: true)
+        }
+    }
     
 }
 

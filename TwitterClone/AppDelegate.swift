@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ProfileViewController.delegate = self
         onboardingVC.loginVC.delegate = self
         setupProfileVC.delegate = self
+        
         setRootVC()
         
         
@@ -79,7 +80,6 @@ extension AppDelegate:RegisterViewControllerProtocol {
 
 extension AppDelegate:ProfileViewControllerPorotocol {
     func didLogOut() {
-        mainTabBarVC.selectedIndex = 0
         let navOnboarding = UINavigationController(rootViewController: onboardingVC)
         setRootViewController(navOnboarding)
     }

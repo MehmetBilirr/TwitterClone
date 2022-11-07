@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
     private let logOutButton =  UIButton()
     let profileVM = ProfileViewModel()
     let headerView = ProfileTableViewHeader(frame: .zero)
+    let searchVC = SearchViewController()
     
     
     private let addButton = UIButton()
@@ -33,30 +34,25 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        SearchViewController.delegate = self
         configureProfileTableView()
         configureStatusBar()
         configureButtons()
         configureAddButton()
+        setup()
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        guard let uuid = Auth.auth().currentUser?.uid else {
-            return
-        }
-        
-        ProgressHUD.show()
-
-        UserService.shared.fetchUser(uuid: uuid) { User in
-            self.headerView.configure(user: User)
-            ProgressHUD.dismiss()
-        }
-    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileTableView.frame  = view.bounds
+    }
+    
+  
+    
+    private func setup(){
+        
     }
     
     private func configureButtons(){
@@ -211,6 +207,16 @@ extension ProfileViewController:TweetTableViewCellProtocol {
     
     func tweetTableViewCellDidTapShare() {
         print("Share button tapped.")
+    }
+    
+    
+}
+
+
+extension ProfileViewController:SearchViewControllerProtocol {
+    func didTapCell(user: User) {
+        headerView.configure(user: user)
+        print("------\(user)")
     }
     
     
