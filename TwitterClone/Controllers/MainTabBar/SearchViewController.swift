@@ -10,10 +10,14 @@ import UIKit
 class SearchViewController: UIViewController {
     private let searchController = UISearchController()
     private let tableView = UITableView()
+    var userArray = [User]()
+    private let searchVM = SearchViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureTableView()
+        setup()
+        
         
     }
     
@@ -26,13 +30,21 @@ class SearchViewController: UIViewController {
         
         tableView.tableHeaderView = searchController.searchBar
         searchController.searchResultsUpdater = self
+
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.identifier)
         
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-
+    
+    func setup(){
+        searchVM.fetchUsers {  uARray in
+            self.userArray = uARray
+            self.tableView.reloadData()
+        }
+    }
 
 }
 
@@ -40,12 +52,13 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return userArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "test"
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.identifier, for: indexPath) as! UserTableViewCell
+        let user = userArray[indexPath.row]
+        cell.configure(user: user)
         return cell
     }
     

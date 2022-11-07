@@ -27,6 +27,8 @@
 		F09B992A2912A8FF0072F739 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F09B99292912A8FF0072F739 /* SnapKit */; };
 		F09B992D2912E6560072F739 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B992C2912E6560072F739 /* ProfileViewController.swift */; };
 		F09B992F2912EE2F0072F739 /* ProfileTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B992E2912EE2F0072F739 /* ProfileTableViewHeader.swift */; };
+		F09BC0702919959F0080E2D1 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09BC06F2919959F0080E2D1 /* UserTableViewCell.swift */; };
+		F09BC07229199A1E0080E2D1 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09BC07129199A1E0080E2D1 /* SearchViewModel.swift */; };
 		F0A082BF291412BB00E90F00 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0A082BE291412BB00E90F00 /* GoogleService-Info.plist */; };
 		F0A082C2291413EF00E90F00 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0A082C1291413EF00E90F00 /* FirebaseAuth */; };
 		F0A082C4291413EF00E90F00 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F0A082C3291413EF00E90F00 /* FirebaseAuthCombine-Community */; };
@@ -63,6 +65,8 @@
 		F09B99262912A81A0072F739 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		F09B992C2912E6560072F739 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F09B992E2912EE2F0072F739 /* ProfileTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewHeader.swift; sourceTree = "<group>"; };
+		F09BC06F2919959F0080E2D1 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		F09BC07129199A1E0080E2D1 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		F0A082BE291412BB00E90F00 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F0A48C682917124E00D035D5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 			children = (
 				F09B99262912A81A0072F739 /* TweetTableViewCell.swift */,
 				F09B992E2912EE2F0072F739 /* ProfileTableViewHeader.swift */,
+				F09BC06F2919959F0080E2D1 /* UserTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				F09745ED291802500049AD32 /* ProfileViewModel.swift */,
 				F09745EF291825F70049AD32 /* SetupProfileViewModel.swift */,
 				F09745F4291847A10049AD32 /* HomeViewModel.swift */,
+				F09BC07129199A1E0080E2D1 /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -301,6 +307,7 @@
 			files = (
 				F0A48C692917124E00D035D5 /* LoginViewController.swift in Sources */,
 				F099DE622911CF6A00367498 /* NotificationsViewController.swift in Sources */,
+				F09BC0702919959F0080E2D1 /* UserTableViewCell.swift in Sources */,
 				F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */,
 				F09745F5291847A10049AD32 /* HomeViewModel.swift in Sources */,
 				F09745EA2917EDD00049AD32 /* SetupProfileViewController.swift in Sources */,
@@ -312,6 +319,7 @@
 				F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */,
 				F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */,
 				F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */,
+				F09BC07229199A1E0080E2D1 /* SearchViewModel.swift in Sources */,
 				F09745F0291825F70049AD32 /* SetupProfileViewModel.swift in Sources */,
 				F09745FB29185B070049AD32 /* UserService.swift in Sources */,
 				F09745F3291847500049AD32 /* User.swift.swift in Sources */,

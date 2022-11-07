@@ -31,11 +31,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        UserService.shared.fetchUsers { userarray in
-            print(userarray)
-        }
-    }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
