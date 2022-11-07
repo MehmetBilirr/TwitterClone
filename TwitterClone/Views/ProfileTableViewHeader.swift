@@ -340,7 +340,7 @@ extension ProfileTableViewHeader {
     }
     
     func configure(user:User) {
-        userNameLbl.text = user.username
+        userNameLbl.text = ("@\(user.username)")
         nameLbl.text = user.fullname
         userImageView.sd_setImage(with: URL(string: user.imageUrl))
     }
