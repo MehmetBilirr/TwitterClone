@@ -159,7 +159,12 @@ extension SetupProfileViewController:UIImagePickerControllerDelegate,UINavigatio
         }else {
             
             setupProfileVM.setupProfile(imageView: imageView, userName: username, fullName: fullName)
-            delegate?.didFinishSetup()
+                self.delegate?.didFinishSetup()
+            userNameTxtFld.text = ""
+            fullNameTxtFld.text = ""
+            imageView.image = UIImage(systemName: "plus.circle")
+                
+            
             
 
         }

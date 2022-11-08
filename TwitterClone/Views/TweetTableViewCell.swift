@@ -15,7 +15,7 @@ protocol TweetTableViewCellProtocol:AnyObject {
     func tweetTableViewCellDidTapRetweet()
     func tweetTableViewCellDidTapLike()
     func tweetTableViewCellDidTapShare()
-    func PPtapped()
+    func PPtapped(user:User)
 }
 
 class TweetTableViewCell: UITableViewCell {
@@ -31,6 +31,7 @@ class TweetTableViewCell: UITableViewCell {
     private let likeButton = UIButton()
     private let shareButton = UIButton()
     weak var delegate: TweetTableViewCellProtocol?
+    var chosenUser = User(fullname: "", imageUrl: "", username: "")
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -153,7 +154,17 @@ class TweetTableViewCell: UITableViewCell {
     
     @objc func didTapProfile(){
         
-        delegate?.PPtapped()
+        delegate?.PPtapped(user: chosenUser)
+    }
+    
+    func configure(tweet:Tweet) {
+        guard let user = tweet.user else {return}
+        chosenUser = user
+        userImageView.sd_setImage(with: URL(string: user.imageUrl))
+        userNameLbl.text = user.username
+        nameLbl.text = user.fullname
+        tweetLbl.text = tweet.caption
+        
     }
     
 }

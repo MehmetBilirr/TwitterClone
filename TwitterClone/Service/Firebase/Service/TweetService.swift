@@ -14,8 +14,7 @@ import FirebaseFirestore
 
 class TweetService{
     
-    static let shared = TweetService()
-    init(){}
+    let userService = UserService()
     
     func createData(caption:String){
         
@@ -42,7 +41,7 @@ class TweetService{
     
     func fetchData(completion:@escaping([Tweet])->Void) {
         var tweetArray = [Tweet]()
-        Firestore.firestore().collection("tweets").getDocuments { snapshot, error in
+        Firestore.firestore().collection("tweets").order(by: "timestamp", descending: true).getDocuments { snapshot, error in
             
             guard let documents = snapshot?.documents else {return}
             documents.forEach { document in
@@ -55,7 +54,7 @@ class TweetService{
                 
                 guard let uid = tweetArray[i].uid else {return}
                  
-                UserService.shared.fetchUser(uuid: uid) { User in
+                self.userService.fetchUser(uuid: uid) { User in
                     tweetArray[i].user = User
                     completion(tweetArray)
                 }

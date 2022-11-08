@@ -8,14 +8,36 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import ProgressHUD
+
+protocol HomeViewModelProtocol:AnyObject {
+    func getTweets(tweets:[Tweet])
+    func getUser(user:User)
+}
 
 class HomeViewModel {
-    
-    func fetchUser(completion:@escaping (User)->Void){
+    weak var delegate:HomeViewModelProtocol?
+    let userService = UserService()
+    let tweetService = TweetService()
+    func fetchUser(){
         
         guard let uuid = Auth.auth().currentUser?.uid else {return}
-        UserService.shared.fetchUser(uuid: uuid, completion: completion)
+        userService.fetchUser(uuid: uuid) { User in
+            self.delegate?.getUser(user: User)
+            
+        }
+        
+        
             
         
     }
+    
+    func fetchTweets(){
+        tweetService.fetchData { tweets in
+            self.delegate?.getTweets(tweets: tweets)
+            
+        }
+        
+    }
+    
 }

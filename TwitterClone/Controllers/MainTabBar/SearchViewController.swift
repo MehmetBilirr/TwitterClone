@@ -22,9 +22,13 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         configureTableView()
-        setup()
+        searchVM.delegate = self
         
         
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        searchVM.fetchUsers()
     }
     
     
@@ -45,13 +49,6 @@ class SearchViewController: UIViewController {
         tableView.frame = view.bounds
     }
     
-    func setup(){
-        searchVM.fetchUsers {  uARray in
-            self.userArray = uARray
-            self.tableView.reloadData()
-        }
-    }
-
 }
 
 
@@ -130,6 +127,13 @@ extension SearchViewController:UISearchResultsUpdating,UISearchControllerDelegat
     }
     
     
+}
+
+extension SearchViewController:SearchViewModelProtocol {
+    func getUsers(users: [User]) {
+        userArray = users
+        tableView.reloadData()
+    }
     
     
 }

@@ -17,32 +17,37 @@ class HomeViewController: UIViewController {
     let timeLineTableView = UITableView()
     let profileVc = ProfileViewController()
     let homeVM = HomeViewModel()
+    var currentUser = User(fullname: "", imageUrl: "", username: "")
     let userImageView = UIImageView()
-    var user:User?
+    
+    var tweetArray = [Tweet]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       configureNavigationBar()
+       
+        setup()
         configureTableView()
         configureAddButton()
         configureNavigationBar()
         
-        TweetService.shared.fetchData { tweets in
-            print(tweets)
-        }
-        
+
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        homeVM.fetchUser { User in
-            self.userImageView.sd_setImage(with: URL(string: User.imageUrl))
-                    }
-    }
-    
-    
+ 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         timeLineTableView.frame = view.bounds
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        homeVM.fetchTweets()
+        homeVM.fetchUser()
+        
+        
+    }
+
+    private func setup() {
+        homeVM.delegate = self
+        
+        
     }
     
     
@@ -125,9 +130,7 @@ extension HomeViewController {
     
     @objc func didTapProfile() {
         let vc = ProfileViewController()
-        homeVM.fetchUser { User in
-            vc.headerView.configure(user: User)
-        }
+        vc.headerView.configure(user: currentUser)
         
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -140,11 +143,13 @@ extension HomeViewController {
 //Extension - TableView
 extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return tweetArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TweetTableViewCell.identifier, for: indexPath) as! TweetTableViewCell
+        let tweet = tweetArray[indexPath.row]
+        cell.configure(tweet: tweet)
         cell.delegate = self
         return cell
     }
@@ -167,17 +172,15 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
 
 // Extension-Cell Protocol
 extension HomeViewController:TweetTableViewCellProtocol {
-    func PPtapped() {
-        
+    func PPtapped(user: User) {
         let vc = ProfileViewController()
-        homeVM.fetchUser { User in
-            vc.headerView.configure(user: User)
-        }
         
+        vc.headerView.configure(user: user)
         
         navigationController?.pushViewController(vc, animated: true)
     }
     
+  
     func tweetTableViewCellDidTapReply() {
         print("Reply button tapped.")
         
@@ -193,6 +196,26 @@ extension HomeViewController:TweetTableViewCellProtocol {
     
     func tweetTableViewCellDidTapShare() {
         print("Share button tapped.")
+    }
+    
+    
+}
+
+//Extension HomeViewModel Protocol
+
+extension HomeViewController:HomeViewModelProtocol {
+    func getUser(user: User) {
+        currentUser = user
+        
+        self.userImageView.sd_setImage(with: URL(string: user.imageUrl))
+        print(user.imageUrl)
+        
+        
+    }
+    
+    func getTweets(tweets: [Tweet]) {
+        tweetArray = tweets
+        timeLineTableView.reloadData()
     }
     
     

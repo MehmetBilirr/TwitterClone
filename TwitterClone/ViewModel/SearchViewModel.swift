@@ -6,12 +6,20 @@
 //
 
 import Foundation
-
+protocol SearchViewModelProtocol:AnyObject{
+    func getUsers(users:[User])
+}
 
 class SearchViewModel {
-    
-    func fetchUsers(completion:@escaping ([User])->Void){
+    let userService = UserService()
+    weak var delegate:SearchViewModelProtocol?
+    func fetchUsers(){
         
-        UserService.shared.fetchUsers(completion: completion)
+        userService.fetchUsers {  userArray in
+            self.delegate?.getUsers(users: userArray)
+            
+        }
+        
+        
     }
 }

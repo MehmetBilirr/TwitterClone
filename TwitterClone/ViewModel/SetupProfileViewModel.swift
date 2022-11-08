@@ -14,12 +14,12 @@ import ProgressHUD
 
 
 class SetupProfileViewModel {
-    
+    let userService = UserService()
     
     func setupProfile(imageView:UIImageView,userName:String,fullName:String){
         
         
-        UserService.shared.setupProfile(imageView: imageView, userName: userName, fullName: fullName)
+        userService.setupProfile(imageView: imageView, userName: userName, fullName: fullName)
         
     }
     

@@ -13,8 +13,6 @@ import UIKit
 
 class UserService {
     
-    static let shared = UserService()
-    init(){}
     
     
     func fetchUser(uuid:String,completion:@escaping (User)->Void){
@@ -48,7 +46,6 @@ class UserService {
         
         
         getImageUrl(imageView: imageView) { imageUrl in
-            print(imageUrl)
             self.createDataFirestore(imageUrl: imageUrl, userName: userName, fullName: fullName)
             
             

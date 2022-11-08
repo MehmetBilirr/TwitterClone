@@ -187,11 +187,10 @@ extension ProfileViewController{
 
 
 extension ProfileViewController:TweetTableViewCellProtocol {
-    func PPtapped() {
+    func PPtapped(user: User) {
         
     }
-    
-    
+
     func tweetTableViewCellDidTapReply() {
         print("Reply button tapped.")
         

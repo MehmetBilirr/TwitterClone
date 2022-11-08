@@ -13,6 +13,7 @@ class TweetViewController: UIViewController {
     private let tweetButton = UIButton()
     private let userImageView = UIImageView()
     private let tweetTxtView = UITextView()
+    let tweetService = TweetService()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -91,7 +92,7 @@ class TweetViewController: UIViewController {
         
         guard let text = tweetTxtView.text else {return}
         
-        TweetService.shared.createData(caption: text)
+        tweetService.createData(caption: text)
         navigationController?.popViewController(animated: true)
     }
     
