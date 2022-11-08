@@ -15,13 +15,8 @@ class ProfileViewModel {
     
     
     func logOut(completion:(Bool)->Void){
-           do {
-               try Auth.auth().signOut()
-               completion(true)
-           }catch{
-               completion(false)
-               ProgressHUD.showError(error.localizedDescription)
-           }
+           
+        AuthService.shared.logOut(completion: completion)
        }
     
     

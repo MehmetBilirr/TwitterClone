@@ -25,14 +25,11 @@ class HomeViewController: UIViewController {
         configureTableView()
         configureAddButton()
         
-        
-        
-        
-        
-        
-        view.backgroundColor = .systemBackground
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        configureNavigationBar()
+    }
     
     
     override func viewDidLayoutSubviews() {
@@ -133,7 +130,8 @@ extension HomeViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc func didTapAddButton(){
-        print("add button tapped")
+        let vc = TweetViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -173,6 +171,7 @@ extension HomeViewController:TweetTableViewCellProtocol {
         homeVM.fetchUser { User in
             vc.headerView.configure(user: User)
         }
+        
         
         navigationController?.pushViewController(vc, animated: true)
     }

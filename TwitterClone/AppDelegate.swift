@@ -10,7 +10,7 @@ import Firebase
 import FirebaseAuth
 
 
-let currentU = Auth.auth().currentUser
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
