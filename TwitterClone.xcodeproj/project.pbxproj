@@ -39,7 +39,8 @@
 		F0A082CF2914142E00E90F00 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */; };
 		F0A48C692917124E00D035D5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A48C682917124E00D035D5 /* LoginViewController.swift */; };
 		F0A53B6A291A8C4800F28559 /* AuthService.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A53B69291A8C4800F28559 /* AuthService.swift.swift */; };
-		F0A53B6C291A90AA00F28559 /* StroreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A53B6B291A90AA00F28559 /* StroreService.swift */; };
+		F0A53B6C291A90AA00F28559 /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A53B6B291A90AA00F28559 /* TweetService.swift */; };
+		F0A53B6E291AB30000F28559 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A53B6D291AB30000F28559 /* Tweet.swift */; };
 		F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */; };
 		F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D732916C18000C73C3F /* UITextField + extension.swift */; };
 		F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */; };
@@ -74,7 +75,8 @@
 		F0A082CE2914142E00E90F00 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F0A48C682917124E00D035D5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F0A53B69291A8C4800F28559 /* AuthService.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift.swift; sourceTree = "<group>"; };
-		F0A53B6B291A90AA00F28559 /* StroreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StroreService.swift; sourceTree = "<group>"; };
+		F0A53B6B291A90AA00F28559 /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
+		F0A53B6D291AB30000F28559 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F0DB0D732916C18000C73C3F /* UITextField + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + extension.swift"; sourceTree = "<group>"; };
 		F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				F09745F2291847500049AD32 /* User.swift.swift */,
+				F0A53B6D291AB30000F28559 /* Tweet.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -216,7 +219,7 @@
 			children = (
 				F09745FA29185B070049AD32 /* UserService.swift */,
 				F0A53B69291A8C4800F28559 /* AuthService.swift.swift */,
-				F0A53B6B291A90AA00F28559 /* StroreService.swift */,
+				F0A53B6B291A90AA00F28559 /* TweetService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -342,7 +345,7 @@
 				F0A53B6A291A8C4800F28559 /* AuthService.swift.swift in Sources */,
 				F099DE602911CF5F00367498 /* SearchViewController.swift in Sources */,
 				F099DE5E2911CF5400367498 /* HomeViewController.swift in Sources */,
-				F0A53B6C291A90AA00F28559 /* StroreService.swift in Sources */,
+				F0A53B6C291A90AA00F28559 /* TweetService.swift in Sources */,
 				F099DE642911CF7700367498 /* DirectMessagesViewController.swift in Sources */,
 				F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */,
 				F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */,
@@ -351,6 +354,7 @@
 				F09745FB29185B070049AD32 /* UserService.swift in Sources */,
 				F09745F3291847500049AD32 /* User.swift.swift in Sources */,
 				F09B992D2912E6560072F739 /* ProfileViewController.swift in Sources */,
+				F0A53B6E291AB30000F28559 /* Tweet.swift in Sources */,
 				F09745EE291802500049AD32 /* ProfileViewModel.swift in Sources */,
 				F0EBA0072919BEC6001EB4F3 /* TweetViewController.swift in Sources */,
 				F0A082CF2914142E00E90F00 /* OnboardingViewController.swift in Sources */,

@@ -32,6 +32,7 @@ class TweetViewController: UIViewController {
         tweetButton.clipsToBounds = true
         tweetButton.setTitleColor(.white, for: .normal)
         tweetButton.backgroundColor = .systemBlue
+        tweetButton.addTarget(self, action: #selector(tapTweetButton(_:)), for: .touchUpInside)
         let barButton = UIBarButtonItem(customView: tweetButton)
         navigationItem.rightBarButtonItem = barButton
         
@@ -56,6 +57,7 @@ class TweetViewController: UIViewController {
         tweetTxtView.textColor = .gray
         tweetTxtView.text = "What's happening?"
         tweetTxtView.font = .systemFont(ofSize: 18, weight: .regular)
+        
         
                 
         
@@ -83,6 +85,14 @@ class TweetViewController: UIViewController {
             
             
         }
+    }
+    
+    @objc func tapTweetButton(_ sender:UIButton) {
+        
+        guard let text = tweetTxtView.text else {return}
+        
+        TweetService.shared.createData(caption: text)
+        navigationController?.popViewController(animated: true)
     }
     
 }

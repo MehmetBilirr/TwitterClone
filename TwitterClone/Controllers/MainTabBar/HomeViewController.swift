@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import SDWebImage
+import ProgressHUD
 
 
 class HomeViewController: UIViewController {
@@ -24,11 +25,18 @@ class HomeViewController: UIViewController {
        configureNavigationBar()
         configureTableView()
         configureAddButton()
+        configureNavigationBar()
+        
+        TweetService.shared.fetchData { tweets in
+            print(tweets)
+        }
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        configureNavigationBar()
+        homeVM.fetchUser { User in
+            self.userImageView.sd_setImage(with: URL(string: User.imageUrl))
+                    }
     }
     
     
@@ -47,6 +55,9 @@ class HomeViewController: UIViewController {
         
         
     }
+    
+    
+
 
     private func configureNavigationBar(){
         let size:CGFloat = 36
@@ -54,15 +65,6 @@ class HomeViewController: UIViewController {
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.image = UIImage(named: "twitterLogo")
         navigationItem.titleView = logoImageView
-        
-      
-        homeVM.fetchUser { User in
-            self.userImageView.sd_setImage(with: URL(string: User.imageUrl))
-        }
-        
-       
-        
-        
         
         userImageView.layer.cornerRadius = 20
         userImageView.clipsToBounds = true

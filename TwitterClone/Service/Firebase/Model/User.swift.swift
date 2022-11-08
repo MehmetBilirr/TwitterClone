@@ -9,7 +9,7 @@ import Foundation
 
 
 struct User:Codable {
-    
+    var uid:String?
     let fullname:String
     let imageUrl:String
     let username:String

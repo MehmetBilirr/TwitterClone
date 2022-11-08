@@ -19,7 +19,7 @@ class SetupProfileViewModel {
     func setupProfile(imageView:UIImageView,userName:String,fullName:String){
         
         
-        StoreService.shared.setupProfile(imageView: imageView, userName: userName, fullName: fullName)
+        UserService.shared.setupProfile(imageView: imageView, userName: userName, fullName: fullName)
         
     }
     
