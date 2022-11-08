@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import ProgressHUD
 
 
 
@@ -91,7 +92,12 @@ extension AppDelegate:ProfileViewControllerPorotocol {
 extension AppDelegate:LoginViewControllerProcotol {
     func didLogin() {
 
-        window?.rootViewController = mainTabBarVC
+        ProgressHUD.showSucceed()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+            self.window?.rootViewController = self.mainTabBarVC
+            ProgressHUD.dismiss()
+        }
+        
     }
     
     
@@ -100,7 +106,12 @@ extension AppDelegate:LoginViewControllerProcotol {
 
 extension AppDelegate:SetupProfileViewControllerProtocol {
     func didFinishSetup() {
-        window?.rootViewController = mainTabBarVC
+        ProgressHUD.showSucceed()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+            self.window?.rootViewController = self.mainTabBarVC
+            ProgressHUD.dismiss()
+        }
+        
     }
     
     

@@ -24,6 +24,7 @@ class ProfileViewController: UIViewController {
     let profileVM = ProfileViewModel()
     let headerView = ProfileTableViewHeader(frame: .zero)
     let searchVC = SearchViewController()
+    var tweetArray = [Tweet]()
     
     
     private let addButton = UIButton()
@@ -52,6 +53,7 @@ class ProfileViewController: UIViewController {
   
     
     private func setup(){
+        profileVM.delegate = self
         
     }
     
@@ -132,12 +134,14 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return tweetArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TweetTableViewCell.identifier, for: indexPath) as! TweetTableViewCell
+        let tweet = tweetArray[indexPath.row]
         cell.delegate = self
+        cell.configure(tweet: tweet)
         return cell
     }
     
@@ -163,19 +167,10 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate {
 
 extension ProfileViewController{
     
-    @objc func didTapBackButton(_ sender:UIButton){
-        
-        
-        
-    }
     
     @objc func didLogOutButton(_ sender:UIButton) {
-        navigationController?.popViewController(animated: true)
-        profileVM.logOut { success in
-            if success {
-                ProfileViewController.delegate?.didLogOut()
-            }
-        }
+        
+        profileVM.logOut()
         
         
     }
@@ -215,7 +210,16 @@ extension ProfileViewController:TweetTableViewCellProtocol {
 extension ProfileViewController:SearchViewControllerProtocol {
     func didTapCell(user: User) {
         headerView.configure(user: user)
-        print("------\(user)")
+        
+    }
+    
+    
+}
+
+extension ProfileViewController:profileViewModelProtocol {
+    func didLogOut() {
+        navigationController?.popViewController(animated: true)
+        ProfileViewController.delegate?.didLogOut()
     }
     
     

@@ -9,14 +9,23 @@ import Foundation
 import ProgressHUD
 import Firebase
 
+protocol profileViewModelProtocol:AnyObject {
+    func didLogOut()
+}
 
 class ProfileViewModel {
+    weak var delegate:profileViewModelProtocol?
     
     
-    
-    func logOut(completion:(Bool)->Void){
+    func logOut(){
            
-        AuthService.shared.logOut(completion: completion)
+        
+        AuthService.shared.logOut { bool in
+            if bool {
+                delegate?.didLogOut()
+            }
+        }
+        
        }
     
     

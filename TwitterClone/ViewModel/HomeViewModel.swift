@@ -33,7 +33,7 @@ class HomeViewModel {
     }
     
     func fetchTweets(){
-        tweetService.fetchData { tweets in
+        tweetService.fetchAllData { tweets in
             self.delegate?.getTweets(tweets: tweets)
             
         }

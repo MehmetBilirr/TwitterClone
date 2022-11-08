@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
     let homeVM = HomeViewModel()
     var currentUser = User(fullname: "", imageUrl: "", username: "")
     let userImageView = UIImageView()
-    
+    let tweetService = TweetService()
     var tweetArray = [Tweet]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,6 +131,11 @@ extension HomeViewController {
     @objc func didTapProfile() {
         let vc = ProfileViewController()
         vc.headerView.configure(user: currentUser)
+        guard let user = Auth.auth().currentUser else {return}
+        tweetService.fetchUserData(uuid: user.uid) { tweets in
+            vc.tweetArray = tweets
+            vc.profileTableView.reloadData()
+        }
         
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -174,8 +179,13 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
 extension HomeViewController:TweetTableViewCellProtocol {
     func PPtapped(user: User) {
         let vc = ProfileViewController()
-        
         vc.headerView.configure(user: user)
+        guard let uid = user.uid else {return}
+        print(uid)
+        tweetService.fetchUserData(uuid: uid) { tweets in
+            vc.tweetArray = tweets
+            vc.profileTableView.reloadData()
+        }
         
         navigationController?.pushViewController(vc, animated: true)
     }
