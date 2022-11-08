@@ -13,14 +13,15 @@ import ProgressHUD
 
 
 class HomeViewController: UIViewController {
-    let addButton = UIButton()
-    let timeLineTableView = UITableView()
-    let profileVc = ProfileViewController()
-    let homeVM = HomeViewModel()
+    private let addButton = UIButton()
+    private let timeLineTableView = UITableView()
+    private let profileVC = ProfileViewController()
+    private let homeVM = HomeViewModel()
     var currentUser = User(fullname: "", imageUrl: "", username: "")
-    let userImageView = UIImageView()
-    let tweetService = TweetService()
+    private let userImageView = UIImageView()
+    private let tweetService = TweetService()
     var tweetArray = [Tweet]()
+    private let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -28,7 +29,7 @@ class HomeViewController: UIViewController {
         configureTableView()
         configureAddButton()
         configureNavigationBar()
-        
+        configureRefreshControl()
 
     }
  
@@ -38,15 +39,15 @@ class HomeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        homeVM.fetchTweets()
+        tabBarController?.tabBar.isHidden = false
         homeVM.fetchUser()
         
         
     }
-
     private func setup() {
-        homeVM.delegate = self
         
+        homeVM.delegate = self
+        homeVM.fetchTweets()
         
     }
     
@@ -58,6 +59,14 @@ class HomeViewController: UIViewController {
         
         timeLineTableView.register(TweetTableViewCell.self, forCellReuseIdentifier: TweetTableViewCell.identifier)
         
+        
+    }
+    
+    func configureRefreshControl(){
+        
+            
+            refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
+            timeLineTableView.refreshControl = refreshControl
         
     }
     
@@ -138,6 +147,15 @@ extension HomeViewController {
     @objc func didTapAddButton(){
         let vc = TweetViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func refreshContent(){
+        tweetArray = []
+        homeVM.fetchTweets()
+        timeLineTableView.reloadData()
+        refreshControl.endRefreshing()
+        
+        
     }
 }
 

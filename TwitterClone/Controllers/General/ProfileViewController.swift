@@ -54,6 +54,7 @@ class ProfileViewController: UIViewController {
     
     private func setup(){
         profileVM.delegate = self
+        tabBarController?.tabBar.isHidden = false
         
     }
     
@@ -176,7 +177,8 @@ extension ProfileViewController{
     }
     
     @objc func didTapAddButton(_ sender:UIButton){
-        
+        let vc = TweetViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

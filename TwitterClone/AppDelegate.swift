@@ -93,7 +93,7 @@ extension AppDelegate:LoginViewControllerProcotol {
     func didLogin() {
 
         ProgressHUD.showSucceed()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
             self.window?.rootViewController = self.mainTabBarVC
             ProgressHUD.dismiss()
         }
