@@ -131,11 +131,7 @@ extension HomeViewController {
     @objc func didTapProfile() {
         let vc = ProfileViewController()
         vc.headerView.configure(user: currentUser)
-        guard let user = Auth.auth().currentUser else {return}
-        tweetService.fetchUserData(uuid: user.uid) { tweets in
-            vc.tweetArray = tweets
-            vc.profileTableView.reloadData()
-        }
+        homeVM.fetchCurrentUserTweet(viewController: vc)
         
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -181,11 +177,8 @@ extension HomeViewController:TweetTableViewCellProtocol {
         let vc = ProfileViewController()
         vc.headerView.configure(user: user)
         guard let uid = user.uid else {return}
-        print(uid)
-        tweetService.fetchUserData(uuid: uid) { tweets in
-            vc.tweetArray = tweets
-            vc.profileTableView.reloadData()
-        }
+        homeVM.fetchChosenUserTweet(uuid: uid, viewController: vc)
+        
         
         navigationController?.pushViewController(vc, animated: true)
     }

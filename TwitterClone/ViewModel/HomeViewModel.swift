@@ -26,9 +26,7 @@ class HomeViewModel {
             self.delegate?.getUser(user: User)
             
         }
-        
-        
-            
+    
         
     }
     
@@ -38,6 +36,23 @@ class HomeViewModel {
             
         }
         
+    }
+    
+    func fetchCurrentUserTweet(viewController:ProfileViewController){
+        guard let user = Auth.auth().currentUser else {return}
+        tweetService.fetchUserData(uuid: user.uid) { tweets in
+            viewController.tweetArray = tweets
+            viewController.profileTableView.reloadData()
+        
+        }
+    }
+    
+    func fetchChosenUserTweet(uuid:String,viewController:ProfileViewController) {
+        
+        tweetService.fetchUserData(uuid: uuid) { tweets in
+            viewController.tweetArray = tweets
+            viewController.profileTableView.reloadData()
+        }
     }
     
 }

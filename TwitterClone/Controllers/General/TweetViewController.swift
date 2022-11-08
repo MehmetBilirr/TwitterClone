@@ -14,6 +14,7 @@ class TweetViewController: UIViewController {
     private let userImageView = UIImageView()
     private let tweetTxtView = UITextView()
     let tweetService = TweetService()
+    let tweetVM = TweetViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,8 +23,15 @@ class TweetViewController: UIViewController {
         ConfigureBarButton()
         style()
         layout()
+        setup()
     }
     
+    
+    private func setup(){
+        tweetVM.delegate = self
+        tweetVM.fetchUserImage()
+        
+    }
     private func ConfigureBarButton(){
         
         tweetButton.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +58,7 @@ class TweetViewController: UIViewController {
         userImageView.clipsToBounds = true
         userImageView.layer.cornerRadius = 25
         userImageView.layer.masksToBounds = true
-        userImageView.image = UIImage(named: "UserImage")
+
         
         tweetTxtView.translatesAutoresizingMaskIntoConstraints = false
         tweetTxtView.textColor = .black
@@ -120,4 +128,13 @@ extension TweetViewController:UITextViewDelegate{
             textView.text = "What's happening?"
         }
     }
+}
+
+
+extension TweetViewController:TweetViewModelProtocol{
+    func getImageUrl(url: String) {
+        userImageView.sd_setImage(with: URL(string: url))
+    }
+    
+    
 }
