@@ -135,4 +135,27 @@ extension TweetService {
             }
         }
     }
+    
+    func fetchLikedTweets(uid:String,completion:@escaping([Tweet])->Void) {
+        
+        var tweetArray = [Tweet]()
+        Firestore.firestore().collection("users").document(uid).collection("user-likes").getDocuments { snapshot, error in
+            
+            guard let documents = snapshot?.documents else {return}
+                documents.forEach { doc in
+                    let tweetId = doc.documentID
+                    
+                    Firestore.firestore().collection("tweets").document(tweetId).getDocument { snapshot, _ in
+                        
+                        guard let tweet = try? snapshot?.data(as: Tweet.self) else {return}
+                        
+                        tweetArray.append(tweet)
+                        completion(tweetArray)
+                    }
+            }
+            
+        }
+        
+        
+    }
 }

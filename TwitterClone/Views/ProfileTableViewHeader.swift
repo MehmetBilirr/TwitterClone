@@ -10,8 +10,8 @@ import SnapKit
 import SDWebImage
 
 protocol ProfileTableViewHeaderProtocol:AnyObject {
-    func didTapLikeSection()
-    func didTapTweetsSection()
+    func didTapLikeSection(user:User)
+    func didTapTweetsSection(user:User)
 }
 
 class ProfileTableViewHeader: UIView {
@@ -42,6 +42,7 @@ class ProfileTableViewHeader: UIView {
     private let followersLbl = UILabel()
     var editButton = UIButton()
     weak var delegate:ProfileTableViewHeaderProtocol?
+    var chosenUser : User?
     private let indicator: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -325,18 +326,19 @@ extension ProfileTableViewHeader {
     
     @objc func didTapSectionButton(_ sender:UIButton) {
         guard let label = sender.titleLabel?.text else {return}
+        guard let user = chosenUser else {return}
         print(label)
         switch label {
         case SectionTabs.tweets.rawValue:
             selectedIndex = 0
-            delegate?.didTapTweetsSection()
+            delegate?.didTapTweetsSection(user: user)
         case SectionTabs.tweetsReplies.rawValue:
             selectedIndex = 1
         case SectionTabs.media.rawValue:
             selectedIndex = 2
         case SectionTabs.likes.rawValue:
             selectedIndex = 3
-            delegate?.didTapLikeSection()
+            delegate?.didTapLikeSection(user: user)
             
         default:
             return selectedIndex = 0
@@ -349,5 +351,6 @@ extension ProfileTableViewHeader {
         userNameLbl.text = ("@\(user.username)")
         nameLbl.text = user.fullname
         userImageView.sd_setImage(with: URL(string: user.imageUrl))
+        chosenUser = user
     }
 }

@@ -8,6 +8,7 @@
 import Foundation
 import ProgressHUD
 import Firebase
+import FirebaseFirestoreSwift
 
 protocol ProfileViewModelProtocol:AnyObject {
     func didLogOut()
@@ -15,6 +16,7 @@ protocol ProfileViewModelProtocol:AnyObject {
 
 class ProfileViewModel {
     weak var delegate:ProfileViewModelProtocol?
+    let tweetService = TweetService()
     
     
     func logOut(){
@@ -27,6 +29,8 @@ class ProfileViewModel {
         }
         
        }
+    
+    
     
     
 }

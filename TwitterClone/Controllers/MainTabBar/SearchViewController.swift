@@ -18,6 +18,7 @@ class SearchViewController: UIViewController {
     var filteredArray = [User]()
     private let searchVM = SearchViewModel()
     static weak var delegate : SearchViewControllerProtocol?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +69,7 @@ extension SearchViewController:UITableViewDelegate,UITableViewDataSource {
         if searchController.isActive {
             let user = filteredArray[indexPath.row]
             cell.configure(user: user)
+            
         }else {
             let user = userArray[indexPath.row]
             cell.configure(user: user)
@@ -84,14 +86,18 @@ extension SearchViewController:UITableViewDelegate,UITableViewDataSource {
             
             
             profileVC.headerView.configure(user: user)
+            searchVM.fetchChoosenUserTweet(uuid:user.uid!, viewController: profileVC)
             navigationController?.pushViewController(profileVC, animated: true)
             searchController.isActive = false
+            
             
             
         }else {
             let user = userArray[indexPath.row]
             profileVC.headerView.configure(user: user)
+            searchVM.fetchChoosenUserTweet(uuid:user.uid!, viewController: profileVC)
             navigationController?.pushViewController(profileVC, animated: true)
+            
         }
     }
     

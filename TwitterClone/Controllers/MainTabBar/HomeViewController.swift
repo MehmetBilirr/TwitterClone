@@ -13,10 +13,14 @@ import ProgressHUD
 
 
 class HomeViewController: UIViewController {
+
+    
+    
+    
     private let addButton = UIButton()
     private let timeLineTableView = UITableView()
     private let profileVC = ProfileViewController()
-    private let homeVM = HomeViewModel()
+    let homeVM = HomeViewModel()
     var currentUser = User(fullname: "", imageUrl: "", username: "")
     private let userImageView = UIImageView()
     private let tweetService = TweetService()
@@ -27,10 +31,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
        
         setup()
-        configureTableView()
-        configureAddButton()
-        configureNavigationBar()
-        configureRefreshControl()
+        
 
     }
  
@@ -39,16 +40,16 @@ class HomeViewController: UIViewController {
         timeLineTableView.frame = view.bounds
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = false
-        homeVM.fetchUser()
-        
-        
-    }
+    
     private func setup() {
-        
         homeVM.delegate = self
+        homeVM.fetchUser()
         homeVM.fetchTweets()
+        configureTableView()
+        configureAddButton()
+        configureNavigationBar()
+        configureRefreshControl()
+        
         
     }
     
@@ -84,7 +85,7 @@ class HomeViewController: UIViewController {
         userImageView.layer.cornerRadius = 20
         userImageView.clipsToBounds = true
         userImageView.contentMode = .scaleAspectFit
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfile))
         userImageView.addGestureRecognizer(tapGesture)
         userImageView.isUserInteractionEnabled = true
@@ -180,15 +181,15 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         
-        let defaultOffset = view.safeAreaInsets.top
-        
-        let offset = scrollView.contentOffset.y + defaultOffset
-        print(scrollView.contentOffset.y)
-        
-        
-        navigationController?.navigationBar.transform = .init(translationX: 0, y:min(0, -offset))
-    }
-    
+//        let defaultOffset = view.safeAreaInsets.top
+//
+//        let offset = scrollView.contentOffset.y + defaultOffset
+//        print(scrollView.contentOffset.y)
+//
+//
+//        navigationController?.navigationBar.transform = .init(translationX: 0, y:min(0, -offset))
+
+        }
     
     
 }
@@ -247,3 +248,5 @@ extension HomeViewController:HomeViewModelProtocol {
     
     
 }
+
+

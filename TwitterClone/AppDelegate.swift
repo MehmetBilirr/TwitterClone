@@ -92,9 +92,11 @@ extension AppDelegate:ProfileViewControllerPorotocol {
 extension AppDelegate:LoginViewControllerProcotol {
     func didLogin() {
 
-        ProgressHUD.showSucceed()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
+        ProgressHUD.show()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
             self.window?.rootViewController = self.mainTabBarVC
+            mainTabBarVC.vc1.homeVM.fetchUser()
+            mainTabBarVC.vc1.homeVM.fetchTweets()
             ProgressHUD.dismiss()
         }
         
@@ -106,9 +108,12 @@ extension AppDelegate:LoginViewControllerProcotol {
 
 extension AppDelegate:SetupProfileViewControllerProtocol {
     func didFinishSetup() {
-        ProgressHUD.showSucceed()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+        ProgressHUD.show()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
             self.window?.rootViewController = self.mainTabBarVC
+            mainTabBarVC.vc1.homeVM.fetchUser()
+            mainTabBarVC.vc1.homeVM.fetchTweets()
             ProgressHUD.dismiss()
         }
         

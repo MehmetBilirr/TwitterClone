@@ -233,18 +233,25 @@ extension ProfileViewController:ProfileViewModelProtocol {
 }
 
 extension ProfileViewController:ProfileTableViewHeaderProtocol {
-    func didTapTweetsSection() {
-        guard let user = Auth.auth().currentUser else {return}
-        tweetService.fetchUserData(uuid: user.uid) { tweets in
+    func didTapTweetsSection(user:User) {
+        guard let id = user.uid else {return}
+        tweetService.fetchUserData(uuid: id) { tweets in
             self.tweetArray = tweets
             self.profileTableView.reloadData()
+            print("user section")
         }
     }
     
-    func didTapLikeSection() {
-        guard let user = Auth.auth().currentUser else {return}
-        tweetArray = []
+    func didTapLikeSection(user:User) {
+        guard let id = user.uid else {return}
+        tweetService.fetchLikedTweets(uid: id) { tweets in
+            self.tweetArray = tweets
+        }
+
         profileTableView.reloadData()
+        
+        
+        
         
     }
     

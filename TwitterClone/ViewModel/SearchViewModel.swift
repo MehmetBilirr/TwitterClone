@@ -13,6 +13,8 @@ protocol SearchViewModelProtocol:AnyObject{
 class SearchViewModel {
     let userService = UserService()
     weak var delegate:SearchViewModelProtocol?
+    let tweetService = TweetService()
+    
     func fetchUsers(){
         
         userService.fetchUsers {  userArray in
@@ -20,6 +22,15 @@ class SearchViewModel {
             
         }
         
+        }
         
-    }
+        func fetchChoosenUserTweet(uuid:String,viewController:ProfileViewController) {
+            
+            tweetService.fetchUserData(uuid: uuid) { tweets in
+                viewController.tweetArray = tweets
+                viewController.profileTableView.reloadData()
+            }
+        }
+        
+    
 }

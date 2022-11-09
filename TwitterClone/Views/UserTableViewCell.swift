@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
+
 class UserTableViewCell: UITableViewCell {
     private let userImageView = UIImageView()
     private let userNameLbl = UILabel()

@@ -39,6 +39,10 @@ class TweetTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         stylee()
         layout()
+        
+        
+        
+        
     }
     
     required init?(coder: NSCoder) {
@@ -53,7 +57,7 @@ class TweetTableViewCell: UITableViewCell {
         userImageView.clipsToBounds = true
         userImageView.layer.cornerRadius = 25
         userImageView.layer.masksToBounds = true
-        userImageView.image = UIImage(named: "UserImage")
+
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfile))
         userImageView.addGestureRecognizer(tapGesture)
@@ -81,7 +85,6 @@ class TweetTableViewCell: UITableViewCell {
         tweetLbl.textColor = .black
         tweetLbl.numberOfLines = 0
         tweetLbl.lineBreakMode = .byWordWrapping
-        tweetLbl.text = "Hello There! I am Mehmet Bilir.I'am  currently learning Swift and looking for job as iOS Developer. "
         
         
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,8 +104,6 @@ class TweetTableViewCell: UITableViewCell {
         retweetButton.addTarget(self, action: #selector(didTapRetweet(_:)), for: .touchUpInside)
         
         likeButton.translatesAutoresizingMaskIntoConstraints = false
-        likeButton.setImage(UIImage(systemName: "suit.heart"), for: .normal)
-        likeButton.tintColor = .systemGray2
         likeButton.addTarget(self, action: #selector(didTapLike(_:)), for: .touchUpInside)
         
         
@@ -167,7 +168,25 @@ class TweetTableViewCell: UITableViewCell {
         userNameLbl.text = user.username
         nameLbl.text = user.fullname
         tweetLbl.text = tweet.caption
+        likeButtonProcess(tweet: tweet, button: likeButton)
+                
+    }
+    
+    func likeButtonProcess(tweet:Tweet,button:UIButton){
         
+        tweetService.checkIfUserLikedTweet(tweet: tweet) { didLike in
+            if didLike {
+                button.setImage(UIImage(systemName: "suit.heart.fill"), for: .normal)
+                button.tintColor = .red
+                
+            }else {
+                button.setImage(UIImage(systemName: "suit.heart"), for: .normal)
+                button.tintColor = .systemGray2
+                
+                
+            }
+        }
+
     }
     
 }
@@ -196,15 +215,12 @@ extension TweetTableViewCell {
                 self.tweetService.unlikeTweet(tweet: self.chosenTweet) {
                     self.chosenTweet.didLike = false
                 }
-                self.likeButton.setImage(UIImage(systemName: "suit.heart"), for: .normal)
-                self.likeButton.tintColor = .systemGray2
+                
             }else {
                 
                 self.tweetService.likeTweet(tweet: self.chosenTweet) { _ in
                     self.chosenTweet.didLike = true
                 }
-                self.likeButton.setImage(UIImage(systemName: "suit.heart.fill"), for: .normal)
-                self.likeButton.tintColor = .red
                 
             }
         }
