@@ -89,6 +89,12 @@ class TweetService{
     
   }
     
+
+}
+
+// Likes
+extension TweetService {
+    
     func likeTweet (tweet: Tweet,completion:@escaping(Bool) -> Void) {
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -129,5 +135,4 @@ class TweetService{
             }
         }
     }
-
 }

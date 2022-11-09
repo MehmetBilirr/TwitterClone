@@ -196,9 +196,7 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
 // Extension-Cell Protocol
 extension HomeViewController:TweetTableViewCellProtocol {
     func tweetTableViewCellDidTapLike(tweet: Tweet) {
-        tweetService.likeTweet(tweet: tweet) { bool in
-            
-        }
+        
     }
     
     func PPtapped(user: User) {

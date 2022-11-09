@@ -32,7 +32,8 @@ class TweetTableViewCell: UITableViewCell {
     private let shareButton = UIButton()
     weak var delegate: TweetTableViewCellProtocol?
     var chosenUser = User(fullname: "", imageUrl: "", username: "")
-    var chosenTweet : Tweet?
+    var chosenTweet = Tweet(caption: "", timestamp: Date(), likes: 0)
+    let tweetService = TweetService()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -187,8 +188,27 @@ extension TweetTableViewCell {
     }
     
     @objc func didTapLike(_ sender:UIButton){
-        guard let tweet = chosenTweet else {return}
-        delegate?.tweetTableViewCellDidTapLike(tweet: tweet)
+        print("didtapliked")
+        delegate?.tweetTableViewCellDidTapLike(tweet: chosenTweet)
+        
+        tweetService.checkIfUserLikedTweet(tweet: chosenTweet) { didLike in
+            if didLike {
+                self.tweetService.unlikeTweet(tweet: self.chosenTweet) {
+                    self.chosenTweet.didLike = false
+                }
+                self.likeButton.setImage(UIImage(systemName: "suit.heart"), for: .normal)
+                self.likeButton.tintColor = .systemGray2
+            }else {
+                
+                self.tweetService.likeTweet(tweet: self.chosenTweet) { _ in
+                    self.chosenTweet.didLike = true
+                }
+                self.likeButton.setImage(UIImage(systemName: "suit.heart.fill"), for: .normal)
+                self.likeButton.tintColor = .red
+                
+            }
+        }
+        
     }
     @objc func didTapShare(_ sender:UIButton){
         
