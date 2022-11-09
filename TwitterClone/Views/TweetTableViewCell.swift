@@ -13,7 +13,7 @@ import SnapKit
 protocol TweetTableViewCellProtocol:AnyObject {
     func tweetTableViewCellDidTapReply()
     func tweetTableViewCellDidTapRetweet()
-    func tweetTableViewCellDidTapLike()
+    func tweetTableViewCellDidTapLike(tweet:Tweet)
     func tweetTableViewCellDidTapShare()
     func PPtapped(user:User)
 }
@@ -32,6 +32,7 @@ class TweetTableViewCell: UITableViewCell {
     private let shareButton = UIButton()
     weak var delegate: TweetTableViewCellProtocol?
     var chosenUser = User(fullname: "", imageUrl: "", username: "")
+    var chosenTweet : Tweet?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -159,6 +160,7 @@ class TweetTableViewCell: UITableViewCell {
     
     func configure(tweet:Tweet) {
         guard let user = tweet.user else {return}
+        chosenTweet = tweet
         chosenUser = user
         userImageView.sd_setImage(with: URL(string: user.imageUrl))
         userNameLbl.text = user.username
@@ -185,8 +187,8 @@ extension TweetTableViewCell {
     }
     
     @objc func didTapLike(_ sender:UIButton){
-        
-        delegate?.tweetTableViewCellDidTapLike()
+        guard let tweet = chosenTweet else {return}
+        delegate?.tweetTableViewCellDidTapLike(tweet: tweet)
     }
     @objc func didTapShare(_ sender:UIButton){
         

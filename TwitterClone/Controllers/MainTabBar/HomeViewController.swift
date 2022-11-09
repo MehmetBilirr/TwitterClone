@@ -21,6 +21,7 @@ class HomeViewController: UIViewController {
     private let userImageView = UIImageView()
     private let tweetService = TweetService()
     var tweetArray = [Tweet]()
+    var chosenTweet : Tweet?
     private let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,10 +169,13 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TweetTableViewCell.identifier, for: indexPath) as! TweetTableViewCell
         let tweet = tweetArray[indexPath.row]
+
         cell.configure(tweet: tweet)
         cell.delegate = self
         return cell
     }
+    
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -191,13 +195,19 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
 
 // Extension-Cell Protocol
 extension HomeViewController:TweetTableViewCellProtocol {
+    func tweetTableViewCellDidTapLike(tweet: Tweet) {
+        tweetService.likeTweet(tweet: tweet) { bool in
+            
+        }
+    }
+    
     func PPtapped(user: User) {
         let vc = ProfileViewController()
         vc.headerView.configure(user: user)
         guard let uid = user.uid else {return}
+        guard let currentUser = Auth.auth().currentUser else {return}
         homeVM.fetchChosenUserTweet(uuid: uid, viewController: vc)
-        
-        
+        vc.headerView.editButton.isHidden = uid == currentUser.uid ? false : true
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -211,9 +221,7 @@ extension HomeViewController:TweetTableViewCellProtocol {
         print("Retweet button tapped.")
     }
     
-    func tweetTableViewCellDidTapLike() {
-        print("Like button tapped.")
-    }
+   
     
     func tweetTableViewCellDidTapShare() {
         print("Share button tapped.")

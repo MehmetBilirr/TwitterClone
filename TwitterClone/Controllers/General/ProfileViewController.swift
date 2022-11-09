@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController {
     let headerView = ProfileTableViewHeader(frame: .zero)
     let searchVC = SearchViewController()
     var tweetArray = [Tweet]()
-    
+    let tweetService = TweetService()
     
     private let addButton = UIButton()
     
@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        SearchViewController.delegate = self
+        
         configureProfileTableView()
         configureStatusBar()
         configureButtons()
@@ -53,8 +53,11 @@ class ProfileViewController: UIViewController {
   
     
     private func setup(){
+        SearchViewController.delegate = self
         profileVM.delegate = self
+        headerView.delegate = self
         tabBarController?.tabBar.isHidden = false
+         
         
     }
     
@@ -184,6 +187,10 @@ extension ProfileViewController{
 
 
 extension ProfileViewController:TweetTableViewCellProtocol {
+    func tweetTableViewCellDidTapLike(tweet: Tweet) {
+        
+    }
+    
     func PPtapped(user: User) {
         
     }
@@ -197,9 +204,7 @@ extension ProfileViewController:TweetTableViewCellProtocol {
         print("Retweet button tapped.")
     }
     
-    func tweetTableViewCellDidTapLike() {
-        print("Like button tapped.")
-    }
+
     
     func tweetTableViewCellDidTapShare() {
         print("Share button tapped.")
@@ -218,10 +223,29 @@ extension ProfileViewController:SearchViewControllerProtocol {
     
 }
 
-extension ProfileViewController:profileViewModelProtocol {
+extension ProfileViewController:ProfileViewModelProtocol {
     func didLogOut() {
         navigationController?.popViewController(animated: true)
         ProfileViewController.delegate?.didLogOut()
+    }
+    
+    
+}
+
+extension ProfileViewController:ProfileTableViewHeaderProtocol {
+    func didTapTweetsSection() {
+        guard let user = Auth.auth().currentUser else {return}
+        tweetService.fetchUserData(uuid: user.uid) { tweets in
+            self.tweetArray = tweets
+            self.profileTableView.reloadData()
+        }
+    }
+    
+    func didTapLikeSection() {
+        guard let user = Auth.auth().currentUser else {return}
+        tweetArray = []
+        profileTableView.reloadData()
+        
     }
     
     

@@ -9,6 +9,11 @@ import UIKit
 import SnapKit
 import SDWebImage
 
+protocol ProfileTableViewHeaderProtocol:AnyObject {
+    func didTapLikeSection()
+    func didTapTweetsSection()
+}
+
 class ProfileTableViewHeader: UIView {
     
     private enum  SectionTabs:String {
@@ -35,8 +40,8 @@ class ProfileTableViewHeader: UIView {
     private let followingLbl = UILabel()
     private let followersCountLbl = UILabel()
     private let followersLbl = UILabel()
-    private let editButton = UIButton()
-    
+    var editButton = UIButton()
+    weak var delegate:ProfileTableViewHeaderProtocol?
     private let indicator: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -142,7 +147,7 @@ class ProfileTableViewHeader: UIView {
         dateLbl.textColor = .secondaryLabel
         dateLbl.numberOfLines = 0
         dateLbl.lineBreakMode = .byWordWrapping
-        dateLbl.text = "Joined November 2009"
+        dateLbl.text = "Joined November 2022"
         
         followerStackView.translatesAutoresizingMaskIntoConstraints = false
         followerStackView.axis = .horizontal
@@ -324,13 +329,14 @@ extension ProfileTableViewHeader {
         switch label {
         case SectionTabs.tweets.rawValue:
             selectedIndex = 0
+            delegate?.didTapTweetsSection()
         case SectionTabs.tweetsReplies.rawValue:
             selectedIndex = 1
         case SectionTabs.media.rawValue:
             selectedIndex = 2
         case SectionTabs.likes.rawValue:
             selectedIndex = 3
-        
+            delegate?.didTapLikeSection()
             
         default:
             return selectedIndex = 0

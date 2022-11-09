@@ -9,12 +9,12 @@ import Foundation
 import ProgressHUD
 import Firebase
 
-protocol profileViewModelProtocol:AnyObject {
+protocol ProfileViewModelProtocol:AnyObject {
     func didLogOut()
 }
 
 class ProfileViewModel {
-    weak var delegate:profileViewModelProtocol?
+    weak var delegate:ProfileViewModelProtocol?
     
     
     func logOut(){
