@@ -74,7 +74,9 @@ class TweetService{
             documents.forEach { document in
                 guard let tweet = try? document.data(as: Tweet.self) else {return}
                 tweetArray.append(tweet)
+                
             }
+            
             for i in 0..<tweetArray.count {
                 guard let uid = tweetArray[i].uid else {return}
                 self.userService.fetchUser(uuid: uid) { User in
@@ -82,6 +84,7 @@ class TweetService{
                     completion(tweetArray.sorted(by: {$0.timestamp > $1.timestamp}))
                 }
             }
+            
             
             
     }
@@ -150,12 +153,27 @@ extension TweetService {
                         guard let tweet = try? snapshot?.data(as: Tweet.self) else {return}
                         
                         tweetArray.append(tweet)
-                        completion(tweetArray)
+                        
+                        for i in 0..<tweetArray.count {
+                            guard let uid = tweetArray[i].uid else {return}
+                            self.userService.fetchUser(uuid: uid) { User in
+                                tweetArray[i].user = User
+                                print(tweetArray)
+                                completion(tweetArray.sorted(by: {$0.timestamp > $1.timestamp}))
+                            }
+                        }
                     }
             }
+            
+            
+            
+           
             
         }
         
         
+        
     }
 }
+
+

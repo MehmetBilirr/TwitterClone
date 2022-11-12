@@ -238,7 +238,6 @@ extension ProfileViewController:ProfileTableViewHeaderProtocol {
         tweetService.fetchUserData(uuid: id) { tweets in
             self.tweetArray = tweets
             self.profileTableView.reloadData()
-            print("user section")
         }
     }
     
@@ -246,9 +245,10 @@ extension ProfileViewController:ProfileTableViewHeaderProtocol {
         guard let id = user.uid else {return}
         tweetService.fetchLikedTweets(uid: id) { tweets in
             self.tweetArray = tweets
+            self.profileTableView.reloadData()
         }
 
-        profileTableView.reloadData()
+        
         
         
         

@@ -31,6 +31,25 @@ class ProfileViewModel {
        }
     
     
+    func fetchUserData(uid:String,viewController:ProfileViewController) {
+        
+        tweetService.fetchUserData(uuid: uid) { tweets in
+            viewController.tweetArray = tweets
+            viewController.profileTableView.reloadData()
+        }
+    }
     
+    
+    func fetchLikeTweets(uid:String,viewController:ProfileViewController) {
+        
+        tweetService.fetchLikedTweets(uid: uid) { tweets in
+            viewController.tweetArray = tweets
+            print("--------\(tweets)")
+            viewController.profileTableView.reloadData()
+        }
+        
+        
+        
+    }
     
 }
