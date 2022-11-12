@@ -144,7 +144,13 @@ extension TweetService {
         var tweetArray = [Tweet]()
         Firestore.firestore().collection("users").document(uid).collection("user-likes").getDocuments { snapshot, error in
             
-            guard let documents = snapshot?.documents else {return}
+            
+            
+            guard let documents = snapshot?.documents else {return }
+            if documents.isEmpty {
+                completion([])
+            }
+                
                 documents.forEach { doc in
                     let tweetId = doc.documentID
                     
@@ -152,28 +158,29 @@ extension TweetService {
                         
                         guard let tweet = try? snapshot?.data(as: Tweet.self) else {return}
                         
+                        
                         tweetArray.append(tweet)
                         
                         for i in 0..<tweetArray.count {
                             guard let uid = tweetArray[i].uid else {return}
                             self.userService.fetchUser(uuid: uid) { User in
                                 tweetArray[i].user = User
-                                print(tweetArray)
                                 completion(tweetArray.sorted(by: {$0.timestamp > $1.timestamp}))
                             }
                         }
                     }
             }
             
-            
-            
-           
-            
         }
         
         
         
     }
+    
+    
+
+    
+    
 }
 
 

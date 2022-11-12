@@ -44,7 +44,6 @@ class ProfileViewModel {
         
         tweetService.fetchLikedTweets(uid: uid) { tweets in
             viewController.tweetArray = tweets
-            print("--------\(tweets)")
             viewController.profileTableView.reloadData()
         }
         
