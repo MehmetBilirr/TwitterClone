@@ -12,6 +12,8 @@ import SDWebImage
 protocol ProfileTableViewHeaderProtocol:AnyObject {
     func didTapLikeSection(user:User)
     func didTapTweetsSection(user:User)
+    func didTapTweetsAndReplies(user:User)
+    func didTapMedia()
 }
 
 class ProfileTableViewHeader: UIView {
@@ -334,8 +336,10 @@ extension ProfileTableViewHeader {
             delegate?.didTapTweetsSection(user: user)
         case SectionTabs.tweetsReplies.rawValue:
             selectedIndex = 1
+            delegate?.didTapTweetsAndReplies(user: user)
         case SectionTabs.media.rawValue:
             selectedIndex = 2
+            delegate?.didTapMedia()
         case SectionTabs.likes.rawValue:
             selectedIndex = 3
             delegate?.didTapLikeSection(user: user)

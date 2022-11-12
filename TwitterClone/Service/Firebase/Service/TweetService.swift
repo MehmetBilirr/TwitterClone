@@ -148,7 +148,7 @@ extension TweetService {
                 documents.forEach { doc in
                     let tweetId = doc.documentID
                     
-                    Firestore.firestore().collection("tweets").document(tweetId).getDocument { snapshot, _ in
+                    Firestore.firestore().collection("tweets").document(tweetId).getDocument { snapshot, error in
                         
                         guard let tweet = try? snapshot?.data(as: Tweet.self) else {return}
                         

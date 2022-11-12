@@ -233,6 +233,20 @@ extension ProfileViewController:ProfileViewModelProtocol {
 }
 
 extension ProfileViewController:ProfileTableViewHeaderProtocol {
+    func didTapTweetsAndReplies(user: User) {
+        guard let id = user.uid else {return}
+        tweetService.fetchUserData(uuid: id) { tweets in
+            self.tweetArray = tweets
+            self.profileTableView.reloadData()
+        }
+    }
+    
+    
+    func didTapMedia() {
+        tweetArray = []
+        profileTableView.reloadData()
+    }
+    
     func didTapTweetsSection(user:User) {
         guard let id = user.uid else {return}
         tweetService.fetchUserData(uuid: id) { tweets in
@@ -243,6 +257,8 @@ extension ProfileViewController:ProfileTableViewHeaderProtocol {
     
     func didTapLikeSection(user:User) {
         guard let id = user.uid else {return}
+        tweetArray = []
+        profileTableView.reloadData()
         tweetService.fetchLikedTweets(uid: id) { tweets in
             self.tweetArray = tweets
             self.profileTableView.reloadData()
