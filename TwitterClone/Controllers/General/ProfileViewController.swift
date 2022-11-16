@@ -10,10 +10,6 @@ import SnapKit
 import Firebase
 import ProgressHUD
 
-protocol ProfileViewControllerPorotocol:AnyObject {
-    func didLogOut()
-}
-
 protocol ProfileViewInterFace:AnyObject {
     func configureProfileTableView()
     func configureStatusBar()
@@ -35,7 +31,7 @@ class ProfileViewController: UIViewController {
     let headerView = ProfileTableViewHeader(frame: .zero)
     var tweetArray = [Tweet]()
     private let addButton = UIButton()
-    static weak var delegate : ProfileViewControllerPorotocol?
+
         
     
     override func viewDidLoad() {

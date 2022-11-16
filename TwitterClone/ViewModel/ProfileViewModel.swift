@@ -11,7 +11,7 @@ import Firebase
 import FirebaseFirestoreSwift
 import UIKit
 
-protocol ProfileViewModelProtocol:AnyObject {
+protocol ProfileToAppDelegate:AnyObject {
     func didLogOut()
 }
 
@@ -28,7 +28,7 @@ protocol ProfileViewModelInterface:AnyObject {
 }
 
 class ProfileViewModel {
-    weak var delegate:ProfileViewModelProtocol?
+    static var delegate:ProfileToAppDelegate?
     weak var view:ProfileViewInterFace?
     var navigationController: UINavigationController?
     let tweetService = TweetService()
@@ -61,7 +61,7 @@ extension ProfileViewModel:ProfileViewModelInterface {
         
         authService.logOut { bool in
             if bool {
-                ProfileViewController.delegate?.didLogOut()
+                ProfileViewModel.delegate?.didLogOut()
                 navigationController?.popViewController(animated: true)
             }
         }

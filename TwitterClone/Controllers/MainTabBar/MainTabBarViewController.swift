@@ -8,8 +8,8 @@
 import UIKit
 
 class MainTabBarViewController: UITabBarController {
-    let vc1 = HomeViewController()
-    let vc2 = SearchViewController()
+    let homeVC = HomeViewController()
+    let searchVC = SearchViewController()
     let vc3 = NotificationsViewController()
     let vc4 = DirectMessagesViewController()
     override func viewDidLoad() {
@@ -21,8 +21,8 @@ class MainTabBarViewController: UITabBarController {
     
     private func setup(){
         
-        let nc1 = UINavigationController(rootViewController: vc1)
-        let nc2 = UINavigationController(rootViewController: vc2)
+        let nc1 = UINavigationController(rootViewController: homeVC)
+        let nc2 = UINavigationController(rootViewController: searchVC)
         let nc3 = UINavigationController(rootViewController: vc3)
         let nc4 = UINavigationController(rootViewController: vc4)
         

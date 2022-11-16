@@ -34,12 +34,9 @@ class TweetViewController: UIViewController {
     }
     private func ConfigureBarButton(){
         
-        tweetButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        tweetButton.setTitle("  Tweet  ", for: .normal)
+        tweetButton.configureStyle(title: "  Tweet  ", titleColor: .white)
         tweetButton.layer.cornerRadius = 10
         tweetButton.clipsToBounds = true
-        tweetButton.setTitleColor(.white, for: .normal)
         tweetButton.backgroundColor = .systemBlue
         tweetButton.addTarget(self, action: #selector(tapTweetButton(_:)), for: .touchUpInside)
         let barButton = UIBarButtonItem(customView: tweetButton)

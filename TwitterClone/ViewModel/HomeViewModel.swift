@@ -11,8 +11,13 @@ import FirebaseFirestoreSwift
 import ProgressHUD
 import UIKit
 
+protocol PushToProfileDelegate:AnyObject {
+    func pushToProfileView(profileViewController:ProfileViewController,navigationController:UINavigationController)
+}
+
 protocol HomeViewModelInterface:AnyObject{
     var view:HomeViewInterface? {get set}
+    var delegate:PushToProfileDelegate? {get set}
     var navigationController: UINavigationController?{get set}
     func viewDidLoad()
     func fetchUser()
@@ -26,6 +31,7 @@ protocol HomeViewModelInterface:AnyObject{
 }
 final class HomeViewModel {
     weak var navigationController: UINavigationController?
+    weak var delegate: PushToProfileDelegate?
     weak var view: HomeViewInterface?
     var profileViewController = ProfileViewController()
     var tweetArray = [Tweet]()
@@ -64,7 +70,7 @@ extension HomeViewModel:HomeViewModelInterface {
             ProgressHUD.dismiss()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.navigationToViewController(viewController: self.profileViewController)
+            self.delegate?.pushToProfileView(profileViewController: self.profileViewController, navigationController: self.navigationController!)
         }
     
     }

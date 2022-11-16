@@ -6,8 +6,7 @@
 //
 
 import UIKit
-import Firebase
-import ProgressHUD
+
 
 protocol LoginViewInterface:AnyObject {
     func style()
@@ -39,41 +38,23 @@ extension LoginViewController:LoginViewInterface {
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapToDismiss)))
         
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
-        label.font = .systemFont(ofSize: 35, weight: .bold)
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
+        label.configureStyle(size: 35, weight: .bold, color: .black)
         label.text = "Login to your Account"
         
-        emailTxtFld.translatesAutoresizingMaskIntoConstraints = false
-        emailTxtFld.placeholder = "Email"
-        emailTxtFld.textColor = .black
+        emailTxtFld.configureStyle(placeHolder: "Email", txtColor: .black)
         
-        
-        
-        passwordTxtFld.translatesAutoresizingMaskIntoConstraints = false
-        passwordTxtFld.placeholder = "Password"
-        passwordTxtFld.textColor = .black
+        passwordTxtFld.configureStyle(placeHolder: "Password", txtColor: .black)
         passwordTxtFld.isSecureTextEntry = true
         passwordTxtFld.enablePasswordToggle()
         
-        registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.setTitle("Login", for: .normal)
+        registerButton.configureStyle(title: "Login", titleColor: .white)
         registerButton.layer.cornerRadius = 20
         registerButton.clipsToBounds = true
-        registerButton.setTitleColor(.white, for: .normal)
         registerButton.backgroundColor = .systemBlue
         registerButton.addTarget(self, action: #selector(didTapLogin(_:)), for: .touchUpInside)
         
-        
-        forgotLbl.translatesAutoresizingMaskIntoConstraints = false
+        forgotLbl.configureStyle(size: 18, weight: .regular, color: .black)
         forgotLbl.textAlignment = .center
-        forgotLbl.font = .systemFont(ofSize: 18, weight: .regular)
-        forgotLbl.textColor = .black
-        forgotLbl.numberOfLines = 0
-        forgotLbl.lineBreakMode = .byWordWrapping
         let attributedString  = NSMutableAttributedString(string: "Forgot password?", attributes: [NSAttributedString.Key.underlineStyle : true])
         forgotLbl.attributedText = attributedString
     }

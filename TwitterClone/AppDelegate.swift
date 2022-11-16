@@ -21,8 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let onboardingVC = OnboardingViewController()
     let registerVC = RegisterViewController()
     let loginVC = LoginViewController()
-    let profileVC = ProfileViewController()
+    var profileVC = ProfileViewController()
     let setupProfileVC = SetupProfileViewController()
+    var navOnboarding : UINavigationController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -31,21 +32,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        ProfileViewController.delegate = self
+        ProfileViewModel.delegate = self
         onboardingVC.viewModel.delegate = self
         registerVC.viewModel.delegate = self
         loginVC.viewModel.delegate = self
-        setupProfileVC.delegate = self
+        setupProfileVC.viewModel.delegate = self
+        mainTabBarVC.homeVC.viewModel.delegate = self
+        mainTabBarVC.searchVC.viewModel.delegate = self
         setRootVC()
         
         return true
     }
     
     
-    func setRootVC() {
+    private func setRootVC() {
         
         if Auth.auth().currentUser == nil {
-            let navOnboarding = UINavigationController(rootViewController: onboardingVC)
+            navOnboarding = UINavigationController(rootViewController: onboardingVC)
             window?.rootViewController = navOnboarding
         }else if Auth.auth().currentUser != nil && !UserDefaults.standard.hasOnSetup {
             window?.rootViewController = setupProfileVC
@@ -56,19 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
     }
-    
-    func setRootViewController(_ vc:UIViewController,animated:Bool = true) {
-        
-        guard animated,let window = self.window else {
-            return
-        }
-        
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
-        UIView.transition(with: window, duration: 1, options: .transitionCrossDissolve, animations: nil, completion: nil)
-    }
-        
-    }
+
+}
   
 
 extension AppDelegate:OnboardingToAppDelegate {
@@ -102,7 +94,7 @@ extension AppDelegate:LoginToAppDelegate {
     func didLogin() {
         
         if UserDefaults.standard.hasOnSetup {
-                mainTabBarVC.vc1.viewModel.fetchUser()
+                mainTabBarVC.homeVC.viewModel.fetchUser()
                 self.window?.rootViewController = self.mainTabBarVC
             
         }else {
@@ -112,30 +104,35 @@ extension AppDelegate:LoginToAppDelegate {
         
     }
     
-    
 }
 
 
-extension AppDelegate:ProfileViewControllerPorotocol {
-    func didLogOut() {
-        let navOnboarding = UINavigationController(rootViewController: onboardingVC)
-        setRootViewController(navOnboarding)
-    }
-    
-    
-}
-
-extension AppDelegate:SetupProfileViewControllerProtocol {
+extension AppDelegate:SetupToAppDelegate {
     func didFinishSetup() {
         ProgressHUD.show()
-            mainTabBarVC.vc1.viewModel.fetchUser()
+            mainTabBarVC.homeVC.viewModel.fetchUser()
             self.window?.rootViewController = self.mainTabBarVC
             UserDefaults.standard.hasOnSetup = true
             ProgressHUD.dismiss()
-        
-        
+    }
+    
+}
+
+extension AppDelegate:PushToProfileDelegate {
+    func pushToProfileView(profileViewController: ProfileViewController, navigationController: UINavigationController) {
+        profileVC = profileViewController
+        navigationController.pushViewController(profileVC, animated: true)
+    }
+    
+}
+
+extension AppDelegate:ProfileToAppDelegate {
+    func didLogOut() {
+       
+        window?.rootViewController = navOnboarding
     }
     
     
-    
 }
+
+

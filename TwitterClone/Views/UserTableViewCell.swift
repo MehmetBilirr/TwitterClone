@@ -26,29 +26,17 @@ class UserTableViewCell: UITableViewCell {
     }
     
     private func stylee(){
-        
-        userImageView.translatesAutoresizingMaskIntoConstraints = false
-        userImageView.contentMode = .scaleAspectFit
-        userImageView.clipsToBounds = true
+        userImageView.configureStyle(contntMode: .scaleAspectFit)
         userImageView.layer.cornerRadius = 25
         userImageView.layer.masksToBounds = true
         userImageView.image = UIImage(named: "UserImage")
+        
+        userNameLbl.configureStyle(size: 14, weight: .regular, color: .gray)
+        
+        nameLbl.configureStyle(size: 12, weight: .bold, color: .black)
+        
+        userStackView.configureStyle(axiS: .vertical, space: 2)
 
-        userNameLbl.translatesAutoresizingMaskIntoConstraints = false
-        userNameLbl.textAlignment = .left
-        userNameLbl.font = .systemFont(ofSize: 14, weight: .regular)
-        userNameLbl.textColor = .gray
-        userNameLbl.text = "@mblr9"
-        
-        nameLbl.translatesAutoresizingMaskIntoConstraints = false
-        nameLbl.textAlignment = .left
-        nameLbl.font = .systemFont(ofSize: 12, weight: .bold)
-        nameLbl.textColor = .black
-        nameLbl.text = "Mehmet Bilir"
-        
-        userStackView.translatesAutoresizingMaskIntoConstraints = false
-        userStackView.axis = .vertical
-        userStackView.spacing = 2
     }
     
     private func layout(){

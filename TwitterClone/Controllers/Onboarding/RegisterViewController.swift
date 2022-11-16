@@ -7,8 +7,7 @@
 
 import UIKit
 import SnapKit
-import Firebase
-import ProgressHUD
+
 
 
 protocol RegisterViewInterface:AnyObject {
@@ -51,7 +50,7 @@ extension RegisterViewController:RegisterViewInterface {
         passwordTxtFld.isSecureTextEntry = true
         passwordTxtFld.enablePasswordToggle()
         
-        registerButton.configureStyle(title: "Create Account", titleColor: .black)
+        registerButton.configureStyle(title: "Create Account", titleColor: .white)
         registerButton.layer.cornerRadius = 20
         registerButton.clipsToBounds = true
         registerButton.backgroundColor = .systemBlue

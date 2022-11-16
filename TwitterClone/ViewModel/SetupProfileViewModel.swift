@@ -10,12 +10,16 @@ import FirebaseFirestore
 import FirebaseAuth
 import FirebaseStorage
 import UIKit
-import ProgressHUD
+
+
+protocol SetupToAppDelegate:AnyObject {
+    func didFinishSetup()
+}
+
 
 protocol SetupProfileViewModelInterface:AnyObject {
-    
     var view:SetupProfileViewInterface? {get set}
-    
+    var delegate:SetupToAppDelegate? {get set}
     func viewDidLoad()
     func setupProfile(imageView:UIImageView,userName:String,fullName:String)
     func didTapImage()
@@ -23,6 +27,7 @@ protocol SetupProfileViewModelInterface:AnyObject {
 
 class SetupProfileViewModel {
     weak var view: SetupProfileViewInterface?
+    weak var delegate: SetupToAppDelegate?
     let userService = UserService()
         
 }
@@ -34,6 +39,7 @@ extension SetupProfileViewModel:SetupProfileViewModelInterface {
         userService.setupProfile(imageView: imageView, userName: userName, fullName: fullName) { [weak self] bool in
             if bool {
                 self?.view?.didSetupProfile()
+                self?.delegate?.didFinishSetup()
             }
         }
     }

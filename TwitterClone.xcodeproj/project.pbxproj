@@ -43,9 +43,11 @@
 		F0A53B6E291AB30000F28559 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A53B6D291AB30000F28559 /* Tweet.swift */; };
 		F0A53B70291AFF7800F28559 /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A53B6F291AFF7800F28559 /* TweetViewModel.swift */; };
 		F0BD28B52924559B00EBA8DC /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BD28B42924559B00EBA8DC /* OnboardingViewModel.swift */; };
-		F0BD28B72925135B00EBA8DC /* Label + Extension.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BD28B62925135B00EBA8DC /* Label + Extension.swift.swift */; };
+		F0BD28B72925135B00EBA8DC /* UILabel + Extension.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BD28B62925135B00EBA8DC /* UILabel + Extension.swift.swift */; };
 		F0BD28B92925145600EBA8DC /* UIButton + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BD28B82925145600EBA8DC /* UIButton + Extension.swift */; };
-		F0CA64B32922A6DB007FCFC5 /* LocalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA64B22922A6DB007FCFC5 /* LocalState.swift */; };
+		F0BD28BB29251C6900EBA8DC /* UIStackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BD28BA29251C6900EBA8DC /* UIStackView + Extension.swift */; };
+		F0BD28BF29252D5600EBA8DC /* UIImageView + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BD28BE29252D5600EBA8DC /* UIImageView + extension.swift */; };
+		F0CA64B32922A6DB007FCFC5 /* UserDefaults + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA64B22922A6DB007FCFC5 /* UserDefaults + extension.swift */; };
 		F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */; };
 		F0DB0D742916C18000C73C3F /* UITextField + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D732916C18000C73C3F /* UITextField + extension.swift */; };
 		F0DB0D772916CB1C00C73C3F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */; };
@@ -101,9 +103,11 @@
 		F0A53B6D291AB30000F28559 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		F0A53B6F291AFF7800F28559 /* TweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
 		F0BD28B42924559B00EBA8DC /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
-		F0BD28B62925135B00EBA8DC /* Label + Extension.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Label + Extension.swift.swift"; sourceTree = "<group>"; };
+		F0BD28B62925135B00EBA8DC /* UILabel + Extension.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift.swift"; sourceTree = "<group>"; };
 		F0BD28B82925145600EBA8DC /* UIButton + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extension.swift"; sourceTree = "<group>"; };
-		F0CA64B22922A6DB007FCFC5 /* LocalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalState.swift; sourceTree = "<group>"; };
+		F0BD28BA29251C6900EBA8DC /* UIStackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extension.swift"; sourceTree = "<group>"; };
+		F0BD28BE29252D5600EBA8DC /* UIImageView + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + extension.swift"; sourceTree = "<group>"; };
+		F0CA64B22922A6DB007FCFC5 /* UserDefaults + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults + extension.swift"; sourceTree = "<group>"; };
 		F0DB0D702916BDD900C73C3F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F0DB0D732916C18000C73C3F /* UITextField + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + extension.swift"; sourceTree = "<group>"; };
 		F0DB0D762916CB1C00C73C3F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 		F099DE462911C74300367498 /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
+				F09745F1291847460049AD32 /* Model */,
 				F09745F929185AFB0049AD32 /* Service */,
 				F0DB0D752916CB1000C73C3F /* ViewModel */,
 				F0DB0D722916C09D00C73C3F /* Utils */,
@@ -253,7 +258,6 @@
 		F0A53B66291A8AE800F28559 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				F09745F1291847460049AD32 /* Model */,
 				F0A53B67291A8AEE00F28559 /* Service */,
 			);
 			path = Firebase;
@@ -273,9 +277,11 @@
 			isa = PBXGroup;
 			children = (
 				F0DB0D732916C18000C73C3F /* UITextField + extension.swift */,
-				F0CA64B22922A6DB007FCFC5 /* LocalState.swift */,
-				F0BD28B62925135B00EBA8DC /* Label + Extension.swift.swift */,
+				F0CA64B22922A6DB007FCFC5 /* UserDefaults + extension.swift */,
+				F0BD28B62925135B00EBA8DC /* UILabel + Extension.swift.swift */,
 				F0BD28B82925145600EBA8DC /* UIButton + Extension.swift */,
+				F0BD28BA29251C6900EBA8DC /* UIStackView + Extension.swift */,
+				F0BD28BE29252D5600EBA8DC /* UIImageView + extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -446,16 +452,18 @@
 			files = (
 				F0A48C692917124E00D035D5 /* LoginViewController.swift in Sources */,
 				F099DE622911CF6A00367498 /* NotificationsViewController.swift in Sources */,
+				F0BD28BF29252D5600EBA8DC /* UIImageView + extension.swift in Sources */,
 				F09BC0702919959F0080E2D1 /* UserTableViewCell.swift in Sources */,
 				F0DB0D712916BDD900C73C3F /* RegisterViewController.swift in Sources */,
-				F0CA64B32922A6DB007FCFC5 /* LocalState.swift in Sources */,
+				F0CA64B32922A6DB007FCFC5 /* UserDefaults + extension.swift in Sources */,
 				F09745F5291847A10049AD32 /* HomeViewModel.swift in Sources */,
+				F0BD28BB29251C6900EBA8DC /* UIStackView + Extension.swift in Sources */,
 				F09745EA2917EDD00049AD32 /* SetupProfileViewController.swift in Sources */,
 				F09745EC291801A50049AD32 /* LoginViewModel.swift in Sources */,
 				F099DE4C2911C74300367498 /* MainTabBarViewController.swift in Sources */,
 				F0A53B70291AFF7800F28559 /* TweetViewModel.swift in Sources */,
 				F099DE482911C74300367498 /* AppDelegate.swift in Sources */,
-				F0BD28B72925135B00EBA8DC /* Label + Extension.swift.swift in Sources */,
+				F0BD28B72925135B00EBA8DC /* UILabel + Extension.swift.swift in Sources */,
 				F0A53B6A291A8C4800F28559 /* AuthService.swift.swift in Sources */,
 				F099DE602911CF5F00367498 /* SearchViewController.swift in Sources */,
 				F099DE5E2911CF5400367498 /* HomeViewController.swift in Sources */,

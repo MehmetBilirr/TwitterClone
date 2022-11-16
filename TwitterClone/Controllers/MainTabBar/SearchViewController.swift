@@ -18,7 +18,7 @@ protocol SearchViewInterface:AnyObject {
 final class SearchViewController: UIViewController {
     private let searchController = UISearchController()
     private let tableView = UITableView()
-    private let viewModel = SearchViewModel()
+    let viewModel = SearchViewModel()
 
 
     override func viewDidLoad() {

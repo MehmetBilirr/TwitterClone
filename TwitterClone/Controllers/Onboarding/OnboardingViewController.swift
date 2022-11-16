@@ -58,6 +58,7 @@ extension OnboardingViewController:OnboardingViewInterface {
         
         
         hadAccountLbl.configureStyle(size: 18, weight: .regular, color: .secondaryLabel)
+    
         hadAccountLbl.text = "Have an account already?"
         
         loginButton.configureStyle(title: "Login", titleColor: .systemBlue)
@@ -70,7 +71,7 @@ extension OnboardingViewController:OnboardingViewInterface {
         label.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-10)
-            make.top.equalToSuperview().offset(300)
+            make.top.equalToSuperview().offset(view.frame.height / 3)
         }
         
         view.addSubview(signUpButton)

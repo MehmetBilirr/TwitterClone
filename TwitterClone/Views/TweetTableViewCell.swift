@@ -52,44 +52,23 @@ class TweetTableViewCell: UITableViewCell {
     
     
     private func stylee(){
-        userImageView.translatesAutoresizingMaskIntoConstraints = false
-        userImageView.contentMode = .scaleAspectFit
-        userImageView.clipsToBounds = true
+        userImageView.configureStyle(contntMode: .scaleAspectFit)
         userImageView.layer.cornerRadius = 25
         userImageView.layer.masksToBounds = true
-
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfile))
         userImageView.addGestureRecognizer(tapGesture)
         userImageView.isUserInteractionEnabled = true
         
-        userStackView.translatesAutoresizingMaskIntoConstraints = false
-        userStackView.axis = .horizontal
-        userStackView.spacing = 5
+        userStackView.configureStyle(axiS: .horizontal, space: 5)
         
-        userNameLbl.translatesAutoresizingMaskIntoConstraints = false
-        userNameLbl.textAlignment = .center
-        userNameLbl.font = .systemFont(ofSize: 14, weight: .regular)
-        userNameLbl.textColor = .gray
+        userNameLbl.configureStyle(size: 14, weight: .regular, color: .gray)
+        userNameLbl.numberOfLines = 1
+        
+        nameLbl.configureStyle(size: 12, weight: .bold, color: .black)
 
+        tweetLbl.configureStyle(size: 14, weight: .regular, color: .black)
         
-        nameLbl.translatesAutoresizingMaskIntoConstraints = false
-        nameLbl.textAlignment = .center
-        nameLbl.font = .systemFont(ofSize: 12, weight: .bold)
-        nameLbl.textColor = .black
-        
-        tweetLbl.translatesAutoresizingMaskIntoConstraints = false
-        tweetLbl.textAlignment = .left
-        tweetLbl.font = .systemFont(ofSize: 14, weight: .regular)
-        tweetLbl.textColor = .black
-        tweetLbl.numberOfLines = 0
-        tweetLbl.lineBreakMode = .byWordWrapping
-        
-        
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-        buttonStackView.axis = .horizontal
-        buttonStackView.spacing = 70
-        
+        buttonStackView.configureStyle(axiS: .horizontal, space: 70)
         
         replyButton.translatesAutoresizingMaskIntoConstraints = false
         replyButton.setImage(UIImage(systemName: "bubble.right"), for: .normal)
@@ -140,7 +119,6 @@ class TweetTableViewCell: UITableViewCell {
             
         }
         
-        
         buttonStackView.addArrangedSubview(replyButton)
         buttonStackView.addArrangedSubview(retweetButton)
         buttonStackView.addArrangedSubview(likeButton)
@@ -164,7 +142,7 @@ class TweetTableViewCell: UITableViewCell {
         chosenTweet = tweet
         chosenUser = user
         userImageView.sd_setImage(with: URL(string: user.imageUrl))
-        userNameLbl.text = user.username
+        userNameLbl.text = "@\(user.username)"
         nameLbl.text = user.fullname
         tweetLbl.text = tweet.caption
         likeButtonProcess(tweet: tweet, button: likeButton)

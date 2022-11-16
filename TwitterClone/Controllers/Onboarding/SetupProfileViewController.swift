@@ -7,15 +7,8 @@
 
 import UIKit
 import SnapKit
-import FirebaseStorage
-import FirebaseFirestore
-import Firebase
 import ProgressHUD
 
-protocol SetupProfileViewControllerProtocol:AnyObject{
-    
-    func didFinishSetup()
-}
 
 protocol SetupProfileViewInterface:AnyObject {
     func style()
@@ -36,8 +29,8 @@ final class SetupProfileViewController: UIViewController {
     private let betweenView2 = UIView()
     private let imageView = UIImageView()
     private let doneButton = UIButton()
-    private let viewModel = SetupProfileViewModel()
-    weak var delegate:SetupProfileViewControllerProtocol?
+    let viewModel = SetupProfileViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -87,47 +80,33 @@ extension SetupProfileViewController:SetupProfileViewInterface {
         view.backgroundColor = .systemBackground
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapToDismiss)))
         
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
-        label.font = .systemFont(ofSize: 30, weight: .bold)
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
+        label.configureStyle(size: 38, weight: .bold, color: .black)
         label.text = "Get started.\n Create your profile"
         
+        userNameTxtFld.configureStyle(placeHolder: "Username", txtColor: .black)
         
-        userNameTxtFld.translatesAutoresizingMaskIntoConstraints = false
-        userNameTxtFld.placeholder = "Username"
+        fullNameTxtFld.configureStyle(placeHolder: "Fullname", txtColor: .black)
         
-        fullNameTxtFld.translatesAutoresizingMaskIntoConstraints = false
-        fullNameTxtFld.placeholder = "Full Name"
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.configureStyle(axiS: .vertical, space: 10)
   
         
         betweenView2.translatesAutoresizingMaskIntoConstraints = false
         betweenView2.backgroundColor = .secondarySystemFill
         betweenView2.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
+        imageView.configureStyle(contntMode: .scaleAspectFill)
         imageView.layer.borderColor = UIColor.systemBlue.cgColor
         imageView.layer.borderWidth = 1
         imageView.layer.cornerRadius = 100
-        imageView.clipsToBounds = true
         imageView.image = UIImage(systemName: "plus.circle")
         imageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapImage(_:)))
         imageView.addGestureRecognizer(tapGesture)
 
         
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        doneButton.setTitle("Done", for: .normal)
+        doneButton.configureStyle(title: "Done", titleColor: .white)
         doneButton.layer.cornerRadius = 20
         doneButton.clipsToBounds = true
-        doneButton.setTitleColor(.white, for: .normal)
         doneButton.backgroundColor = .systemBlue
         doneButton.addTarget(self, action: #selector(didTapDoneButton(_:)), for: .touchUpInside)
     }
@@ -169,7 +148,6 @@ extension SetupProfileViewController:SetupProfileViewInterface {
             
         }
     func didSetupProfile() {
-    self.delegate?.didFinishSetup()
     userNameTxtFld.text = ""
     fullNameTxtFld.text = ""
     imageView.image = UIImage(systemName: "plus.circle")

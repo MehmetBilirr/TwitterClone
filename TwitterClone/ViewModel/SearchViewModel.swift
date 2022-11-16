@@ -13,6 +13,7 @@ import FirebaseAuth
 
 protocol SearchViewModelInterface:AnyObject {
     var view:SearchViewInterface? {get set}
+    var delegate:PushToProfileDelegate? {get set}
     var navigationController:UINavigationController? {get set}
     func viewDidload()
     func viewWillAppear()
@@ -26,7 +27,7 @@ protocol SearchViewModelInterface:AnyObject {
 
 final class SearchViewModel {
     let userService = UserService()
-
+    weak var delegate: PushToProfileDelegate?
     weak var view: SearchViewInterface?
     weak var navigationController: UINavigationController?
     let profileViewController = ProfileViewController()
@@ -35,13 +36,6 @@ final class SearchViewModel {
     var filteredUsers = [User]()
     let tweetService = TweetService()
     
-        func fetchChoosenUserTweet(uuid:String,viewController:ProfileViewController) {
-            
-            tweetService.fetchUserData(uuid: uuid) { tweets in
-                viewController.tweetArray = tweets
-                viewController.profileTableView.reloadData()
-            }
-        }
     
     private func navigationToViewController(viewController:UIViewController) {
         
@@ -63,7 +57,7 @@ final class SearchViewModel {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.navigationToViewController(viewController: self.profileViewController)
+            self.delegate?.pushToProfileView(profileViewController: self.profileViewController, navigationController: self.navigationController!)
         }
     }
 }

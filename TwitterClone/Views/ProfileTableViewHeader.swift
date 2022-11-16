@@ -103,96 +103,56 @@ class ProfileTableViewHeader: UIView {
     
     
     private func style(){
-        
-        headerImageView.translatesAutoresizingMaskIntoConstraints = false
-        headerImageView.clipsToBounds = true
-        headerImageView.contentMode = .scaleAspectFill
+        headerImageView.configureStyle(contntMode: .scaleAspectFill)
         headerImageView.image = UIImage(named: "headerImage")
         
-        userStackView.translatesAutoresizingMaskIntoConstraints = false
-        userStackView.axis = .vertical
-        userStackView.spacing = 10
+        userStackView.configureStyle(axiS: .vertical, space: 10)
         
-        userImageView.translatesAutoresizingMaskIntoConstraints = false
-        userImageView.contentMode = .scaleAspectFit
+        userImageView.configureStyle(contntMode: .scaleAspectFit)
         userImageView.layer.borderWidth = 3
         userImageView.layer.borderColor = UIColor.white.cgColor
-        userImageView.clipsToBounds = true
         userImageView.layer.cornerRadius = 25
 
+        nameLbl.configureStyle(size: 20, weight: .bold, color: .black)
         
-        nameLbl.translatesAutoresizingMaskIntoConstraints = false
-        nameLbl.textAlignment = .left
-        nameLbl.font = .systemFont(ofSize: 20, weight: .bold)
-        nameLbl.textColor = .black
-        
-        userNameLbl.translatesAutoresizingMaskIntoConstraints = false
-        userNameLbl.textAlignment = .left
-        userNameLbl.font = .systemFont(ofSize: 16, weight: .regular)
-        userNameLbl.textColor = .gray
-        
-        userBioLbl.translatesAutoresizingMaskIntoConstraints = false
-        userBioLbl.textAlignment = .left
-        userBioLbl.font = .systemFont(ofSize: 16, weight: .regular)
-        userBioLbl.textColor = .black
-        userBioLbl.numberOfLines = 0
-        userBioLbl.lineBreakMode = .byWordWrapping
-        userBioLbl.text = "iOS Developer."
-        
+        userNameLbl.configureStyle(size: 16, weight: .regular, color: .gray)
+
+        userBioLbl.configureStyle(size: 16, weight: .regular, color: .black)
+        userBioLbl.text = ""
         
         dateImageView.translatesAutoresizingMaskIntoConstraints = false
         dateImageView.tintColor = .secondaryLabel
         dateImageView.image = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14))
         
-        dateLbl.translatesAutoresizingMaskIntoConstraints = false
-        dateLbl.textAlignment = .left
-        dateLbl.font = .systemFont(ofSize: 14, weight: .regular)
-        dateLbl.textColor = .secondaryLabel
-        dateLbl.numberOfLines = 0
-        dateLbl.lineBreakMode = .byWordWrapping
+        dateLbl.configureStyle(size: 14, weight: .regular, color: .secondaryLabel)
         dateLbl.text = "Joined November 2022"
         
         followerStackView.translatesAutoresizingMaskIntoConstraints = false
         followerStackView.axis = .horizontal
-        followerStackView.spacing = 2
+        followerStackView.configureStyle(axiS: .horizontal, space: 2)
         
-        followingStackView.translatesAutoresizingMaskIntoConstraints = false
-        followingStackView.axis = .horizontal
-        followingStackView.spacing = 2
+        followingStackView.configureStyle(axiS: .horizontal, space: 2)
         
-        followingCountLbl.translatesAutoresizingMaskIntoConstraints = false
-        followingCountLbl.textAlignment = .left
-        followingCountLbl.font = .systemFont(ofSize: 14, weight: .bold)
-        followingCountLbl.textColor = .black
-        followingCountLbl.text = "354"
+        followingCountLbl.configureStyle(size: 14, weight: .bold, color: .black)
+        followingCountLbl.text = "0"
         
-        followingLbl.translatesAutoresizingMaskIntoConstraints = false
-        followingLbl.textAlignment = .left
-        followingLbl.font = .systemFont(ofSize: 14, weight: .regular)
-        followingLbl.textColor = .secondaryLabel
+        followingLbl.configureStyle(size: 14, weight: .regular, color: .secondaryLabel)
+        followingLbl.numberOfLines = 1
         followingLbl.text = "Following"
         
-        followersCountLbl.translatesAutoresizingMaskIntoConstraints = false
-        followersCountLbl.textAlignment = .left
-        followersCountLbl.font = .systemFont(ofSize: 14, weight: .bold)
-        followersCountLbl.textColor = .black
-        followersCountLbl.text = "1.2M"
+        followersCountLbl.configureStyle(size: 14, weight: .bold, color: .black)
+        followersCountLbl.text = "0"
         
-        followersLbl.translatesAutoresizingMaskIntoConstraints = false
-        followersLbl.textAlignment = .left
-        followersLbl.font = .systemFont(ofSize: 14, weight: .regular)
-        followersLbl.textColor = .secondaryLabel
+        followersLbl.configureStyle(size: 14, weight: .regular, color: .secondaryLabel)
+        followersLbl.numberOfLines = 1
         followersLbl.text = "Followers"
         
-    
-        editButton.translatesAutoresizingMaskIntoConstraints = false
-        editButton.setTitle("Edit profile", for: .normal)
+        editButton.configureStyle(title: "Edit Profile", titleColor: .black)
         editButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         editButton.layer.cornerRadius = 20
         editButton.clipsToBounds = true
         editButton.layer.borderColor = UIColor.systemGray2.cgColor
         editButton.layer.borderWidth = 0.1
-        editButton.setTitleColor(.black, for: .normal)
         editButton.backgroundColor = .systemBackground
     }
     
@@ -276,6 +236,7 @@ class ProfileTableViewHeader: UIView {
         followingStackView.snp.makeConstraints { make in
             make.left.equalTo(userImageView.snp.left)
             make.top.equalTo(dateLbl.snp.bottom).offset(10)
+            
         }
         
         
@@ -286,6 +247,7 @@ class ProfileTableViewHeader: UIView {
         followerStackView.snp.makeConstraints { make in
             make.top.equalTo(dateLbl.snp.bottom).offset(10)
             make.left.equalTo(followingStackView.snp.right).offset(4)
+            
         }
         
         addSubview(sectionButtonStack)
