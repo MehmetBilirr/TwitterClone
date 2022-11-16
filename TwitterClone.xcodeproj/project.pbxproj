@@ -188,13 +188,13 @@
 		F099DE462911C74300367498 /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
-				F09745F1291847460049AD32 /* Model */,
+				F0BD28C0292541AD00EBA8DC /* App */,
 				F09745F929185AFB0049AD32 /* Service */,
+				F09745F1291847460049AD32 /* Model */,
 				F0DB0D752916CB1000C73C3F /* ViewModel */,
-				F0DB0D722916C09D00C73C3F /* Utils */,
-				F09B99252912A7FB0072F739 /* Views */,
 				F099DE5B2911CF0C00367498 /* Controllers */,
-				F099DE472911C74300367498 /* AppDelegate.swift */,
+				F09B99252912A7FB0072F739 /* Views */,
+				F0DB0D722916C09D00C73C3F /* Utils */,
 				F099DE502911C74300367498 /* Assets.xcassets */,
 				F099DE522911C74300367498 /* LaunchScreen.storyboard */,
 				F099DE552911C74300367498 /* Info.plist */,
@@ -271,6 +271,14 @@
 				F0A53B6B291A90AA00F28559 /* TweetService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		F0BD28C0292541AD00EBA8DC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F099DE472911C74300367498 /* AppDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		F0DB0D722916C09D00C73C3F /* Utils */ = {

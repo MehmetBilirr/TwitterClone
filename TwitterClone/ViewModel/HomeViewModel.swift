@@ -64,7 +64,8 @@ extension HomeViewModel:HomeViewModelInterface {
             guard let currentUser = Auth.auth().currentUser else {return}
             guard let self = self else {return}
             self.profileViewController.headerView.configure(user: user)
-            self.profileViewController.tweetArray = tweets
+            self.profileViewController.headerView.selectedIndex = 0
+            self.profileViewController.viewModel.tweetArray = tweets
             self.profileViewController.profileTableView.reloadData()
             self.profileViewController.headerView.editButton.isHidden = uid == currentUser.uid ? false : true
             ProgressHUD.dismiss()
@@ -93,13 +94,11 @@ extension HomeViewModel:HomeViewModelInterface {
         }
     }
     func fetchTweets(){
-        ProgressHUD.show()
+
         tweetService.fetchAllData { [weak self] tweets in
             self?.tweetArray = tweets
             self?.view?.reloadData()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                ProgressHUD.dismiss()
-            }
+            
         }
     }
     

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let onboardingVC = OnboardingViewController()
     let registerVC = RegisterViewController()
     let loginVC = LoginViewController()
-    var profileVC = ProfileViewController()
+
     let setupProfileVC = SetupProfileViewController()
     var navOnboarding : UINavigationController?
 
@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupProfileVC.viewModel.delegate = self
         mainTabBarVC.homeVC.viewModel.delegate = self
         mainTabBarVC.searchVC.viewModel.delegate = self
+        navOnboarding = UINavigationController(rootViewController: onboardingVC)
         setRootVC()
         
         return true
@@ -48,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func setRootVC() {
         
         if Auth.auth().currentUser == nil {
-            navOnboarding = UINavigationController(rootViewController: onboardingVC)
+
             window?.rootViewController = navOnboarding
         }else if Auth.auth().currentUser != nil && !UserDefaults.standard.hasOnSetup {
             window?.rootViewController = setupProfileVC
@@ -113,17 +114,19 @@ extension AppDelegate:SetupToAppDelegate {
             mainTabBarVC.homeVC.viewModel.fetchUser()
             self.window?.rootViewController = self.mainTabBarVC
             UserDefaults.standard.hasOnSetup = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             ProgressHUD.dismiss()
+        }
+            
     }
     
 }
 
 extension AppDelegate:PushToProfileDelegate {
     func pushToProfileView(profileViewController: ProfileViewController, navigationController: UINavigationController) {
-        profileVC = profileViewController
-        navigationController.pushViewController(profileVC, animated: true)
+        navigationController.pushViewController(profileViewController, animated: true)
     }
-    
+
 }
 
 extension AppDelegate:ProfileToAppDelegate {

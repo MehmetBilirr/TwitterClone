@@ -23,7 +23,10 @@ protocol ProfileViewModelInterface:AnyObject {
     func logOut()
     func fetchUserData(uid:String)
     func fetchLikeTweets(uid:String)
+    func didTapMedia()
     func addButtonTapped()
+    func getTweet(at indexpath:IndexPath) -> Tweet
+    func getTweetCount() -> Int
     
 }
 
@@ -34,7 +37,7 @@ class ProfileViewModel {
     let tweetService = TweetService()
     let authService = AuthService()
     let tweetViewController = TweetViewController()
-    
+    var tweetArray = [Tweet]()
         
     private func navigationToViewController(viewController:UIViewController) {
         
@@ -45,6 +48,16 @@ class ProfileViewModel {
 
 
 extension ProfileViewModel:ProfileViewModelInterface {
+
+    
+    func getTweet(at indexpath: IndexPath) -> Tweet {
+        tweetArray[indexpath.row]
+    }
+    
+    func getTweetCount() -> Int {
+        tweetArray.count
+    }
+    
    
     
     func viewDidLoad() {
@@ -53,6 +66,8 @@ extension ProfileViewModel:ProfileViewModelInterface {
         view?.configureAddButton()
         view?.configureButtons()
         view?.configureStatusBar()
+        
+        
         
     }
     
@@ -71,7 +86,8 @@ extension ProfileViewModel:ProfileViewModelInterface {
     func fetchUserData(uid:String) {
         
         tweetService.fetchUserData(uuid: uid) { [weak self] tweets in
-            self?.view?.didFetched(tArray: tweets)
+            self?.tweetArray = tweets
+            self?.view?.reloadData()
         }
     }
     
@@ -79,7 +95,8 @@ extension ProfileViewModel:ProfileViewModelInterface {
     func fetchLikeTweets(uid:String) {
         
         tweetService.fetchLikedTweets(uid: uid) { [weak self] tweets in
-            self?.view?.didFetched(tArray: tweets)
+            self?.tweetArray = tweets
+            self?.view?.reloadData()
         }
         
     }
@@ -88,6 +105,9 @@ extension ProfileViewModel:ProfileViewModelInterface {
         navigationToViewController(viewController: tweetViewController)
     }
 
-    
+    func didTapMedia() {
+        tweetArray = []
+        view?.reloadData()
+    }
    
 }

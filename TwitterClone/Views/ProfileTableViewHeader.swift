@@ -52,7 +52,7 @@ class ProfileTableViewHeader: UIView {
         return view
     }()
     
-    private var selectedIndex = 0 {
+    var selectedIndex = 0 {
         didSet {
             for i in 0..<tabs.count {
                 UIView.animate(withDuration: 0.6, delay: 0) {
@@ -118,7 +118,7 @@ class ProfileTableViewHeader: UIView {
         userNameLbl.configureStyle(size: 16, weight: .regular, color: .gray)
 
         userBioLbl.configureStyle(size: 16, weight: .regular, color: .black)
-        userBioLbl.text = ""
+        userBioLbl.text = "Thank you for watching!"
         
         dateImageView.translatesAutoresizingMaskIntoConstraints = false
         dateImageView.tintColor = .secondaryLabel
@@ -134,14 +134,14 @@ class ProfileTableViewHeader: UIView {
         followingStackView.configureStyle(axiS: .horizontal, space: 2)
         
         followingCountLbl.configureStyle(size: 14, weight: .bold, color: .black)
-        followingCountLbl.text = "0"
+        followingCountLbl.text = "258"
         
         followingLbl.configureStyle(size: 14, weight: .regular, color: .secondaryLabel)
         followingLbl.numberOfLines = 1
         followingLbl.text = "Following"
         
         followersCountLbl.configureStyle(size: 14, weight: .bold, color: .black)
-        followersCountLbl.text = "0"
+        followersCountLbl.text = "1.2 M"
         
         followersLbl.configureStyle(size: 14, weight: .regular, color: .secondaryLabel)
         followersLbl.numberOfLines = 1

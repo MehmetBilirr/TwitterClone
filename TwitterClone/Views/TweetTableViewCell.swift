@@ -186,17 +186,20 @@ extension TweetTableViewCell {
     @objc func didTapLike(_ sender:UIButton){
         print("didtapliked")
         delegate?.tweetTableViewCellDidTapLike(tweet: chosenTweet)
-        
         tweetService.checkIfUserLikedTweet(tweet: chosenTweet) { didLike in
             if didLike {
                 self.tweetService.unlikeTweet(tweet: self.chosenTweet) {
                     self.chosenTweet.didLike = false
+                    self.likeButton.setImage(UIImage(systemName: "suit.heart"), for: .normal)
+                    self.likeButton.tintColor = .systemGray2
                 }
                 
             }else {
                 
                 self.tweetService.likeTweet(tweet: self.chosenTweet) { _ in
                     self.chosenTweet.didLike = true
+                    self.likeButton.setImage(UIImage(systemName: "suit.heart.fill"), for: .normal)
+                    self.likeButton.tintColor = .red
                 }
                 
             }

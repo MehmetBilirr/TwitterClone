@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Firebase
 import ProgressHUD
+import SwiftUI
 
 protocol ProfileViewInterFace:AnyObject {
     func configureProfileTableView()
@@ -16,7 +17,7 @@ protocol ProfileViewInterFace:AnyObject {
     func configureButtons()
     func configureAddButton()
     func setup()
-    func didFetched(tArray:[Tweet])
+    func reloadData()
     func scrollViewDidScroll(yPosition:CGFloat)
 }
 
@@ -29,7 +30,7 @@ class ProfileViewController: UIViewController {
     private let logOutButton =  UIButton()
     let viewModel = ProfileViewModel()
     let headerView = ProfileTableViewHeader(frame: .zero)
-    var tweetArray = [Tweet]()
+
     private let addButton = UIButton()
 
         
@@ -39,6 +40,7 @@ class ProfileViewController: UIViewController {
         viewModel.view = self
         viewModel.navigationController = navigationController
         viewModel.viewDidLoad()
+        
         
     }
   
@@ -54,14 +56,13 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController:UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tweetArray.count
+        return viewModel.getTweetCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TweetTableViewCell.identifier, for: indexPath) as! TweetTableViewCell
-        let tweet = tweetArray[indexPath.row]
         cell.delegate = self
-        cell.configure(tweet: tweet)
+        cell.configure(tweet: viewModel.getTweet(at: indexPath))
         return cell
     }
     
@@ -124,7 +125,6 @@ extension ProfileViewController:ProfileViewInterFace{
     
     func setup() {
         headerView.delegate = self
-        tabBarController?.tabBar.isHidden = false
     }
     
     func configureAddButton() {
@@ -150,13 +150,13 @@ extension ProfileViewController:ProfileViewInterFace{
         }
     }
     
-    func didFetched(tArray: [Tweet]) {
-        tweetArray = tArray
-        
-    }
     
     func scrollViewDidScroll(yPosition:CGFloat) {
         
+    }
+    
+    func reloadData() {
+        profileTableView.reloadData()
     }
 }
 
@@ -181,7 +181,6 @@ extension ProfileViewController:TweetTableViewCellProtocol {
     }
     
     func PPtapped(user: User) {
-        
     }
 
     func tweetTableViewCellDidTapReply() {
@@ -211,8 +210,8 @@ extension ProfileViewController:ProfileTableViewHeaderProtocol {
     
     
     func didTapMedia() {
-        tweetArray = []
-        profileTableView.reloadData()
+        
+        viewModel.didTapMedia()
     }
     
     func didTapTweetsSection(user:User) {

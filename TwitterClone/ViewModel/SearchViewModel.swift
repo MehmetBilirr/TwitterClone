@@ -50,7 +50,8 @@ final class SearchViewModel {
             guard let currentUser = Auth.auth().currentUser else {return}
             guard let self = self else {return}
             self.profileViewController.headerView.configure(user: user)
-            self.profileViewController.tweetArray = tweets
+            self.profileViewController.headerView.selectedIndex = 0
+            self.profileViewController.viewModel.tweetArray = tweets
             self.profileViewController.profileTableView.reloadData()
             self.profileViewController.headerView.editButton.isHidden = uid == currentUser.uid ? false : true
             ProgressHUD.dismiss()

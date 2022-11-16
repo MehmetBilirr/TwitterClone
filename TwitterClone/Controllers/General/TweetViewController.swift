@@ -19,7 +19,7 @@ class TweetViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
-        tabBarController?.tabBar.isHidden = true
+        
         ConfigureBarButton()
         style()
         layout()
@@ -31,6 +31,12 @@ class TweetViewController: UIViewController {
         tweetVM.delegate = self
         tweetVM.fetchUserImage()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = true
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
     }
     private func ConfigureBarButton(){
         
