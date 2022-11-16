@@ -20,8 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let mainTabBarVC = MainTabBarViewController()
     let onboardingVC = OnboardingViewController()
     let registerVC = RegisterViewController()
+    let loginVC = LoginViewController()
     let profileVC = ProfileViewController()
     let setupProfileVC = SetupProfileViewController()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -29,13 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        onboardingVC.registerVC.delegate = self
         ProfileViewController.delegate = self
-        onboardingVC.loginVC.delegate = self
+        onboardingVC.viewModel.delegate = self
+        registerVC.viewModel.delegate = self
+        loginVC.viewModel.delegate = self
         setupProfileVC.delegate = self
-        
         setRootVC()
-        
         
         return true
     }
@@ -46,7 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if Auth.auth().currentUser == nil {
             let navOnboarding = UINavigationController(rootViewController: onboardingVC)
             window?.rootViewController = navOnboarding
-        }else {
+        }else if Auth.auth().currentUser != nil && !UserDefaults.standard.hasOnSetup {
+            window?.rootViewController = setupProfileVC
+        }
+        else {
             
             window?.rootViewController = mainTabBarVC
         }
@@ -67,17 +71,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
   
 
+extension AppDelegate:OnboardingToAppDelegate {
+    func didTapSignUp(navigationController: UINavigationController) {
+        navigationController.pushViewController(registerVC, animated: true)
+    }
+    
+    func didTapLogin(navigationController: UINavigationController) {
+        navigationController.pushViewController(loginVC, animated: true)
+    }
+    
+    
+}
 
 
 
-extension AppDelegate:RegisterViewControllerProtocol {
+extension AppDelegate:RegisterToAppDelegate {
     func didSignUp() {
-        window?.rootViewController = setupProfileVC
+        UserDefaults.standard.hasOnSetup = false
+        if !UserDefaults.standard.hasOnSetup {
+            window?.rootViewController = setupProfileVC
+        }
+        
         
     }
     
     
 }
+
+extension AppDelegate:LoginToAppDelegate {
+    func didLogin() {
+        
+        if UserDefaults.standard.hasOnSetup {
+                mainTabBarVC.vc1.viewModel.fetchUser()
+                self.window?.rootViewController = self.mainTabBarVC
+            
+        }else {
+            window?.rootViewController = self.setupProfileVC
+        }
+        
+        
+    }
+    
+    
+}
+
 
 extension AppDelegate:ProfileViewControllerPorotocol {
     func didLogOut() {
@@ -88,34 +125,14 @@ extension AppDelegate:ProfileViewControllerPorotocol {
     
 }
 
-
-extension AppDelegate:LoginViewControllerProcotol {
-    func didLogin() {
-
-        ProgressHUD.show()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
-            self.window?.rootViewController = self.mainTabBarVC
-            mainTabBarVC.vc1.homeVM.fetchUser()
-            mainTabBarVC.vc1.homeVM.fetchTweets()
-            ProgressHUD.dismiss()
-        }
-        
-    }
-    
-    
-}
-
-
 extension AppDelegate:SetupProfileViewControllerProtocol {
     func didFinishSetup() {
         ProgressHUD.show()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
+            mainTabBarVC.vc1.viewModel.fetchUser()
             self.window?.rootViewController = self.mainTabBarVC
-            mainTabBarVC.vc1.homeVM.fetchUser()
-            mainTabBarVC.vc1.homeVM.fetchTweets()
+            UserDefaults.standard.hasOnSetup = true
             ProgressHUD.dismiss()
-        }
+        
         
     }
     

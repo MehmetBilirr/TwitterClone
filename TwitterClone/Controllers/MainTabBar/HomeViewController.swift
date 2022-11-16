@@ -11,71 +11,146 @@ import FirebaseAuth
 import SDWebImage
 import ProgressHUD
 
+protocol HomeViewInterface:AnyObject{
+    func configureTableView()
+    func configureRefreshControl()
+    func configureNavigationBar()
+    func configureAddButton()
+    func fetchUser()
+    func getUser(user:User)
+    func fetchTweets()
+    func reloadData()
+    
+}
 
 class HomeViewController: UIViewController {
-
-    
-    
-    
     private let addButton = UIButton()
     private let timeLineTableView = UITableView()
-    private let profileVC = ProfileViewController()
-    let homeVM = HomeViewModel()
+    let viewModel = HomeViewModel()
     var currentUser = User(fullname: "", imageUrl: "", username: "")
     private let userImageView = UIImageView()
-    private let tweetService = TweetService()
-    var tweetArray = [Tweet]()
-    var chosenTweet : Tweet?
+
     private let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        setup()
         
-
+        viewModel.view = self
+        viewModel.navigationController = navigationController
+        viewModel.viewDidLoad()
+        
     }
- 
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         timeLineTableView.frame = view.bounds
+        
+    }
+   
+}
+
+
+
+// Extension - Button
+extension HomeViewController {
+    
+    @objc func didTapProfile() {
+        viewModel.ppTapped(user: currentUser)
+        
+    }
+    
+    @objc func didTapAddButton(){
+        viewModel.addButtonTapped()
+    }
+    
+    @objc func refreshContent(){
+        viewModel.fetchTweets()
+        refreshControl.endRefreshing()
+    }
+}
+
+//Extension - TableView
+extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.getTweetCount()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: TweetTableViewCell.identifier, for: indexPath) as! TweetTableViewCell
+        cell.configure(tweet: viewModel.getTweet(at: indexPath))
+        cell.delegate = self
+        return cell
     }
     
     
-    private func setup() {
-        homeVM.delegate = self
-        homeVM.fetchUser()
-        homeVM.fetchTweets()
-        configureTableView()
-        configureAddButton()
-        configureNavigationBar()
-        configureRefreshControl()
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        
+        //        let defaultOffset = view.safeAreaInsets.top
+        //
+        //        let offset = scrollView.contentOffset.y + defaultOffset
+        //        print(scrollView.contentOffset.y)
+        //
+        //
+        //        navigationController?.navigationBar.transform = .init(translationX: 0, y:min(0, -offset))
         
     }
     
     
-    private func configureTableView(){
+}
+
+// Extension-Cell Protocol
+extension HomeViewController:TweetTableViewCellProtocol {
+    func tweetTableViewCellDidTapLike(tweet: Tweet) {
+        
+    }
+    
+    func PPtapped(user: User) {
+        viewModel.ppTapped(user: user)
+
+    }
+
+    func tweetTableViewCellDidTapReply() {
+        print("Reply button tapped.")
+        
+    }
+    
+    func tweetTableViewCellDidTapRetweet() {
+        print("Retweet button tapped.")
+    }
+    
+    
+    
+    func tweetTableViewCellDidTapShare() {
+        print("Share button tapped.")
+    }
+    
+    
+}
+
+//Extension HomeViewModel Protocol
+
+
+
+extension HomeViewController:HomeViewInterface {
+  
+    
+    func configureTableView(){
         view.addSubview(timeLineTableView)
         timeLineTableView.delegate = self
         timeLineTableView.dataSource = self
-        
         timeLineTableView.register(TweetTableViewCell.self, forCellReuseIdentifier: TweetTableViewCell.identifier)
         
         
     }
     
     func configureRefreshControl(){
-        
-            
-            refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
-            timeLineTableView.refreshControl = refreshControl
-        
+        refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
+        timeLineTableView.refreshControl = refreshControl
     }
     
     
-
-
-    private func configureNavigationBar(){
+    func configureNavigationBar(){
         let size:CGFloat = 36
         let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: size, height: size))
         logoImageView.contentMode = .scaleAspectFit
@@ -85,7 +160,7 @@ class HomeViewController: UIViewController {
         userImageView.layer.cornerRadius = 20
         userImageView.clipsToBounds = true
         userImageView.contentMode = .scaleAspectFit
-
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfile))
         userImageView.addGestureRecognizer(tapGesture)
         userImageView.isUserInteractionEnabled = true
@@ -102,7 +177,7 @@ class HomeViewController: UIViewController {
         
     }
     
-    private func configureAddButton(){
+    func configureAddButton(){
         addButton.translatesAutoresizingMaskIntoConstraints = false
         let image = UIImage(systemName: "plus")
         
@@ -113,10 +188,7 @@ class HomeViewController: UIViewController {
         addButton.backgroundColor = .systemBlue
         addButton.tintColor = .white
         addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
-        
-        
-        
-        
+    
         view.addSubview(addButton)
         
         addButton.snp.makeConstraints { make in
@@ -126,127 +198,26 @@ class HomeViewController: UIViewController {
             make.right.equalToSuperview().offset(-10)
             make.bottom.equalToSuperview().offset(-UIScreen.main.bounds.height / 10)
         }
-        
-        
-        
     }
     
-    
-
-}
-
-
-// Extension - Button
-extension HomeViewController {
-    
-    @objc func didTapProfile() {
-        let vc = ProfileViewController()
-        vc.headerView.configure(user: currentUser)
-        homeVM.fetchCurrentUserTweet(viewController: vc)
-        
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    @objc func didTapAddButton(){
-        let vc = TweetViewController()
-        navigationController?.pushViewController(vc, animated: true)
+    func fetchUser() {
+        viewModel.fetchUser()
     }
     
-    @objc func refreshContent(){
-        tweetArray = []
-        homeVM.fetchTweets()
-        timeLineTableView.reloadData()
-        refreshControl.endRefreshing()
-        
-        
-    }
-}
-
-//Extension - TableView
-extension HomeViewController:UITableViewDataSource,UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tweetArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TweetTableViewCell.identifier, for: indexPath) as! TweetTableViewCell
-        let tweet = tweetArray[indexPath.row]
-
-        cell.configure(tweet: tweet)
-        cell.delegate = self
-        return cell
-    }
-    
-    
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        
-//        let defaultOffset = view.safeAreaInsets.top
-//
-//        let offset = scrollView.contentOffset.y + defaultOffset
-//        print(scrollView.contentOffset.y)
-//
-//
-//        navigationController?.navigationBar.transform = .init(translationX: 0, y:min(0, -offset))
-
-        }
-    
-    
-}
-
-// Extension-Cell Protocol
-extension HomeViewController:TweetTableViewCellProtocol {
-    func tweetTableViewCellDidTapLike(tweet: Tweet) {
-        
-    }
-    
-    func PPtapped(user: User) {
-        let vc = ProfileViewController()
-        vc.headerView.configure(user: user)
-        guard let uid = user.uid else {return}
-        guard let currentUser = Auth.auth().currentUser else {return}
-        homeVM.fetchChosenUserTweet(uuid: uid, viewController: vc)
-        vc.headerView.editButton.isHidden = uid == currentUser.uid ? false : true
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-  
-    func tweetTableViewCellDidTapReply() {
-        print("Reply button tapped.")
-        
-    }
-    
-    func tweetTableViewCellDidTapRetweet() {
-        print("Retweet button tapped.")
-    }
-    
-   
-    
-    func tweetTableViewCellDidTapShare() {
-        print("Share button tapped.")
-    }
-    
-    
-}
-
-//Extension HomeViewModel Protocol
-
-extension HomeViewController:HomeViewModelProtocol {
     func getUser(user: User) {
         currentUser = user
-        
         self.userImageView.sd_setImage(with: URL(string: user.imageUrl))
-        print(user.imageUrl)
-        
-        
+    
     }
     
-    func getTweets(tweets: [Tweet]) {
-        tweetArray = tweets
+    func fetchTweets() {
+        viewModel.fetchTweets()
+    }
+    
+
+    func reloadData() {
         timeLineTableView.reloadData()
     }
-    
-    
 }
 
 

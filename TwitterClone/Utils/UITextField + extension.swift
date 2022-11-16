@@ -12,6 +12,13 @@ let passwordToggleButton = UIButton(type: .custom)
 
 extension UITextField {
     
+    
+    func configureStyle(placeHolder:String,txtColor:UIColor){
+        translatesAutoresizingMaskIntoConstraints = false
+        placeholder = placeHolder
+        textColor = .black
+    }
+    
     func enablePasswordToggle(){
         
         passwordToggleButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
@@ -25,4 +32,6 @@ extension UITextField {
         isSecureTextEntry.toggle()
         passwordToggleButton.isSelected.toggle()
     }
+    
+    
 }

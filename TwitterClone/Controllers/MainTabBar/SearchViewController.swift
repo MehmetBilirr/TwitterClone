@@ -6,45 +6,36 @@
 //
 
 import UIKit
-protocol SearchViewControllerProtocol:AnyObject{
-    
-    func didTapCell(user:User)
+
+
+protocol SearchViewInterface:AnyObject {
+    var isActive: Bool {get}
+    func configureTableView()
+    func fetchUsers()
+    func reloadData()
 }
 
-class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController {
     private let searchController = UISearchController()
     private let tableView = UITableView()
-    var userArray = [User]()
-    var filteredArray = [User]()
-    private let searchVM = SearchViewModel()
-    static weak var delegate : SearchViewControllerProtocol?
+    private let viewModel = SearchViewModel()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureTableView()
-        searchVM.delegate = self
+ 
         
-        
+        viewModel.view = self
+        viewModel.navigationController = navigationController
+        viewModel.viewDidload()
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        searchVM.fetchUsers()
+        viewModel.fetchUsers()
     }
     
     
-    func configureTableView(){
-        
-        view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.tableHeaderView = searchController.searchBar
-        searchController.searchResultsUpdater = self
-
-        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.identifier)
-        
-    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
@@ -56,49 +47,19 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.isActive {
-            return filteredArray.count
-        }else {
-            return userArray.count
-        }
+       return viewModel.numberOfRows()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.identifier, for: indexPath) as! UserTableViewCell
-        
-        if searchController.isActive {
-            let user = filteredArray[indexPath.row]
-            cell.configure(user: user)
-            
-        }else {
-            let user = userArray[indexPath.row]
-            cell.configure(user: user)
-        }
+        cell.configure(user: viewModel.getusers(at: indexPath))
     
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let profileVC = ProfileViewController()
-        if searchController.isActive {
-            
-            let user = filteredArray[indexPath.row]
-            
-            
-            profileVC.headerView.configure(user: user)
-            searchVM.fetchChoosenUserTweet(uuid:user.uid!, viewController: profileVC)
-            navigationController?.pushViewController(profileVC, animated: true)
-            searchController.isActive = false
-            
-            
-            
-        }else {
-            let user = userArray[indexPath.row]
-            profileVC.headerView.configure(user: user)
-            searchVM.fetchChoosenUserTweet(uuid:user.uid!, viewController: profileVC)
-            navigationController?.pushViewController(profileVC, animated: true)
-            
-        }
+       
+        viewModel.didSelectRowAt(at: indexPath)
     }
     
 }
@@ -112,34 +73,37 @@ extension SearchViewController:UISearchResultsUpdating,UISearchControllerDelegat
         let lowerText = text.lowercased()
         
         
-        filterForSearchText(text: lowerText)
+        viewModel.filteredUsers(text: text)
         
     }
+
     
-    private func filterForSearchText(text:String) {
-        filteredArray = userArray.filter({ user in
-            if text != "" {
-                
-                let re =  user.fullname.lowercased().contains(text) || user.username.lowercased().contains(text)
-                
-               
-                return re
-            }else {
-                return false
-            }
-            
-        })
+}
+
+extension SearchViewController:SearchViewInterface {
+    func fetchUsers() {
+        viewModel.fetchUsers()
+    }
+    
+    var isActive: Bool {
+        searchController.isActive
+    }
+    
+    func configureTableView() {
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.searchResultsUpdater = self
+
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.identifier)
+    }
+    
+    func reloadData() {
         tableView.reloadData()
     }
     
     
 }
 
-extension SearchViewController:SearchViewModelProtocol {
-    func getUsers(users: [User]) {
-        userArray = users
-        tableView.reloadData()
-    }
-    
-    
-}

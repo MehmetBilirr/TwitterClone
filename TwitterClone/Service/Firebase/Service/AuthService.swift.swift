@@ -12,14 +12,9 @@ import ProgressHUD
 
 class AuthService {
     
-    let auth = Auth.auth()
-    
-    static let shared = AuthService()
-    init(){}
-    
     func signIn(email:String,password:String,completion:@escaping(Bool)->Void){
     
-            auth.signIn(withEmail: email, password: password) { data, error in
+        Auth.auth().signIn(withEmail: email, password: password) { data, error in
                 if error != nil {
                     ProgressHUD.showError(error?.localizedDescription)
                     completion(false)
@@ -34,7 +29,7 @@ class AuthService {
     
     func signUp(email:String,password:String,completion:@escaping(Bool) -> Void){
         
-        auth.createUser(withEmail: email, password: password) { data, error in
+        Auth.auth().createUser(withEmail: email, password: password) { data, error in
             if error != nil {
                 ProgressHUD.showError(error?.localizedDescription)
                 completion(false)
@@ -48,7 +43,7 @@ class AuthService {
     
     func logOut(completion:(Bool)->Void){
            do {
-               try auth.signOut()
+               try Auth.auth().signOut()
                completion(true)
            }catch{
                completion(false)

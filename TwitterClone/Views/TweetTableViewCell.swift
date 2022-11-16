@@ -71,13 +71,12 @@ class TweetTableViewCell: UITableViewCell {
         userNameLbl.textAlignment = .center
         userNameLbl.font = .systemFont(ofSize: 14, weight: .regular)
         userNameLbl.textColor = .gray
-        userNameLbl.text = "@mbilir9"
+
         
         nameLbl.translatesAutoresizingMaskIntoConstraints = false
         nameLbl.textAlignment = .center
         nameLbl.font = .systemFont(ofSize: 12, weight: .bold)
         nameLbl.textColor = .black
-        nameLbl.text = "Mehmet Bilir"
         
         tweetLbl.translatesAutoresizingMaskIntoConstraints = false
         tweetLbl.textAlignment = .left

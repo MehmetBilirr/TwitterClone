@@ -16,7 +16,16 @@ protocol SetupProfileViewControllerProtocol:AnyObject{
     
     func didFinishSetup()
 }
-class SetupProfileViewController: UIViewController {
+
+protocol SetupProfileViewInterface:AnyObject {
+    func style()
+    func layout()
+    func didSetupProfile()
+    func didtapImage()
+}
+
+
+final class SetupProfileViewController: UIViewController {
 
     private let label = UILabel()
     private let mailTxtFld = UITextField()
@@ -27,19 +36,54 @@ class SetupProfileViewController: UIViewController {
     private let betweenView2 = UIView()
     private let imageView = UIImageView()
     private let doneButton = UIButton()
-    private let setupProfileVM = SetupProfileViewModel()
+    private let viewModel = SetupProfileViewModel()
     weak var delegate:SetupProfileViewControllerProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        style()
-        layout()
-        
+    
+        viewModel.view = self
+        viewModel.viewDidLoad()
     }
     
+}
 
+
+extension SetupProfileViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
-    private func style(){
+    @objc func didTapImage(_ sender:UITapGestureRecognizer) {
+        
+        viewModel.didTapImage()
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        imageView.image = info[.originalImage] as? UIImage
+        self.dismiss(animated: true)
+    }
+    
+    @objc func didTapToDismiss(){
+        view.endEditing(true)
+    }
+    
+    @objc func didTapDoneButton(_ sender:UIButton){
+        guard let username = userNameTxtFld.text,let fullName = fullNameTxtFld.text else {return}
+        
+        if  userNameTxtFld.text == "" {
+            ProgressHUD.showError("Username cannot be empty")
+        }else if fullNameTxtFld.text == ""{
+            ProgressHUD.showError("Full name cannot be empty")
+        }else {
+            
+            viewModel.setupProfile(imageView: imageView, userName: username, fullName: fullName)
+            
+        }
+ }
+
+}
+
+
+extension SetupProfileViewController:SetupProfileViewInterface {
+    func style() {
+        
         view.backgroundColor = .systemBackground
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapToDismiss)))
         
@@ -88,86 +132,55 @@ class SetupProfileViewController: UIViewController {
         doneButton.addTarget(self, action: #selector(didTapDoneButton(_:)), for: .touchUpInside)
     }
     
-    private func layout(){
-        
-        view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
-            make.top.equalTo(100)
+    func layout() {
+            view.addSubview(label)
+            label.snp.makeConstraints { make in
+                make.left.equalTo(20)
+                make.right.equalTo(-20)
+                make.top.equalTo(100)
+            }
+            
+            stackView.addArrangedSubview(userNameTxtFld)
+            stackView.addArrangedSubview(betweenView2)
+            stackView.addArrangedSubview(fullNameTxtFld)
+            view.addSubview(stackView)
+            stackView.snp.makeConstraints { make in
+                make.left.equalTo(20)
+                make.right.equalTo(-20)
+                make.top.equalTo(label.snp.bottom).offset(100)
+            }
+            
+            view.addSubview(imageView)
+            
+            imageView.snp.makeConstraints { make in
+                make.left.equalToSuperview().offset(view.frame.width / 2 - 100)
+                make.top.equalTo(stackView.snp.bottom).offset(50)
+                make.height.equalTo(200)
+                make.width.equalTo(200)
+            }
+            
+            view.addSubview(doneButton)
+            doneButton.snp.makeConstraints { make in
+                make.left.equalTo(100)
+                make.right.equalTo(-100)
+                make.height.equalTo(50)
+                make.top.equalTo(imageView.snp.bottom).offset(50)
+            }
+            
         }
-        
-        stackView.addArrangedSubview(userNameTxtFld)
-        stackView.addArrangedSubview(betweenView2)
-        stackView.addArrangedSubview(fullNameTxtFld)
-        view.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
-            make.top.equalTo(label.snp.bottom).offset(100)
-        }
-        
-        view.addSubview(imageView)
-        
-        imageView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(view.frame.width / 2 - 100)
-            make.top.equalTo(stackView.snp.bottom).offset(50)
-            make.height.equalTo(200)
-            make.width.equalTo(200)
-        }
-        
-        view.addSubview(doneButton)
-        doneButton.snp.makeConstraints { make in
-            make.left.equalTo(100)
-            make.right.equalTo(-100)
-            make.height.equalTo(50)
-            make.top.equalTo(imageView.snp.bottom).offset(50)
-        }
-        
+    func didSetupProfile() {
+    self.delegate?.didFinishSetup()
+    userNameTxtFld.text = ""
+    fullNameTxtFld.text = ""
+    imageView.image = UIImage(systemName: "plus.circle")
     }
-   
-
-}
-
-
-extension SetupProfileViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
-    @objc func didTapImage(_ sender:UITapGestureRecognizer) {
+    func didtapImage() {
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = .photoLibrary
         present(picker, animated: true)
-        
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        imageView.image = info[.originalImage] as? UIImage
-        self.dismiss(animated: true)
-    }
     
-    @objc func didTapToDismiss(){
-        view.endEditing(true)
-    }
-    
-    @objc func didTapDoneButton(_ sender:UIButton){
-        guard let username = userNameTxtFld.text,let fullName = fullNameTxtFld.text,let image = imageView.image else {return}
-        
-        if  userNameTxtFld.text == "" {
-            ProgressHUD.showError("Username cannot be empty")
-        }else if fullNameTxtFld.text == ""{
-            ProgressHUD.showError("Full name cannot be empty")
-        }else {
-            
-            setupProfileVM.setupProfile(imageView: imageView, userName: username, fullName: fullName)
-                self.delegate?.didFinishSetup()
-            userNameTxtFld.text = ""
-            fullNameTxtFld.text = ""
-            imageView.image = UIImage(systemName: "plus.circle")
-                
-            
-            
-
-        }
- }
-
 }

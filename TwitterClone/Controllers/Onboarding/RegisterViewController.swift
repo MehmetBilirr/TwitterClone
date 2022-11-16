@@ -10,62 +10,55 @@ import SnapKit
 import Firebase
 import ProgressHUD
 
-protocol RegisterViewControllerProtocol:AnyObject {
+
+protocol RegisterViewInterface:AnyObject {
+    func style()
+    func layout()
     func didSignUp()
+    
 }
 class RegisterViewController: UIViewController {
     private let label = UILabel()
     private let emailTxtFld = UITextField()
     private let passwordTxtFld = UITextField()
     private let registerButton = UIButton()
-    weak var delegate: RegisterViewControllerProtocol?
-    private let registerVM = RegisterViewModel()
+    let viewModel = RegisterViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
-        style()
-        layout()
         
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapToDismiss)))
+       
+        viewModel.view = self
+        viewModel.viewDidLoad()
+        
     }
+}
+
+
+extension RegisterViewController:RegisterViewInterface {
     
-    
-    private func style(){
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
-        label.font = .systemFont(ofSize: 35, weight: .bold)
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
+    func style() {
+        view.backgroundColor = .systemBackground
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapToDismiss)))
+        
+        label.configureStyle(size: 35, weight: .bold, color: .black)
         label.text = "Create your Account"
         
-        emailTxtFld.translatesAutoresizingMaskIntoConstraints = false
-        emailTxtFld.placeholder = "Email"
+        emailTxtFld.configureStyle(placeHolder: "Email", txtColor: .black)
         emailTxtFld.textColor = .black
         
-        
-        
-        passwordTxtFld.translatesAutoresizingMaskIntoConstraints = false
-        passwordTxtFld.placeholder = "Password"
-        passwordTxtFld.textColor = .black
+        passwordTxtFld.configureStyle(placeHolder: "Password", txtColor: .black)
         passwordTxtFld.isSecureTextEntry = true
         passwordTxtFld.enablePasswordToggle()
         
-        registerButton.translatesAutoresizingMaskIntoConstraints = false
-        registerButton.setTitle("Create account", for: .normal)
+        registerButton.configureStyle(title: "Create Account", titleColor: .black)
         registerButton.layer.cornerRadius = 20
         registerButton.clipsToBounds = true
-        registerButton.setTitleColor(.white, for: .normal)
         registerButton.backgroundColor = .systemBlue
         registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
-        
-        
-        
     }
     
-    private func layout(){
-        
+    func layout() {
         view.addSubview(label)
         label.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(20)
@@ -95,26 +88,22 @@ class RegisterViewController: UIViewController {
             make.top.equalTo(passwordTxtFld.snp.bottom).offset(50)
             make.height.equalTo(50)
         }
+
+    }
+    
+    @objc func didTapRegister(){
+        guard let mail = emailTxtFld.text, let pass = passwordTxtFld.text else {return}
+        viewModel.signUp(email: mail, password: pass)
+    }
+    
+    func didSignUp() {
+        
+        self.emailTxtFld.text = ""
+        self.passwordTxtFld.text = ""
     }
     
     @objc func didTapToDismiss(){
         view.endEditing(true)
     }
-   
-    @objc func didTapRegister(){
-        guard let mail = emailTxtFld.text, let pass = passwordTxtFld.text else {return}
-        
-        registerVM.signUp(email: mail, password: pass) { success in
-            
-            if success {
-                self.delegate?.didSignUp()
-                self.emailTxtFld.text = ""
-                self.passwordTxtFld.text = ""
-            }
-        }
-        
-        
-    }
     
 }
-

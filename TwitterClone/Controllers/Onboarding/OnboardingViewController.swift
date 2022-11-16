@@ -7,59 +7,64 @@
 
 import UIKit
 import SnapKit
-class OnboardingViewController: UIViewController {
+
+protocol OnboardingViewInterface:AnyObject{
+    func style()
+    func layout()
+}
+final class OnboardingViewController: UIViewController {
     private let label = UILabel()
     private let signUpButton = UIButton()
     private let hadAccountLbl = UILabel()
     private let loginButton = UIButton()
-    let registerVC = RegisterViewController()
-    let loginVC = LoginViewController()
+    let viewModel = OnboardingViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .white
-        
-        style()
-        layout()
+        viewModel.view = self
+        viewModel.navigationController  = navigationController
+        viewModel.viewDidLoad()
+        viewModel.navigationController?.viewDidLoad()
+       
         
     }
-    
 
-    private func style(){
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
-        label.font = .systemFont(ofSize: 35, weight: .bold)
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
+
+}
+
+extension OnboardingViewController {
+    
+    @objc func didTapSignUp(_ sender:UIButton) {
+        viewModel.didTapSignUp()
+    }
+    
+    @objc func didTapLogin(_ sender:UIButton) {
+        viewModel.didTapLogin()
+    }
+}
+
+
+extension OnboardingViewController:OnboardingViewInterface {
+    func style() {
+        view.backgroundColor = .white
+        label.configureStyle(size: 35, weight: .bold, color: .black)
         label.text = "See what's happening in the world right now."
         
-        signUpButton.translatesAutoresizingMaskIntoConstraints = false
-        signUpButton.setTitle("Create account", for: .normal)
+     
+        signUpButton.configureStyle(title: "Create Account", titleColor: .white)
         signUpButton.layer.cornerRadius = 20
         signUpButton.clipsToBounds = true
-        signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.backgroundColor = .systemBlue
         signUpButton.addTarget(self, action: #selector(didTapSignUp(_:)), for: .touchUpInside)
         
-        hadAccountLbl.translatesAutoresizingMaskIntoConstraints = false
-        hadAccountLbl.textAlignment = .left
-        hadAccountLbl.font = .systemFont(ofSize: 18, weight: .regular)
-        hadAccountLbl.textColor = .secondaryLabel
-        hadAccountLbl.numberOfLines = 0
-        hadAccountLbl.lineBreakMode = .byWordWrapping
+        
+        hadAccountLbl.configureStyle(size: 18, weight: .regular, color: .secondaryLabel)
         hadAccountLbl.text = "Have an account already?"
         
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.setTitle("Login", for: .normal)
-        loginButton.setTitleColor(.systemBlue, for: .normal)
+        loginButton.configureStyle(title: "Login", titleColor: .systemBlue)
         loginButton.addTarget(self, action: #selector(didTapLogin(_:)), for: .touchUpInside)
-        
-        
     }
     
-    private func layout(){
+    func layout() {
         
         view.addSubview(label)
         label.snp.makeConstraints { make in
@@ -90,18 +95,4 @@ class OnboardingViewController: UIViewController {
     }
     
     
-
-}
-
-extension OnboardingViewController {
-    
-    @objc func didTapSignUp(_ sender:UIButton) {
-        print("didtapSignUp")
-        
-        navigationController?.pushViewController(registerVC, animated: true)
-    }
-    
-    @objc func didTapLogin(_ sender:UIButton) {
-        navigationController?.pushViewController(loginVC, animated: true)
-    }
 }

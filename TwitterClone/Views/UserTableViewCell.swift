@@ -35,13 +35,13 @@ class UserTableViewCell: UITableViewCell {
         userImageView.image = UIImage(named: "UserImage")
 
         userNameLbl.translatesAutoresizingMaskIntoConstraints = false
-        userNameLbl.textAlignment = .center
+        userNameLbl.textAlignment = .left
         userNameLbl.font = .systemFont(ofSize: 14, weight: .regular)
         userNameLbl.textColor = .gray
         userNameLbl.text = "@mblr9"
         
         nameLbl.translatesAutoresizingMaskIntoConstraints = false
-        nameLbl.textAlignment = .center
+        nameLbl.textAlignment = .left
         nameLbl.font = .systemFont(ofSize: 12, weight: .bold)
         nameLbl.textColor = .black
         nameLbl.text = "Mehmet Bilir"

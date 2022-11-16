@@ -14,125 +14,45 @@ protocol ProfileViewControllerPorotocol:AnyObject {
     func didLogOut()
 }
 
+protocol ProfileViewInterFace:AnyObject {
+    func configureProfileTableView()
+    func configureStatusBar()
+    func configureButtons()
+    func configureAddButton()
+    func setup()
+    func didFetched(tArray:[Tweet])
+    func scrollViewDidScroll(yPosition:CGFloat)
+}
+
 class ProfileViewController: UIViewController {
     let profileTableView = UITableView()
     let profileTableHeaderView = ProfileTableViewHeader()
-    private var isStatusBarHidden: Bool = true
+    var isStatusBarHidden: Bool = true
     private let statusBar = UIView()
     private let backButton = UIButton()
     private let logOutButton =  UIButton()
-    let profileVM = ProfileViewModel()
+    let viewModel = ProfileViewModel()
     let headerView = ProfileTableViewHeader(frame: .zero)
-    let searchVC = SearchViewController()
     var tweetArray = [Tweet]()
-    let tweetService = TweetService()
-    
     private let addButton = UIButton()
-    
     static weak var delegate : ProfileViewControllerPorotocol?
         
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-        configureProfileTableView()
-        configureStatusBar()
-        configureButtons()
-        configureAddButton()
-        setup()
+        viewModel.view = self
+        viewModel.navigationController = navigationController
+        viewModel.viewDidLoad()
         
     }
-    
-    
+  
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileTableView.frame  = view.bounds
+       
     }
     
-  
-    
-    private func setup(){
-        SearchViewController.delegate = self
-        profileVM.delegate = self
-        headerView.delegate = self
-        tabBarController?.tabBar.isHidden = false
-         
-        
-    }
-    
-    private func configureButtons(){
-        
-        let logOutImage = UIImage(systemName: "rectangle.portrait.and.arrow.right")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: logOutImage, style: .plain, target: self, action: #selector(didLogOutButton(_:)))
-        
-        
-        
-        
-    }
-    
-    private func configureStatusBar(){
-        statusBar.backgroundColor = .systemBackground
-        statusBar.translatesAutoresizingMaskIntoConstraints = false
-        statusBar.layer.opacity = 0
-        view.addSubview(statusBar)
-        
-        statusBar.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.top.equalToSuperview()
-            make.right.equalToSuperview()
-            make.height.equalTo(80)
-        }
-        
-    }
-    
-    private func configureAddButton(){
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        let image = UIImage(systemName: "plus")
-        
-        addButton.setImage(image, for: .normal)
-        
-        addButton.layer.cornerRadius = 25
-        addButton.clipsToBounds = true
-        addButton.backgroundColor = .systemBlue
-        addButton.tintColor = .white
-        addButton.addTarget(self, action: #selector(didTapAddButton(_:)), for: .touchUpInside)
-        
-        
-        
-        
-        view.addSubview(addButton)
-        
-        addButton.snp.makeConstraints { make in
-            
-            make.height.equalTo(UIScreen.main.bounds.height / 17)
-            make.width.equalTo(UIScreen.main.bounds.width / 8)
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.equalToSuperview().offset(-UIScreen.main.bounds.height / 10)
-        }
-        
-        
-        
-    }
-
-    
-    private func configureProfileTableView() {
-        
-        profileTableView.delegate = self
-        profileTableView.dataSource = self
-        
-        
-        
-        
-        profileTableView.register(TweetTableViewCell.self, forCellReuseIdentifier: TweetTableViewCell.identifier)
-        
-        headerView.frame = CGRect(x: 0, y: 0, width: profileTableView.frame.width, height: view.bounds.height / 3 + 50)
-        profileTableView.tableHeaderView = headerView
-        
-        view.addSubview(profileTableView)
-    }
-    
-
 }
 
 
@@ -150,9 +70,9 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         let yPosition = scrollView.contentOffset.y
         
-        print(yPosition)
         if yPosition > 150 && isStatusBarHidden {
             isStatusBarHidden = false
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) { [weak self] in
@@ -165,23 +85,96 @@ extension ProfileViewController:UITableViewDataSource,UITableViewDelegate {
                 self?.statusBar.layer.opacity = 0
             } completion: { _ in }
         }
+        
     }
     
 }
 
-extension ProfileViewController{
-    
-    
-    @objc func didLogOutButton(_ sender:UIButton) {
+
+extension ProfileViewController:ProfileViewInterFace{
+
+    func configureProfileTableView() {
+        profileTableView.delegate = self
+        profileTableView.dataSource = self
         
-        profileVM.logOut()
+        profileTableView.register(TweetTableViewCell.self, forCellReuseIdentifier: TweetTableViewCell.identifier)
         
+        headerView.frame = CGRect(x: 0, y: 0, width: profileTableView.frame.width, height: view.bounds.height / 3 + 50)
+        profileTableView.tableHeaderView = headerView
+        
+        view.addSubview(profileTableView)
+    }
+    
+    func configureStatusBar() {
+        statusBar.backgroundColor = .systemBackground
+        statusBar.translatesAutoresizingMaskIntoConstraints = false
+        statusBar.layer.opacity = 0
+        view.addSubview(statusBar)
+        
+        statusBar.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.top.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(80)
+        }
+
+    }
+    
+    func configureButtons() {
+        let logOutImage = UIImage(systemName: "rectangle.portrait.and.arrow.right")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: logOutImage, style: .plain, target: self, action: #selector(didLogOutButton(_:)))
         
     }
     
+    func setup() {
+        headerView.delegate = self
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    func configureAddButton() {
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(systemName: "plus")
+        
+        addButton.setImage(image, for: .normal)
+        
+        addButton.layer.cornerRadius = 25
+        addButton.clipsToBounds = true
+        addButton.backgroundColor = .systemBlue
+        addButton.tintColor = .white
+        addButton.addTarget(self, action: #selector(didTapAddButton(_:)), for: .touchUpInside)
+        
+        view.addSubview(addButton)
+        
+        addButton.snp.makeConstraints { make in
+            
+            make.height.equalTo(UIScreen.main.bounds.height / 17)
+            make.width.equalTo(UIScreen.main.bounds.width / 8)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-UIScreen.main.bounds.height / 10)
+        }
+    }
+    
+    func didFetched(tArray: [Tweet]) {
+        tweetArray = tArray
+        
+    }
+    
+    func scrollViewDidScroll(yPosition:CGFloat) {
+        
+    }
+}
+
+
+extension ProfileViewController{
+    
+    @objc func didLogOutButton(_ sender:UIButton) {
+        viewModel.logOut()
+        
+
+    }
+    
     @objc func didTapAddButton(_ sender:UIButton){
-        let vc = TweetViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        viewModel.addButtonTapped()
     }
 }
 
@@ -214,28 +207,10 @@ extension ProfileViewController:TweetTableViewCellProtocol {
 }
 
 
-extension ProfileViewController:SearchViewControllerProtocol {
-    func didTapCell(user: User) {
-        headerView.configure(user: user)
-        
-    }
-    
-    
-}
-
-extension ProfileViewController:ProfileViewModelProtocol {
-    func didLogOut() {
-        navigationController?.popViewController(animated: true)
-        ProfileViewController.delegate?.didLogOut()
-    }
-    
-    
-}
-
 extension ProfileViewController:ProfileTableViewHeaderProtocol {
     func didTapTweetsAndReplies(user: User) {
         guard let id = user.uid else {return}
-        profileVM.fetchUserData(uid: id, viewController: self)
+        viewModel.fetchUserData(uid: id)
     }
     
     
@@ -246,19 +221,13 @@ extension ProfileViewController:ProfileTableViewHeaderProtocol {
     
     func didTapTweetsSection(user:User) {
         guard let id = user.uid else {return}
-        profileVM.fetchUserData(uid: id, viewController: self)
+        viewModel.fetchUserData(uid: id)
     }
     
     func didTapLikeSection(user:User) {
         guard let id = user.uid else {return}
         
-     profileVM.fetchLikeTweets(uid: id, viewController: self)
-
-
-        
-        
-        
-        
+     viewModel.fetchLikeTweets(uid: id)
         
     }
     

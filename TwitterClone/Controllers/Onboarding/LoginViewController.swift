@@ -9,32 +9,36 @@ import UIKit
 import Firebase
 import ProgressHUD
 
-protocol LoginViewControllerProcotol:AnyObject {
-    func didLogin()
+protocol LoginViewInterface:AnyObject {
+    func style()
+    func layout()
+    func didSignIn()
 }
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
 
     private let label = UILabel()
     private let emailTxtFld = UITextField()
     private let passwordTxtFld = UITextField()
     private let registerButton = UIButton()
-    weak var delegate:LoginViewControllerProcotol?
     private let forgotLbl = UILabel()
-    let loginVM = LoginViewModel()
-    
+    let viewModel = LoginViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viewModel.view = self
+        viewModel.viewDidLoad()
+    }
+
+}
+
+
+extension LoginViewController:LoginViewInterface {
+    func style() {
         view.backgroundColor = .systemBackground
-        style()
-        layout()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapToDismiss)))
-    }
-    
-    
-    private func style(){
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 35, weight: .bold)
@@ -74,8 +78,7 @@ class LoginViewController: UIViewController {
         forgotLbl.attributedText = attributedString
     }
     
-    private func layout(){
-        
+    func layout() {
         view.addSubview(label)
         label.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(20)
@@ -112,14 +115,9 @@ class LoginViewController: UIViewController {
             make.right.equalTo(registerButton.snp.right)
             make.top.equalTo(registerButton.snp.bottom).offset(10)
         }
+    
     }
     
-    
-    
-}
-
-// methods
-extension LoginViewController {
     
     @objc func didTapToDismiss(){
         view.endEditing(true)
@@ -127,16 +125,13 @@ extension LoginViewController {
    
     @objc func didTapLogin(_ sender : UIButton){
         guard let mail = emailTxtFld.text, let pass = passwordTxtFld.text else {return}
-        loginVM.signIn(email: mail, password: pass) { success in
-            if success {
-                self.delegate?.didLogin()
-                self.emailTxtFld.text = ""
-                self.passwordTxtFld.text = ""
-            }
-        }
         
-        
-        
+        viewModel.signIn(email: mail, password: pass)
+    }
+    
+    func didSignIn() {
+        emailTxtFld.text = ""
+        passwordTxtFld.text = ""
     }
     
 }

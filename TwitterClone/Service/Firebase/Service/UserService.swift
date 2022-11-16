@@ -11,10 +11,12 @@ import Firebase
 import FirebaseStorage
 import UIKit
 
+
 class UserService {
     
     
     
+  
     func fetchUser(uuid:String,completion:@escaping (User)->Void){
         
         Firestore.firestore().collection("users").document(uuid).getDocument { snapshot, error in
@@ -42,13 +44,12 @@ class UserService {
         
     }
     
-    func setupProfile(imageView:UIImageView,userName:String,fullName:String){
+    func setupProfile(imageView:UIImageView,userName:String,fullName:String,completion:@escaping(Bool)-> Void){
         
         
         getImageUrl(imageView: imageView) { imageUrl in
             self.createDataFirestore(imageUrl: imageUrl, userName: userName, fullName: fullName)
-            
-            
+            completion(true)
         }
         
     }
