@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
 import SDWebImage
 import ProgressHUD
 

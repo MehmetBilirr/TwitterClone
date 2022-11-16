@@ -71,6 +71,9 @@ class TweetService{
         Firestore.firestore().collection("tweets").whereField("uid", isEqualTo: uuid).getDocuments { snapshot, error in
             
             guard let documents = snapshot?.documents else {return}
+            if documents.isEmpty {
+                completion([])
+            }
             documents.forEach { document in
                 guard let tweet = try? document.data(as: Tweet.self) else {return}
                 tweetArray.append(tweet)

@@ -118,7 +118,7 @@ class ProfileTableViewHeader: UIView {
         userNameLbl.configureStyle(size: 16, weight: .regular, color: .gray)
 
         userBioLbl.configureStyle(size: 16, weight: .regular, color: .black)
-        userBioLbl.text = "Thank you for watching!"
+        userBioLbl.text = "Thanks for watching!"
         
         dateImageView.translatesAutoresizingMaskIntoConstraints = false
         dateImageView.tintColor = .secondaryLabel

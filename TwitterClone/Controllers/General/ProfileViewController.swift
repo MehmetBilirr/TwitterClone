@@ -7,9 +7,8 @@
 
 import UIKit
 import SnapKit
-import Firebase
 import ProgressHUD
-import SwiftUI
+
 
 protocol ProfileViewInterFace:AnyObject {
     func configureProfileTableView()
