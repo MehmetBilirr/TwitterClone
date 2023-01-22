@@ -2,19 +2,19 @@
 
 # Technology and structures
 
-✅ MVVM Pattern <br/>
-✅ UIKIT <br/>
-✅ Snapkit <br/>
-✅ Firebase Auth <br/>
-✅ Firebase FireStore <br/>
-✅ Firebase Storage <br/>
-✅ Navigation <br/>
-✅ Tabbar Controller <br/>
-✅ Search Bar <br/>
-✅ TableView <br/>
-✅ CoreData  <br/>
-✅ SDWebImage <br/>
-✅ ProgressHUD <br/>
+* MVVM Pattern <br/>
+* UIKIT <br/>
+* Snapkit <br/>
+* Firebase Auth <br/>
+* Firebase FireStore <br/>
+* Firebase Storage <br/>
+* Navigation <br/>
+* Tabbar Controller <br/>
+* Search Bar <br/>
+* TableView <br/>
+* CoreData  <br/>
+* SDWebImage <br/>
+* ProgressHUD <br/>
 
 
 # App Recording
